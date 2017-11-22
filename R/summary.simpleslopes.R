@@ -1,0 +1,13 @@
+summary.simpleslopes <-
+function( slopes) {
+  cat("\nAnalysis of the simple slopes\n")
+  cat("Dependent variable:", slopes$info$Y, "\n")
+  cat("Independent variable:", slopes$info$X, "\n")
+  cat("Moderator:", slopes$info$M, "\n\n")
+  cat("coefficients at values of the moderator:\n")
+  matr = t( sapply( slopes$original, function(x) { return( round(x, 4)) }))
+  rownames(matr) = as.numeric( matr[,1])
+  print( matr[, c(-1,-2)])
+  cat( "\n", ( slopes$info$Confidence_Interval*100 ), "% Confidence Intervals\nLLCI = Lower Level Confidence Interval / ULCI = Upper Level Confidence Interval\n",
+    sep = "")
+}

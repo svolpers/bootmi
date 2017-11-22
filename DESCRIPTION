@@ -1,0 +1,9 @@
+Package: bootmi
+Type: Package
+Title: Calculates ordinary bootstrap for deterministic imputation methods
+Version: 1.0
+Date: 2017-11-22
+Author: Stephan Volpers
+Maintainer: Stephan Volpers <stephan.volpers@plixed.de>
+Description: The package is an implementation of bootstrapping imputed (survey) data as proposed by Shao and Sitter (1996). In addition, the method makes optional use of residual centering as proposed by Little, Bovaird and Widaman (2006), MICE as provided by van Buuren and Groothuis-Oudshoorn (2011), and takes into account the "transform, then impute" procedure as proposed by von Hippel (2009). For faster computation, the parallel-package is implemented.
+License: 

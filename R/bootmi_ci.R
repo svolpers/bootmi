@@ -1,3 +1,9 @@
+#' Helper function to use of boot.ci from boot package.
+#'
+#' @param boot_object object of class bootmi
+#' @return list with information for boot-package.
+#' @export
+
 bootmi_ci <-
 function( boot_object) {
 

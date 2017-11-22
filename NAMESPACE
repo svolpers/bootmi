@@ -2,6 +2,11 @@
 
 S3method(bootmi,default)
 S3method(bootmi,lm)
+export(add_interactions)
+export(add_residual_interactions)
 export(boot_samples)
 export(bootmi)
+export(bootmi_ci)
+export(build_residual)
+export(centering)
 export(resimpcen)

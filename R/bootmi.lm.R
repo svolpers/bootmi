@@ -1,12 +1,12 @@
-##' calculate regression analysis for bootstrapped and imputed data
-##'
-##' The method regresses the model on original and bootstrapped data.
-##' For faster computation, the parallel-package is implemented.
-##'
-##' @param bootmi An object of class bootmi
-##' @export 
-##' @rdname bootmi
-##' @author Stephan Volpers <stephan.volpers@plixed.de>
+#' calculate regression analysis for bootstrapped and imputed data
+#'
+#' The method regresses the model on original and bootstrapped data.
+#' For faster computation, the parallel-package is implemented.
+#'
+#' @param bootmi An object of class bootmi
+#' @export 
+#' @rdname bootmi
+#' @author Stephan Volpers <stephan.volpers@plixed.de>
 
 bootmi.lm <-
 function( bootmi) {

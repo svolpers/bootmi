@@ -2,16 +2,11 @@
 % Please edit documentation in R/bootmi.R, R/bootmi.lm.R
 \name{bootmi}
 \alias{bootmi}
-\alias{bootmi.default}
 \alias{bootmi.lm}
-\title{ordinary bootstrap for deterministic imputation methods}
+\title{bootmi: Bootstrap multiple imputed survey data}
 \usage{
 bootmi(formula, data, R, impute = c("none", "norm.predict", "pmm", "mean"),
   center_mods = FALSE, seed = FALSE, parallel = FALSE, resint = FALSE)
-
-\method{bootmi}{default}(formula, data, R, impute = c("none", "norm.predict",
-  "pmm", "mean"), center_mods = FALSE, seed = FALSE, parallel = FALSE,
-  resint = FALSE)
 
 \method{bootmi}{lm}(bootmi)
 }
@@ -34,39 +29,20 @@ bootmi(formula, data, R, impute = c("none", "norm.predict", "pmm", "mean"),
 \item{resint}{TRUE or FALSE}
 
 \item{bootmi}{An object of class bootmi}
-
-\item{formula}{regression formula}
-
-\item{data}{original imputed data set}
-
-\item{R}{total amount of bootstrap samples}
-
-\item{impute}{imputation method used}
-
-\item{center_mods}{information if moderators are centered}
-
-\item{seed}{seed value used, default FALSE}
-
-\item{parallel}{if object was calculated using parallel package, 
-default FALSE}
-
-\item{resint}{seed value used, default FALSE}
-}
-\value{
-a class of type bootmi containing original and bootstrap
-samples using deterministic imputation as proposed by 
-Shao and Sitter (1996)
 }
 \description{
+ordinary bootstrap for deterministic imputation methods
+
+The method regresses the model on original and bootstrapped data.
+For faster computation, the parallel-package is implemented.
+}
+\details{
 The method is an implementation of bootstrapping imputed data  
 as proposed by Shao and Sitter (1996). In addition, the method 
 makes optional use of residual centering as proposed by 
 Little, Bovaird and Widaman (2006), MICE as provided by 
 van Buuren and Groothuis-Oudshoorn (2011), and takes into account
 the transform, then impute procedure as proposed by von Hippel (2009).
-For faster computation, the parallel-package is implemented.
-
-The method regresses the model on original and bootstrapped data.
 For faster computation, the parallel-package is implemented.
 }
 \references{

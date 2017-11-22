@@ -1,3 +1,25 @@
+##' adds residual interactions, imputes and centers 
+##'
+##' This is a helper function that calculates in the order:
+##' 1. calculate the (residual) interaction terms 
+##' 2. imputes missing values using mice 
+##' 3. centers interaction terms
+##'
+##' @param frmla A regression formula
+##' @param data A data.frame used for the regression
+##' @param res_int TRUE or FALSE. Calculate residual interactions?
+##' @param imputation Imputation method provided by mice-package.
+##' @param center_mods TRUE or FALSE. Center interaction terms?
+##' @param bootstraps TRUE or FALSE. Bootstrap sample or not?
+##' @return If bootstraps = FALSE: Returns list of data (list$data) and 
+##' updated formula (list$formula)
+##' If bootstraps = TRUE: Returns data
+##' @author Stephan Volpers \email{stephan.volpers@@plixed.de}
+##' @export
+##' @references Hippel, Paul T. von (2009): How to Impute Interactions, Squares, and 
+##' other Transformed Variables. In: Sociological Methodology 39 (1), S. 265–291. 
+##' DOI: 10.1111/j.1467-9531.2009.01215.x.
+
 resimpcen <-
 function(frmla, data, res_int, imputation, center_mods, bootstraps=FALSE) {
 

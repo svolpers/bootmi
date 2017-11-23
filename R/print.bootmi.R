@@ -1,5 +1,13 @@
-print.bootmi <-
-function(bootmi) {
+#' @title Prints a \code{bootmi} object
+#' @description
+#' Prints a \code{bootmi} object
+#' @param object A \code{bootmi} object
+#' @return \code{NULL}
+#' @rdname print
+#' @author Stephan Volpers \email{stephan.volpers@@plixed.de}
+#' @export
+
+print.bootmi <- function( bootmi) {
   cat("$formula\n"); 
   print(bootmi$formula)
   cat("\nOverview of data values\n"); 
@@ -16,4 +24,65 @@ function(bootmi) {
   cat("\n$imputation\n", bootmi$imputation, "\n")
   cat("\n$seed\n", bootmi$seed, "\n")
   cat("\n$parallel\n", bootmi$parallel, "\n")
+}
+
+
+#' @title Prints a \code{simpleslopes.bootmi} object
+#' @description
+#' Prints a \code{simpleslopes.bootmi} object
+#' @rdname print
+#' @export
+
+print.simpleslopes.bootmi <- function( bootmi.slopes) {
+  cat("$original\n"); 
+  print(bootmi.slopes$original)
+  cat("$info\n"); 
+  print(bootmi.slopes$info)
+  cat("$plot\n"); 
+  print(bootmi.slopes$plot)
+  cat("$formula\n"); 
+  print(bootmi.slopes$formula)
+  cat("\n$data (head of original data)\n"); 
+  print( head(bootmi.slopes$data))
+  cat("\n$replics\n", bootmi.slopes$replics, "\n")
+  cat("\n$bootstraps (head of bootstrap coefficients)\n"); 
+  print( head(bootmi.slopes$bootstraps))
+}
+
+
+#' @title Prints a \code{bootmi.lm} object
+#' @description
+#' Prints a \code{bootmi.lm} object
+#' @rdname print
+#' @export
+
+print.bootmi.lm <- function( bootmi.lm) {
+  summary.bootmi.lm( bootmi.lm)
+}
+
+
+#' @title Prints a \code{regosi} object
+#' @description
+#' Prints a \code{regosi} object
+#' @rdname print
+#' @export
+
+print.regosi <- function( regosi) {
+  summary.regosi( regosi)
+}
+
+
+#' @title Prints a \code{simpleslopes} object
+#' @description
+#' Prints a \code{simpleslopes} object
+#' @rdname print
+#' @export
+#' 
+print.simpleslopes <- function( slopes) {
+  cat("$original\n"); 
+  print(slopes$original)
+  cat("$info\n"); 
+  print(slopes$info)
+  cat("$plot\n"); 
+  print(slopes$plot)
 }

@@ -1,5 +1,14 @@
-bootmi_results <-
-function( bootmi.lm) {
+#' @title creates output table for bootmi.lm
+#' @description
+#' This is a helper function of \code{\link{summary.bootmi.lm}} and 
+#' \code{\link{summary.simpleslopes.bootmi}} that creates output 
+#' of the analyses.
+#' @param boot_object object of class "simpleslopes.bootmi" or 
+#' "bootmi.lm"
+#' @author Stephan Volpers \email{stephan.volpers@@plixed.de}
+#' @export
+
+bootmi_results <- function( bootmi.lm) {
   
   # calculate bootstrap info
   bias = colMeans( bootmi.lm$bootstraps) - bootmi.lm$original$coef 

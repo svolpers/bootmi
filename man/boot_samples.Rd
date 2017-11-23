@@ -2,22 +2,21 @@
 % Please edit documentation in R/boot_samples.R
 \name{boot_samples}
 \alias{boot_samples}
-\title{calculates ordinary bootstrap samples}
+\title{Calculates ordinary bootstrap samples}
 \usage{
 boot_samples(data, R = 5000)
 }
 \arguments{
-\item{data}{a data.frame used for the regression}
+\item{data}{A data.frame used for the regression}
 
-\item{R}{number of bootstrap samples. Default is 5000.}
+\item{R}{Number of bootstrap samples. Default is 5000.}
 }
 \value{
-Object containing the updated regression formula \code{obj$formula}
-and data set \code{obj$data}
+List containing R bootstrap samples
 }
 \description{
-This is a helper function that calculates a given amount of
-ordinary bootstrap samples from a data.frame
+This is a function that calculates a given amount of
+ordinary bootstrap samples from a data.frame.
 }
 \author{
 Stephan Volpers \email{stephan.volpers@plixed.de}

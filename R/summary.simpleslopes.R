@@ -1,5 +1,12 @@
-summary.simpleslopes <-
-function( slopes) {
+#' @title Summary of a \code{simpleslopes} object
+#' @description
+#' Summary of a \code{simpleslopes} object
+#' @param object A \code{simpleslopes} object
+#' @return \code{NULL}
+#' @author Stephan Volpers \email{stephan.volpers@@plixed.de}
+#' @export
+
+summary.simpleslopes <- function( slopes) {
   cat("\nAnalysis of the simple slopes\n")
   cat("Dependent variable:", slopes$info$Y, "\n")
   cat("Independent variable:", slopes$info$X, "\n")

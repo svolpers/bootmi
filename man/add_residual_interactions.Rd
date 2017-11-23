@@ -2,7 +2,7 @@
 % Please edit documentation in R/add_residual_interactions.R
 \name{add_residual_interactions}
 \alias{add_residual_interactions}
-\title{adds residual interaction terms to the data}
+\title{add_residual_interactions}
 \usage{
 add_residual_interactions(formula, data)
 }
@@ -16,7 +16,7 @@ Object containing the updated regression formula \code{obj$formula}
 and data set \code{obj$data}
 }
 \description{
-This function creates residual interaction terms and adds them to the data.frame
+Creates residual interaction terms and adds them to the data.frame
 }
 \author{
 Stephan Volpers \email{stephan.volpers@plixed.de}

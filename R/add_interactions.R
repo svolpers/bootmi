@@ -1,7 +1,6 @@
-#' adds interaction terms to dataset 
-#'
-#' This function creates interaction terms and adds them to the data frame
-#'
+#' @title add_interactions
+#' @description
+#' Creates interaction terms and adds them to the data.frame
 #' @param formula a regression formula including the interaction terms 
 #' @param data a data.frame used for the regression
 #' @return Object containing the updated regression formula \code{obj$formula}
@@ -9,8 +8,7 @@
 #' @author Stephan Volpers \email{stephan.volpers@@plixed.de}
 #' @export
 
-add_interactions <-
-function( formula, data) {
+add_interactions <- function( formula, data) {
  
   # create id by rownames as helper for later merge
   data$id = as.numeric( rownames( data))

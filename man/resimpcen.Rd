@@ -25,14 +25,17 @@ updated formula (list$formula)
 If bootstraps = TRUE: Returns data
 }
 \description{
-This is a helper function that calculates in the order:
-1. calculate the (residual) interaction terms 
-2. imputes missing values using mice 
-3. centers interaction terms
+This is a helper function of \code{\link{bootmi}} that
+\enumerate{
+  \item First calculates the (residual) interaction terms,
+  \item Second imputes missing values using mice, and 
+  \item Third centers interaction terms
+}
 }
 \references{
-Hippel, Paul T. von (2009): How to Impute Interactions, Squares, and 
-other Transformed Variables. In: Sociological Methodology 39 (1), S. 265–291. 
+Hippel, Paul T. von (2009): How to Impute Interactions,
+Squares, and other Transformed Variables. In: 
+Sociological Methodology 39 (1), S. 265–291. 
 DOI: 10.1111/j.1467-9531.2009.01215.x.
 }
 \author{

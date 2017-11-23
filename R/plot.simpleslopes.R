@@ -1,5 +1,14 @@
-plot.simpleslopes <-
-function( slopes) {
+#' @title plots simple slopes
+#' @description
+#' OPens a new graphical window and plots simple slopes
+#' @param slopes An object of type \code{simpleslopes} or 
+#' \code{simpleslopes.bootmi}
+#' @return \code{NULL}
+#' @name plot
+#' @author Stephan Volpers \email{stephan.volpers@@plixed.de}
+#' @export
+
+plot.simpleslopes <- function( slopes) {
   # extract information from slopes object
   mod_vals = round( slopes$info$Values_of_Moderator, 2)
   x = slopes$plot$x # values on x-axis
@@ -20,3 +29,10 @@ function( slopes) {
   # add legend
   legend( x="topright", legend = mod_vals, inset=c(-.40,0), lty = 1:length(i), cex = .8, ncol = 1, title = "Moderator Values", xpd=TRUE)
 }
+
+#' @rdname plot
+#' @export
+plot.simpleslopes.bootmi <- function( obj) {
+  plot.simpleslopes( obj)
+}
+

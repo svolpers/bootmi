@@ -1,14 +1,13 @@
-#' ordinary bootstrap for deterministic imputation methods
-#'
-#' The method is an implementation of bootstrapping imputed data  
-#' as proposed by Shao and Sitter (1996). In addition, the method 
-#' makes optional use of residual centering as proposed by 
+#' @title bootmi: Bootstrap multiple imputed survey data
+#' @description
+#' The method is an implementation of ordinary bootstrap for deterministic 
+#' imputation methods as proposed by Shao and Sitter (1996). In addition, 
+#' the method makes optional use of residual centering as proposed by 
 #' Little, Bovaird and Widaman (2006), MICE as provided by 
 #' van Buuren and Groothuis-Oudshoorn (2011), and takes into account
 #' the transform, then impute procedure as proposed by von Hippel (2009).
-#' For faster computation, the parallel-package is implemented.
-#'
-#' @title bootmi: Bootstrap multiple imputed survey data
+#' @details
+#' For faster computation, \pkg{parallel} is implemented.
 #' @param formula A regression formula
 #' @param data A data.set
 #' @param R Number of bootstraps.
@@ -30,7 +29,7 @@
 #'   \item Eigth center mods
 #' } 
 #' @name bootmi
-#' @author Stephan Volpers <stephan.volpers@plixed.de>
+#' @author Stephan Volpers \email{stephan.volpers@@plixed.de}
 #' @references Buuren, Stef van; Groothuis-Oudshoorn, Karin (2011): mice. 
 #' Multivariate Imputation by Chained Equations in R. In: 
 #' Journal of Statistical Software 45 (3). DOI: 10.18637/jss.v045.i03.

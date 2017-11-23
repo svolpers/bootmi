@@ -2,16 +2,18 @@
 % Please edit documentation in R/bootmi_ci.R
 \name{bootmi_ci}
 \alias{bootmi_ci}
-\title{Helper function to use of boot.ci from boot package.}
+\title{Prepare calculation of bootstrapped confidence intervals.}
 \usage{
 bootmi_ci(boot_object)
 }
 \arguments{
-\item{boot_object}{object of class bootmi}
-}
-\value{
-list with information for boot-package.
+\item{boot_object}{object of class "simpleslopes.bootmi" or 
+"bootmi.lm"}
 }
 \description{
-Helper function to use of boot.ci from boot package.
+This is a helper function to make use of \code{\link[boot]{boot.ci}} method 
+from boot package.
+}
+\author{
+Stephan Volpers \email{stephan.volpers@plixed.de}
 }

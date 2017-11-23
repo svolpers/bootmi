@@ -2,11 +2,16 @@
 % Please edit documentation in R/bootmi.R, R/bootmi.lm.R
 \name{bootmi}
 \alias{bootmi}
+\alias{bootmi.default}
 \alias{bootmi.lm}
 \title{bootmi: Bootstrap multiple imputed survey data}
 \usage{
 bootmi(formula, data, R, impute = c("none", "norm.predict", "pmm", "mean"),
   center_mods = FALSE, seed = FALSE, parallel = FALSE, resint = FALSE)
+
+\method{bootmi}{default}(formula, data, R, impute = c("none", "norm.predict",
+  "pmm", "mean"), center_mods = FALSE, seed = FALSE, parallel = FALSE,
+  resint = FALSE)
 
 \method{bootmi}{lm}(bootmi)
 }
@@ -29,6 +34,19 @@ bootmi(formula, data, R, impute = c("none", "norm.predict", "pmm", "mean"),
 \item{resint}{TRUE or FALSE}
 
 \item{bootmi}{An object of class bootmi}
+}
+\value{
+object of class "bootmi" including
+\itemize{
+  \item First formula
+  \item Second data
+  \item Third bootstraps
+  \item Fourth bootstrap replics
+  \item Fifth imputation method
+  \item Sixth seed value
+  \item Seventh if parallel used TRUE or FALSE
+  \item Eigth center mods
+}
 }
 \description{
 ordinary bootstrap for deterministic imputation methods

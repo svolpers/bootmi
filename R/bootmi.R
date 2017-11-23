@@ -18,7 +18,18 @@
 #' @param seed Value for set.seed, default = FALSE
 #' @param parallel TRUE or FALSE
 #' @param resint TRUE or FALSE
-#' @rdname bootmi
+#' @return object of class "bootmi" including
+#' \itemize{
+#'   \item First formula
+#'   \item Second data
+#'   \item Third bootstraps
+#'   \item Fourth bootstrap replics
+#'   \item Fifth imputation method
+#'   \item Sixth seed value
+#'   \item Seventh if parallel used TRUE or FALSE
+#'   \item Eigth center mods
+#' } 
+#' @name bootmi
 #' @author Stephan Volpers <stephan.volpers@plixed.de>
 #' @references Buuren, Stef van; Groothuis-Oudshoorn, Karin (2011): mice. 
 #' Multivariate Imputation by Chained Equations in R. In: 
@@ -42,6 +53,7 @@ bootmi <- function( formula, data, R, impute=c("none","norm.predict","pmm","mean
     UseMethod("bootmi")
 }
 
+#' @rdname bootmi
 #' @export
 bootmi.default <- function( formula, data, R, impute=c("none","norm.predict","pmm","mean"), center_mods=FALSE, seed=FALSE, parallel=FALSE, resint=FALSE ) {
 
@@ -73,8 +85,7 @@ bootmi.default <- function( formula, data, R, impute=c("none","norm.predict","pm
 			# Make function availiable in clusters
 			invisible( parallel::clusterEvalQ(cl, {
 				library(mice) 
-				source("lm_res_mi_v4.R")
-				source("boot_v004.R") 
+				library(bootmi)
 			}))
 			# Export objects to clusters
 			parallel::clusterExport(cl=cl, varlist=c("formula", "impute", "resint", "center_mods"), envir=environment())

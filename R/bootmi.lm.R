@@ -1,18 +1,32 @@
-#' calculate regression analysis for bootstrapped and imputed data
-#'
+#' @title calculates regression analysis for bootstrapped and imputed data
+#' @description
 #' The method regresses the model on original and bootstrapped data.
-#' For faster computation, the parallel-package is implemented.
-#'
-#' @param bootmi An object of class bootmi
-#' @export 
-#' @rdname bootmi
-#' @author Stephan Volpers <stephan.volpers@plixed.de>
+#' @details
+#' For faster computation, \pkg{parallel} is implemented.
+#' @param bootmi An object of class \code{\link{bootmi}}
+#' @return object of class "bootmi.lm" including
+#' \itemize{
+#'   \item First Regression formula
+#'   \item Second Original data
+#'   \item Third Bootstrapped coefficients
+#'   \item Fourth Bootstrap samples 
+#'   \item Fifth Amount of bootstrap replications
+#'   \item Sixth Moderation centered, TRUE or FALSE
+#'   \item Seventh Seed value
+#' } 
+#' @name bootmi.lm
+#' @author Stephan Volpers \email{stephan.volpers@@plixed.de}
+#' @export
+bootmi.lm <- function( bootmi) {
+    UseMethod("bootmi.lm")
+}
 
-bootmi.lm <-
-function( bootmi) {
+#' @rdname bootmi.lm
+#' @export
+bootmi.lm.default <- function( bootmi) {
 
   if(class(bootmi) != "bootmi") {
-    stop("Object of class \"bootmi\" needed.")
+    stop("Object of class \"bootmi\" required.")
   }
   
   # convert formula to string for regression

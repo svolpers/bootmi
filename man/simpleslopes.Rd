@@ -7,7 +7,7 @@
 \alias{simpleslopes.mira}
 \alias{simpleslopes.lmerMod}
 \alias{simpleslopes.bootmi.lm}
-\title{Simple slopes: Calculates simple slopes}
+\title{Conducts analysis of the simple slopes}
 \usage{
 simpleslopes(coeff, dat, cov_matrix, x_var, m_var, y_var, ci = 95,
   mod_values_type = c("sd", "val"), mod_values = c(-1, 0, 1),
@@ -61,9 +61,6 @@ val (=values of data used)}
 object of class "simpleslopes"
 }
 \description{
-Conducts analysis of the simple slopes
-}
-\details{
 The method is an implementation of analysis of the simple slopes  
 as proposed by Preacher, Curran, and Bauer (2006). The default takes 
 parameters needed to conduct analysis of the simple slopes. For objects 
@@ -83,5 +80,5 @@ Educational and Behavioral Statistics 31 (4), S. 437–448.
 DOI: 10.3102/10769986031004437.
 }
 \author{
-Stephan Volpers <stephan.volpers@plixed.de>
+Stephan Volpers \email{stephan.volpers@plixed.de}
 }

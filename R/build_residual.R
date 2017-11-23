@@ -1,9 +1,7 @@
-#' calculates values of residual interaction term
-#'
-#' This function is a helper function and needed to create residual interaction
-#' terms out of the regression model. It takes a data.frame and returns a new 
-#' data.frame with one row in which the mean or mode of the columns is reported.
-#'
+#' @title creates residuals
+#' @description
+#' Helper function of \code{\link{add_residual_interactions}} to 
+#' create a specific residual interaction term.
 #' @param variable an interaction term
 #' @param data a data.frame
 #' @param new_varname name of the residual interaction term
@@ -11,8 +9,7 @@
 #' @author Stephan Volpers \email{stephan.volpers@@plixed.de}
 #' @export
 
-build_residual <-
-function( variable, data, new_varname) {
+build_residual <- function( variable, data, new_varname) {
   # get number of terms depending on interation 
   nterms = length( strsplit( variable, ':')[[1]])
   # if no interaction return NULL

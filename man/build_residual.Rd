@@ -2,7 +2,7 @@
 % Please edit documentation in R/build_residual.R
 \name{build_residual}
 \alias{build_residual}
-\title{calculates values of residual interaction term}
+\title{creates residuals}
 \usage{
 build_residual(variable, data, new_varname)
 }
@@ -17,9 +17,8 @@ build_residual(variable, data, new_varname)
 A data.frame of one row consisting of the residual interaction term.
 }
 \description{
-This function is a helper function and needed to create residual interaction
-terms out of the regression model. It takes a data.frame and returns a new 
-data.frame with one row in which the mean or mode of the columns is reported.
+Helper function of \code{\link{add_residual_interactions}} to 
+create a specific residual interaction term.
 }
 \author{
 Stephan Volpers \email{stephan.volpers@plixed.de}

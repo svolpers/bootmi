@@ -1,10 +1,11 @@
-#' adds residual interactions, imputes and centers 
-#'
-#' This is a helper function that calculates in the order:
-#' 1. calculate the (residual) interaction terms 
-#' 2. imputes missing values using mice 
-#' 3. centers interaction terms
-#'
+#' @title adds residual interactions, imputes and centers
+#' @description
+#' This is a helper function of \code{\link{bootmi}} that
+#' \enumerate{
+#'   \item First calculates the (residual) interaction terms,
+#'   \item Second imputes missing values using mice, and 
+#'   \item Third centers interaction terms
+#' }
 #' @param frmla A regression formula
 #' @param data A data.frame used for the regression
 #' @param res_int TRUE or FALSE. Calculate residual interactions?
@@ -16,12 +17,12 @@
 #' If bootstraps = TRUE: Returns data
 #' @author Stephan Volpers \email{stephan.volpers@@plixed.de}
 #' @export
-#' @references Hippel, Paul T. von (2009): How to Impute Interactions, Squares, and 
-#' other Transformed Variables. In: Sociological Methodology 39 (1), S. 265–291. 
+#' @references Hippel, Paul T. von (2009): How to Impute Interactions,
+#' Squares, and other Transformed Variables. In: 
+#' Sociological Methodology 39 (1), S. 265–291. 
 #' DOI: 10.1111/j.1467-9531.2009.01215.x.
 
-resimpcen <-
-function(frmla, data, res_int, imputation, center_mods, bootstraps=FALSE) {
+resimpcen <- function( frmla, data, res_int, imputation, center_mods, bootstraps=FALSE) {
 
   # create residual interactions AFTER bootstrapping, because...
   # ...residuals depend on regression results of each sample
@@ -47,8 +48,7 @@ function(frmla, data, res_int, imputation, center_mods, bootstraps=FALSE) {
     data = data[ , -c(1,2)]
     rownames(data) = id
   }
-  # print( str( data))
-  # print( summary( data))
+
   # Center Variables, if requested
   if( center_mods == TRUE ) { 
     # extract terms
@@ -65,7 +65,6 @@ function(frmla, data, res_int, imputation, center_mods, bootstraps=FALSE) {
     # center interaction terms
     data = centering( data, unlist(centered_vars))
   }
-  # print( length( rownames(data)))
   rownames(data) = ids
 
   if(bootstraps) {

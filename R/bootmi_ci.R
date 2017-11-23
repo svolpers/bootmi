@@ -1,11 +1,13 @@
-#' Helper function to use of boot.ci from boot package.
-#'
-#' @param boot_object object of class bootmi
-#' @return list with information for boot-package.
+#' @title Prepare calculation of bootstrapped confidence intervals.
+#' @description
+#' This is a helper function to make use of \code{\link[boot]{boot.ci}} method 
+#' from boot package.
+#' @param boot_object object of class "simpleslopes.bootmi" or 
+#' "bootmi.lm"
+#' @author Stephan Volpers \email{stephan.volpers@@plixed.de}
 #' @export
 
-bootmi_ci <-
-function( boot_object) {
+bootmi_ci <- function( boot_object) {
 
   if( (class(boot_object) != "simpleslopes.bootmi") && 
     (class(boot_object) != "bootmi.lm")

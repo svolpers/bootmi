@@ -1,7 +1,5 @@
-#' @title regosi: Regions of significance
+#' @title Calculates regions of significance for moderation effects
 #' @description
-#' Calculates regions of significance for moderation effects
-#' @details
 #' The method is an implementation of regions of significance  
 #' as proposed by Bauer and Curran (2005). The default takes 
 #' parameters needed to calculate regions of significance. For objects 
@@ -24,22 +22,19 @@
 #'   \item Fifth Name of the independend variable
 #' }
 #' @name regosi
-#' @author Stephan Volpers <stephan.volpers@plixed.de>
+#' @author Stephan Volpers \email{stephan.volpers@@plixed.de}
 #' @references Bauer, Daniel J.; Curran, Patrick J. (2005): 
 #' Probing Interactions in Fixed and Multilevel Regression: 
 #' Inferential and Graphical Techniques. In: Multivariate Behavioral Research
 #' 40 (3), S. 373–400. DOI: 10.1207/s15327906mbr4003_5.
 #' @export
-
-regosi <-
-function( object, x_var, m_var, ci = 95) {
+regosi <- function( object, x_var, m_var, ci = 95) {
     UseMethod("regosi")
 }
 
 #' @rdname regosi
 #' @export
-regosi.default <-
-function( coeff, dat, cov_matrix, x_var, m_var, ci=95) {
+regosi.default <- function( coeff, dat, cov_matrix, x_var, m_var, ci=95) {
 
   # set confidence interval value
   ci = as.integer(ci)
@@ -92,14 +87,8 @@ function( coeff, dat, cov_matrix, x_var, m_var, ci=95) {
 #' Uses object of classes lm, lmerMod or mira 
 #' and extracts coefficients, data, and variance covariance matrix
 #' @rdname regosi
-#' @param object Object
-#' @param x_var Name of the independend variable
-#' @param m_var Name of the moderating variable
-#' @param ci Confidence interval 
 #' @export
-regosi.lmerMod <-
-function( object, x_var, m_var, ci) {
-
+regosi.lmerMod <- function( object, x_var, m_var, ci) {
   # get data used in regression
   dat = model.matrix( object)
   # get regression coefficients
@@ -114,8 +103,7 @@ function( object, x_var, m_var, ci) {
 
 #' @rdname regosi
 #' @export
-regosi.lm <-
-function( object, x_var, m_var, ci) {
+regosi.lm <- function( object, x_var, m_var, ci) {
   # get data used in regression
   dat = model.matrix( object)
   # get regression coefficients
@@ -129,8 +117,7 @@ function( object, x_var, m_var, ci) {
 
 #' @rdname regosi
 #' @export
-regosi.mira <-
-function( object, x_var, m_var, ci) {
+regosi.mira <- function( object, x_var, m_var, ci) {
   # get mean imputed data used in regression
   dats = lapply( object$analyses, model.matrix)
   dat = Reduce("+", dats) / length(dats)

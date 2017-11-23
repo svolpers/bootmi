@@ -2,7 +2,7 @@
 % Please edit documentation in R/add_interactions.R
 \name{add_interactions}
 \alias{add_interactions}
-\title{adds interaction terms to dataset}
+\title{add_interactions}
 \usage{
 add_interactions(formula, data)
 }
@@ -16,7 +16,7 @@ Object containing the updated regression formula \code{obj$formula}
 and data set \code{obj$data}
 }
 \description{
-This function creates interaction terms and adds them to the data frame
+Creates interaction terms and adds them to the data.frame
 }
 \author{
 Stephan Volpers \email{stephan.volpers@plixed.de}

@@ -2,7 +2,7 @@
 % Please edit documentation in R/centering.R
 \name{centering}
 \alias{centering}
-\title{centers interaction terms}
+\title{centers selected variables}
 \usage{
 centering(data_set, centered_vars)
 }
@@ -15,11 +15,11 @@ centering(data_set, centered_vars)
 data.frame with centered variables
 }
 \description{
-This is a helper function that centers variables. It is important to center data 
-that is used in the model AFTER deleting cases of missing values.
+It is important to center data that is used in the model 
+AFTER deleting cases of missing values.
 }
 \references{
-http://processmacro.org/faq.html
+\href{http://processmacro.org/faq.html}{Process}
 }
 \author{
 Stephan Volpers \email{stephan.volpers@plixed.de}

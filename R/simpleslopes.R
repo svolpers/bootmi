@@ -1,7 +1,5 @@
-#' @title Simple slopes: Calculates simple slopes
+#' @title Conducts analysis of the simple slopes
 #' @description
-#' Conducts analysis of the simple slopes
-#' @details
 #' The method is an implementation of analysis of the simple slopes  
 #' as proposed by Preacher, Curran, and Bauer (2006). The default takes 
 #' parameters needed to conduct analysis of the simple slopes. For objects 
@@ -22,7 +20,7 @@
 #' @param centered Interaction coefficent mean centered? TRUE or FALSE
 #' @return object of class "simpleslopes"
 #' @name simpleslopes
-#' @author Stephan Volpers <stephan.volpers@plixed.de>
+#' @author Stephan Volpers \email{stephan.volpers@@plixed.de}
 #' @references Preacher, Kristopher J.; Curran, Patrick J.; Bauer, Daniel J. 
 #' (2006): Computational Tools for Probing Interactions in Multiple Linear 
 #' Regression, Multilevel Modeling, and Latent Curve Analysis. In: Journal of 
@@ -30,15 +28,13 @@
 #' DOI: 10.3102/10769986031004437.
 #' @export
 
-simpleslopes <-
-function( coeff, dat, cov_matrix, x_var, m_var, y_var, ci=95, mod_values_type=c("sd","val"), mod_values=c(-1,0,1), centered=FALSE) {
+simpleslopes <- function( coeff, dat, cov_matrix, x_var, m_var, y_var, ci=95, mod_values_type=c("sd","val"), mod_values=c(-1,0,1), centered=FALSE) {
     UseMethod("simpleslopes")
 }
 
 #' @rdname simpleslopes
 #' @export
-simpleslopes.default <-
-function( coeff, dat, cov_matrix, x_var, m_var, y_var, ci=95, mod_values_type=c("sd","val"), mod_values=c(-1,0,1), centered=FALSE) {
+simpleslopes.default <- function( coeff, dat, cov_matrix, x_var, m_var, y_var, ci=95, mod_values_type=c("sd","val"), mod_values=c(-1,0,1), centered=FALSE) {
   
   mod_values_type = match.arg( mod_values_type) 
   
@@ -159,8 +155,7 @@ function( coeff, dat, cov_matrix, x_var, m_var, y_var, ci=95, mod_values_type=c(
 #' data, dependend variable and variance covariance matrix
 #' @rdname simpleslopes
 #' @export
-simpleslopes.lm <-
-function( object, x_var, m_var, ci=95, mod_values_type=c("sd","val"), mod_values=c(-1,0,1), centered=FALSE) {
+simpleslopes.lm <- function( object, x_var, m_var, ci=95, mod_values_type=c("sd","val"), mod_values=c(-1,0,1), centered=FALSE) {
 	# get dependend variable
 	modelt = terms( object)
 	y_var = as.character( modelt[[2L]])
@@ -177,8 +172,7 @@ function( object, x_var, m_var, ci=95, mod_values_type=c("sd","val"), mod_values
 
 #' @rdname simpleslopes
 #' @export
-simpleslopes.mira <-
-function( object, x_var, m_var, ci=95, mod_values_type=c("sd","val"), mod_values=c(-1,0,1), centered=FALSE) {
+simpleslopes.mira <- function( object, x_var, m_var, ci=95, mod_values_type=c("sd","val"), mod_values=c(-1,0,1), centered=FALSE) {
 	# get dependend variable
 	modelt = terms( object$analyses[[1]])
 	y_var = as.character( modelt[[2L]])
@@ -197,8 +191,7 @@ function( object, x_var, m_var, ci=95, mod_values_type=c("sd","val"), mod_values
 
 #' @rdname simpleslopes
 #' @export
-simpleslopes.lmerMod <-
-function( object, x_var, m_var, ci=95, mod_values_type=c("sd","val"), mod_values=c(-1,0,1), centered=FALSE) {
+simpleslopes.lmerMod <- function( object, x_var, m_var, ci=95, mod_values_type=c("sd","val"), mod_values=c(-1,0,1), centered=FALSE) {
 	# get dependend variable
 	modelt = terms( object)
 	y_var = as.character( modelt[[2L]])
@@ -217,15 +210,22 @@ function( object, x_var, m_var, ci=95, mod_values_type=c("sd","val"), mod_values
 
 #' @rdname simpleslopes
 #' @export
-simpleslopes.bootmi.lm <-
-function( bootmi_lm_obj, x_var, m_var, ci=95, mod_values_type = "sd", mod_values = c(-1,0,1), centered=TRUE) {
+simpleslopes.bootmi.lm <- function( bootmi_lm_obj, x_var, m_var, ci=95, mod_values_type = "sd", mod_values = c(-1,0,1), centered=TRUE) {
 
 	# calculate simple solpes for original data set
 	si_sl = simpleslopes( lm_object=bootmi_lm_obj$original, x_var=x_var, m_var=m_var, mod_values_type=mod_values_type, mod_values=mod_values, centered=bootmi_lm_obj$center_mods)
 
 	# extract coefficients for later use of boot.ci helper functions
-	coeff = extract_coeff( si_sl)
-	si_sl$original = list( slopes=si_sl$original, coef=coeff )
+  # extract moderator and slope values
+  vals = sapply(si_sl$original, function(x) {
+    return( c( x[["m_val_user"]], x[["slope"]] ))
+  })
+  # save slope values
+  coeff = vals[2,]
+  # name slope values with moderator values
+  names(coeff) = (vals[1,])
+  # append to simple slopes output
+  si_sl$original = list( slopes=si_sl$original, coef=coeff )
 
 	# create empty matrix for bootstrapped coefficients
 	bscoef = matrix(0, nrow = bootmi_lm_obj$replics, ncol = length( mod_values))

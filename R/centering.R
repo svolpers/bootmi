@@ -1,19 +1,17 @@
-#' centers interaction terms 
-#'
-#' This is a helper function that centers variables. It is important to center data 
-#' that is used in the model AFTER deleting cases of missing values.
-#'
+#' @title centers selected variables 
+#' @description
+#' It is important to center data that is used in the model 
+#' AFTER deleting cases of missing values.
 #' @param data_set a data.frame 
 #' @param centered_vars a vector containing names of variables to center  
 #' @return data.frame with centered variables
 #' @author Stephan Volpers \email{stephan.volpers@@plixed.de}
+#' @references \href{http://processmacro.org/faq.html}{Process}
 #' @export
-#' @references  http://processmacro.org/faq.html
 
-centering <-
-function( data_set, centered_vars) {
+centering <- function( data_set, centered_vars) {
 	# convert data_set to data frame
-	data_set = as.data.frame(data_set)
+	data_set = as.data.frame( data_set)
 	# center moderators and save as data.frame
 	y = data.frame( scale( data_set[ , centered_vars], center = TRUE, scale = FALSE))
 	# merge centered moderators with other variables of data_set

@@ -1,7 +1,6 @@
-#' adds residual interaction terms to the data
-#'
-#' This function creates residual interaction terms and adds them to the data.frame
-#'
+#' @title add_residual_interactions
+#' @description
+#' Creates residual interaction terms and adds them to the data.frame
 #' @param formula a regression formula including the interaction terms 
 #' @param data a data.frame used for the regression
 #' @return Object containing the updated regression formula \code{obj$formula}
@@ -9,8 +8,7 @@
 #' @author Stephan Volpers \email{stephan.volpers@@plixed.de}
 #' @export
 
-add_residual_interactions <-
-function( formula, data) {
+add_residual_interactions <- function( formula, data) {
   
   # create lmresid by rownames as helper for later merge
   data$lmresid = as.numeric( rownames( data))

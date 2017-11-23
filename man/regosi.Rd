@@ -6,7 +6,7 @@
 \alias{regosi.lmerMod}
 \alias{regosi.lm}
 \alias{regosi.mira}
-\title{regosi: Regions of significance}
+\title{Calculates regions of significance for moderation effects}
 \usage{
 regosi(object, x_var, m_var, ci = 95)
 
@@ -33,14 +33,6 @@ regosi(object, x_var, m_var, ci = 95)
 
 \item{cov_matrix}{Variance-Covariance-Matrix of fitted model, 
 just for default}
-
-\item{object}{Object}
-
-\item{x_var}{Name of the independend variable}
-
-\item{m_var}{Name of the moderating variable}
-
-\item{ci}{Confidence interval}
 }
 \value{
 object of class "regosi" including
@@ -53,9 +45,6 @@ object of class "regosi" including
 }
 }
 \description{
-Calculates regions of significance for moderation effects
-}
-\details{
 The method is an implementation of regions of significance  
 as proposed by Bauer and Curran (2005). The default takes 
 parameters needed to calculate regions of significance. For objects 
@@ -75,5 +64,5 @@ Inferential and Graphical Techniques. In: Multivariate Behavioral Research
 40 (3), S. 373–400. DOI: 10.1207/s15327906mbr4003_5.
 }
 \author{
-Stephan Volpers <stephan.volpers@plixed.de>
+Stephan Volpers \email{stephan.volpers@plixed.de}
 }

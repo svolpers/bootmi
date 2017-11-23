@@ -19,14 +19,14 @@
 #' @param resint TRUE or FALSE
 #' @return object of class "bootmi" including
 #' \itemize{
-#'   \item First formula
-#'   \item Second data
-#'   \item Third bootstraps
-#'   \item Fourth bootstrap replics
-#'   \item Fifth imputation method
-#'   \item Sixth seed value
-#'   \item Seventh if parallel used TRUE or FALSE
-#'   \item Eigth center mods
+#'   \item $formula, formula used
+#'   \item $data, original data
+#'   \item $bootstraps, bootstap data
+#'   \item $replics, bootstrap replics
+#'   \item $imputation, imputation method
+#'   \item $seed, seed value
+#'   \item $parallel, use parallel TRUE or FALSE
+#'   \item $center_mods, center moderators? TRUE or FALSE
 #' } 
 #' @name bootmi
 #' @author Stephan Volpers \email{stephan.volpers@@plixed.de}

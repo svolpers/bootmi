@@ -2,9 +2,9 @@
 #' @description
 #' This is a helper function of \code{\link{bootmi}} that
 #' \enumerate{
-#'   \item First calculates the (residual) interaction terms,
-#'   \item Second imputes missing values using mice, and 
-#'   \item Third centers interaction terms
+#'   \item calculates the (residual) interaction terms,
+#'   \item imputes missing values using mice, and 
+#'   \item centers interaction terms
 #' }
 #' @param frmla A regression formula
 #' @param data A data.frame used for the regression

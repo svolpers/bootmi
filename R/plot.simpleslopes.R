@@ -1,6 +1,6 @@
 #' @title plots simple slopes
 #' @description
-#' OPens a new graphical window and plots simple slopes
+#' Opens a new graphical window and plots simple slopes
 #' @param slopes An object of type \code{simpleslopes} or 
 #' \code{simpleslopes.bootmi}
 #' @return \code{NULL}

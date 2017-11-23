@@ -6,13 +6,13 @@
 #' @param bootmi An object of class \code{\link{bootmi}}
 #' @return object of class "bootmi.lm" including
 #' \itemize{
-#'   \item First Regression formula
-#'   \item Second Original data
-#'   \item Third Bootstrapped coefficients
-#'   \item Fourth Bootstrap samples 
-#'   \item Fifth Amount of bootstrap replications
-#'   \item Sixth Moderation centered, TRUE or FALSE
-#'   \item Seventh Seed value
+#'   \item Regression formula
+#'   \item Original data
+#'   \item Bootstrapped coefficients
+#'   \item Bootstrap samples 
+#'   \item Amount of bootstrap replications
+#'   \item Moderation centered, TRUE or FALSE
+#'   \item Seed value
 #' } 
 #' @name bootmi.lm
 #' @author Stephan Volpers \email{stephan.volpers@@plixed.de}

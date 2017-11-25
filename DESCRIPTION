@@ -12,6 +12,9 @@ Description: The package is an implementation of bootstrapping imputed
     Groothuis-Oudshoorn (2011), and takes into account the "transform, then 
     impute" procedure as proposed by von Hippel (2009). For faster 
     computation, the parallel-package is implemented.
+    Furthermore, analysis of the simple slopes and regions of significance are
+    implemented for linear models, hierachical linear fixed effects models and 
+    imputed data with mice. 
 URL: https://github.com/svolpers/bootmi
 BugReports: https://github.com/svolpers/bootmi/issues
 RoxygenNote: 6.0.1

@@ -1,4 +1,4 @@
-#' @title bootmi: Bootstrap multiple imputed survey data
+#' @title bootmi: Bootstrap multiple imputed (survey) data
 #' @description
 #' The method is an implementation of ordinary bootstrap for deterministic 
 #' imputation methods as proposed by Shao and Sitter (1996). In addition, 

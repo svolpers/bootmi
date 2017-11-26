@@ -37,11 +37,11 @@ just for default}
 \value{
 object of class "regosi" including
 \itemize{
-  \item First Indicator for Interval
-  \item Second Value of slope
-  \item Third Indicator for significant regions
-  \item Fourth Name of the moderating variable
-  \item Fifth Name of the independend variable
+  \item $a, Indicator for Interval
+  \item $b, Value of slope
+  \item $root_term, Indicator for significant regions
+  \item $m_var, Name of the moderating variable
+  \item $x_var, Name of the independend variable
 }
 }
 \description{

@@ -18,7 +18,7 @@
 \code{NULL}
 }
 \description{
-OPens a new graphical window and plots simple slopes
+Opens a new graphical window and plots simple slopes
 }
 \author{
 Stephan Volpers \email{stephan.volpers@plixed.de}

@@ -9,12 +9,11 @@
 \alias{simpleslopes.bootmi.lm}
 \title{Conducts analysis of the simple slopes}
 \usage{
-simpleslopes(coeff, dat, cov_matrix, x_var, m_var, y_var, ci = 95,
-  mod_values_type = c("sd", "val"), mod_values = c(-1, 0, 1),
-  centered = FALSE)
+simpleslopes(object, x_var, m_var, y_var, ci = 95, mod_values_type = c("sd",
+  "val"), mod_values = c(-1, 0, 1), centered = FALSE)
 
-\method{simpleslopes}{default}(coeff, dat, cov_matrix, x_var, m_var, y_var,
-  ci = 95, mod_values_type = c("sd", "val"), mod_values = c(-1, 0, 1),
+\method{simpleslopes}{default}(object, x_var, m_var, y_var, ci = 95,
+  mod_values_type = c("sd", "val"), mod_values = c(-1, 0, 1),
   centered = FALSE)
 
 \method{simpleslopes}{lm}(object, x_var, m_var, ci = 95,
@@ -29,16 +28,11 @@ simpleslopes(coeff, dat, cov_matrix, x_var, m_var, y_var, ci = 95,
   mod_values_type = c("sd", "val"), mod_values = c(-1, 0, 1),
   centered = FALSE)
 
-\method{simpleslopes}{bootmi.lm}(bootmi_lm_obj, x_var, m_var, ci = 95,
+\method{simpleslopes}{bootmi.lm}(object, x_var, m_var, ci = 95,
   mod_values_type = "sd", mod_values = c(-1, 0, 1), centered = TRUE)
 }
 \arguments{
-\item{coeff}{Coefficients from fitted model, just for default}
-
-\item{dat}{Data used to fit model, just for default}
-
-\item{cov_matrix}{Variance-Covariance-Matrix of fitted model, 
-just for default}
+\item{object}{object containing $coeff, $dat, $cov_matrix}
 
 \item{x_var}{Name of the independend variable}
 
@@ -54,8 +48,6 @@ val (=values of data used)}
 \item{mod_values}{Vector of values of the moderator, default c(-1,0,1)}
 
 \item{centered}{Interaction coefficent mean centered? TRUE or FALSE}
-
-\item{object}{Object, if availiable but NOT for default}
 }
 \value{
 object of class "simpleslopes"

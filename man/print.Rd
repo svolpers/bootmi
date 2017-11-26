@@ -8,15 +8,15 @@
 \alias{print.simpleslopes}
 \title{Prints a \code{bootmi} object}
 \usage{
-\method{print}{bootmi}(bootmi)
+\method{print}{bootmi}(bootmi, ...)
 
-\method{print}{simpleslopes.bootmi}(bootmi.slopes)
+\method{print}{simpleslopes.bootmi}(bootmi.slopes, ...)
 
-\method{print}{bootmi.lm}(bootmi.lm)
+\method{print}{bootmi.lm}(bootmi.lm, ...)
 
-\method{print}{regosi}(regosi)
+\method{print}{regosi}(regosi, ...)
 
-\method{print}{simpleslopes}(slopes)
+\method{print}{simpleslopes}(slopes, ...)
 }
 \arguments{
 \item{object}{A \code{bootmi} object}

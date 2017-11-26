@@ -4,7 +4,7 @@
 \alias{summary.simpleslopes}
 \title{Summary of a \code{simpleslopes} object}
 \usage{
-\method{summary}{simpleslopes}(slopes)
+\method{summary}{simpleslopes}(object, ...)
 }
 \arguments{
 \item{object}{A \code{simpleslopes} object}

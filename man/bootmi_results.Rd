@@ -4,10 +4,10 @@
 \alias{bootmi_results}
 \title{creates output table for bootmi.lm}
 \usage{
-bootmi_results(bootmi.lm)
+bootmi_results(bootmi_object)
 }
 \arguments{
-\item{boot_object}{object of class "simpleslopes.bootmi" or 
+\item{bootmi_object}{object of class "simpleslopes.bootmi" or 
 "bootmi.lm"}
 }
 \description{

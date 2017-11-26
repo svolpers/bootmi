@@ -6,7 +6,7 @@
 #' @author Stephan Volpers \email{stephan.volpers@@plixed.de}
 #' @export
 
-summary.regosi <- function( regosi) {
+summary.regosi <- function( regosi, ... ) {
   cat("\n")
   if( regosi$root_term < 0) {
     cat("There are no real values of ", regosi$m_var, " that represent regions of significance.", sep = "")

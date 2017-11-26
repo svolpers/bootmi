@@ -4,7 +4,7 @@
 \alias{summary.regosi}
 \title{Summary of a \code{regosi} object}
 \usage{
-\method{summary}{regosi}(regosi)
+\method{summary}{regosi}(regosi, ...)
 }
 \arguments{
 \item{object}{A \code{regosi } object}

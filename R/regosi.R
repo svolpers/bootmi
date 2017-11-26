@@ -34,7 +34,7 @@ regosi <- function( object, x_var, m_var, ci = 95) {
 
 #' @rdname regosi
 #' @export
-regosi.default <- function( coeff, dat, cov_matrix, x_var, m_var, ci=95) {
+regosi.default <- function( object, x_var, m_var, ci=95) {
 
   # set confidence interval value
   ci = as.integer(ci)
@@ -43,7 +43,7 @@ regosi.default <- function( coeff, dat, cov_matrix, x_var, m_var, ci=95) {
   }
   ci = ci/100
 
-  degfreedm = nrow(dat) - length(coeff) - 1
+  degfreedm = nrow( object$dat) - length( object$coeff) - 1
   if(degfreedm < 1) {
       stop("Error: Wrong data or coefficients.")
   }
@@ -51,20 +51,20 @@ regosi.default <- function( coeff, dat, cov_matrix, x_var, m_var, ci=95) {
   # identify moderating variable
   # CASE: non residual moderator
   xm_var = paste0(x_var,":",m_var)
-  if(!(xm_var %in% names(coeff))) {
+  if(!(xm_var %in% names( object$coeff))) {
     xm_var = paste0(m_var,":",x_var)
   }
   # CASE: residual moderator
-  if(!(xm_var %in% names(coeff))) {
+  if(!(xm_var %in% names( object$coeff))) {
     xm_var = paste0(x_var,".RX.",m_var)
-    if(!(xm_var %in% names(coeff))) {
+    if(!(xm_var %in% names( object$coeff))) {
       xm_var = paste0(m_var,".RX.",x_var)
     }
   }
   # CASE: centered moderator
-  if(!(xm_var %in% names(coeff))) {
+  if(!(xm_var %in% names( object$coeff))) {
     xm_var = paste0(x_var,".XX.",m_var)
-    if(!(xm_var %in% names(coeff))) {
+    if(!(xm_var %in% names( object$coeff))) {
       xm_var = paste0(m_var,".XX.",x_var)
     }
   }
@@ -73,9 +73,9 @@ regosi.default <- function( coeff, dat, cov_matrix, x_var, m_var, ci=95) {
   crit_t_val = qt((1-(1-(ci))/2), df=degfreedm) # two sided
   
   # Bauer and Curran (2005)
-  a = (coeff[[xm_var]]^2) - (crit_t_val^2) * cov_matrix[ xm_var, xm_var]
-  b = 2 * coeff[[x_var]] * coeff[[xm_var]] - (crit_t_val^2) * 2 * cov_matrix[ x_var, xm_var]
-  root_term = (b^2) - 4 * a * (coeff[[x_var]]^2) - (crit_t_val^2) * cov_matrix[ x_var, x_var]
+  a = ( object$coeff[[xm_var]]^2) - (crit_t_val^2) * object$cov_matrix[ xm_var, xm_var]
+  b = 2 * object$coeff[[x_var]] * object$coeff[[xm_var]] - (crit_t_val^2) * 2 * object$cov_matrix[ x_var, xm_var]
+  root_term = (b^2) - 4 * a * ( object$coeff[[x_var]]^2) - (crit_t_val^2) * object$cov_matrix[ x_var, x_var]
 
   #return
   obj = list( a=a, b=b, root_term=root_term, m_var=m_var, x_var=x_var)
@@ -90,14 +90,14 @@ regosi.default <- function( coeff, dat, cov_matrix, x_var, m_var, ci=95) {
 #' @export
 regosi.lmerMod <- function( object, x_var, m_var, ci) {
   # get data used in regression
-  dat = model.matrix( object)
+  obj$dat = model.matrix( object)
   # get regression coefficients
   coeff = coefficients( object)[[1]]
-  coeff = colMeans( coeff)
+  obj$coeff = colMeans( coeff)
   # get covariance matrix of parameter estimates (ACOV-matrix)
-  cov_matrix = vcov( object)
+  obj$cov_matrix = vcov( object)
   #calculate regions of significance
-  regosi = regosi.default( coeff, dat, cov_matrix, x_var, m_var, ci)
+  regosi = regosi.default( obj, x_var, m_var, ci)
   return( regosi)
 }
 
@@ -105,13 +105,13 @@ regosi.lmerMod <- function( object, x_var, m_var, ci) {
 #' @export
 regosi.lm <- function( object, x_var, m_var, ci) {
   # get data used in regression
-  dat = model.matrix( object)
+  obj$dat = model.matrix( object)
   # get regression coefficients
-  coeff = coefficients(object)
+  obj$coeff = coefficients(object)
   # get covariance matrix of parameter estimates (ACOV-matrix)
-  cov_matrix = vcov(object)
+  obj$cov_matrix = vcov(object)
   #calculate regions of significance
-  regosi = regosi.default( coeff, dat, cov_matrix, x_var, m_var, ci)
+  regosi = regosi.default( obj, x_var, m_var, ci)
   return( regosi)
 }
 
@@ -120,13 +120,13 @@ regosi.lm <- function( object, x_var, m_var, ci) {
 regosi.mira <- function( object, x_var, m_var, ci) {
   # get mean imputed data used in regression
   dats = lapply( object$analyses, model.matrix)
-  dat = Reduce("+", dats) / length(dats)
+  obj$dat = Reduce("+", dats) / length(dats)
   # get regression coefficients
-  coeff = mice::pool( object)$qbar
+  obj$coeff = mice::pool( object)$qbar
   # get covariance matrix of parameter estimates (ACOV-matrix)
   vcovs = lapply( object$analyses, vcov)
-  cov_matrix = Reduce("+", vcovs) / length(vcovs)
+  obj$cov_matrix = Reduce("+", vcovs) / length(vcovs)
   #calculate regions of significance
-  regosi = regosi.default( coeff, dat, cov_matrix, x_var, m_var, ci)
+  regosi = regosi.default( obj, x_var, m_var, ci)
   return( regosi)
 }

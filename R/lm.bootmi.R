@@ -72,6 +72,7 @@ lm.bootmi <- function( bootmi, ...) {
 #' @details
 #' For faster computation, \pkg{parallel} is implemented.
 #' @param bootmi An object of class \code{\link{bootmi}}
+#' @param family see \code{\link[glm]{stats}}
 #' @return object of class "bootmi.lm" including
 #' \itemize{
 #'   \item Regression formula

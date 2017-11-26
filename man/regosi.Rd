@@ -10,7 +10,7 @@
 \usage{
 regosi(object, x_var, m_var, ci = 95)
 
-\method{regosi}{default}(coeff, dat, cov_matrix, x_var, m_var, ci = 95)
+\method{regosi}{default}(object, x_var, m_var, ci = 95)
 
 \method{regosi}{lmerMod}(object, x_var, m_var, ci)
 

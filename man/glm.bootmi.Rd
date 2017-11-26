@@ -8,6 +8,8 @@ glm.bootmi(bootmi, family = gaussian, ...)
 }
 \arguments{
 \item{bootmi}{An object of class \code{\link{bootmi}}}
+
+\item{family}{see \code{\link[glm]{stats}}}
 }
 \value{
 object of class "bootmi.lm" including

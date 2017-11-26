@@ -6,10 +6,10 @@
 \title{Summary of a \code{bootmi.lm} object}
 \usage{
 \method{summary}{bootmi.lm}(object, ci_type = c("basic", "norm", "stud",
-  "perc", "bca", "all"), ci = 95)
+  "perc", "bca", "all"), ci = 95, ...)
 
 \method{summary}{simpleslopes.bootmi}(object, ci_type = c("basic", "norm",
-  "stud", "perc", "bca", "all"), ci = 95)
+  "stud", "perc", "bca", "all"), ci = 95, ...)
 }
 \arguments{
 \item{object}{A \code{bootmi.lm} object}

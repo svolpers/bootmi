@@ -10,7 +10,7 @@
 #' @author Stephan Volpers \email{stephan.volpers@@plixed.de}
 #' @export
 
-summary.bootmi.lm <- function( object, ci_type = c("basic", "norm", "stud", "perc", "bca", "all"), ci = 95) {
+summary.bootmi.lm <- function( object, ci_type = c("basic", "norm", "stud", "perc", "bca", "all"), ci = 95, ... ) {
   # set confidence interval value
   ci = as.integer(ci)
   if(!(ci > 0 && ci < 100)) {
@@ -39,7 +39,7 @@ summary.bootmi.lm <- function( object, ci_type = c("basic", "norm", "stud", "per
 #' @rdname summary
 #' @param object A \code{simpleslopes.bootmi} object
 #' @export
-summary.simpleslopes.bootmi <- function( object, ci_type = c("basic", "norm", "stud", "perc", "bca", "all"), ci = 95) {
+summary.simpleslopes.bootmi <- function( object, ci_type = c("basic", "norm", "stud", "perc", "bca", "all"), ci = 95, ... ) {
   
   # set confidence interval value
   ci = as.integer(ci)

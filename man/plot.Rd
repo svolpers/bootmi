@@ -6,9 +6,9 @@
 \alias{plot.simpleslopes.bootmi}
 \title{plots simple slopes}
 \usage{
-\method{plot}{simpleslopes}(slopes)
+\method{plot}{simpleslopes}(slopes, ...)
 
-\method{plot}{simpleslopes.bootmi}(obj)
+\method{plot}{simpleslopes.bootmi}(obj, ...)
 }
 \arguments{
 \item{slopes}{An object of type \code{simpleslopes} or 

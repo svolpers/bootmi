@@ -7,23 +7,23 @@
 #' @author Stephan Volpers \email{stephan.volpers@@plixed.de}
 #' @export
 
-print.bootmi <- function( bootmi) {
+print.bootmi <- function( x, ... ) {
   cat("$formula\n"); 
-  print(bootmi$formula)
+  print(x$formula)
   cat("\nOverview of data values\n"); 
-  print( summary(bootmi$data))
+  print( summary(x$data))
   cat("\n$data (head of original data)\n"); 
-  print( head(bootmi$data))
+  print( head(x$data))
   cat("\n$bootstraps[[1]] (head of first bootstrap sample)\n"); 
-  print( head(bootmi$bootstraps[[1]]))
+  print( head(x$bootstraps[[1]]))
   cat("\n$bootstraps[[2]] (head of second bootstrap sample)\n"); 
-  print( head(bootmi$bootstraps[[2]]))
+  print( head(x$bootstraps[[2]]))
   cat("\n$bootstraps[[3]] (head of third bootstrap sample)\n"); 
-  print( head(bootmi$bootstraps[[3]]))
-  cat("\n$replics\n", bootmi$replics, "\n")
-  cat("\n$imputation\n", bootmi$imputation, "\n")
-  cat("\n$seed\n", bootmi$seed, "\n")
-  cat("\n$parallel\n", bootmi$parallel, "\n")
+  print( head(x$bootstraps[[3]]))
+  cat("\n$replics\n", x$replics, "\n")
+  cat("\n$imputation\n", x$imputation, "\n")
+  cat("\n$seed\n", x$seed, "\n")
+  cat("\n$parallel\n", x$parallel, "\n")
 }
 
 
@@ -33,20 +33,20 @@ print.bootmi <- function( bootmi) {
 #' @rdname print
 #' @export
 
-print.simpleslopes.bootmi <- function( bootmi.slopes) {
+print.simpleslopes.bootmi <- function( x, ... ) {
   cat("$original\n"); 
-  print(bootmi.slopes$original)
+  print(x$original)
   cat("$info\n"); 
-  print(bootmi.slopes$info)
+  print(x$info)
   cat("$plot\n"); 
-  print(bootmi.slopes$plot)
+  print(x$plot)
   cat("$formula\n"); 
-  print(bootmi.slopes$formula)
+  print(x$formula)
   cat("\n$data (head of original data)\n"); 
-  print( head(bootmi.slopes$data))
-  cat("\n$replics\n", bootmi.slopes$replics, "\n")
+  print( head(x$data))
+  cat("\n$replics\n", x$replics, "\n")
   cat("\n$bootstraps (head of bootstrap coefficients)\n"); 
-  print( head(bootmi.slopes$bootstraps))
+  print( head(x$bootstraps))
 }
 
 
@@ -56,8 +56,8 @@ print.simpleslopes.bootmi <- function( bootmi.slopes) {
 #' @rdname print
 #' @export
 
-print.bootmi.lm <- function( bootmi.lm) {
-  summary.bootmi.lm( bootmi.lm)
+print.bootmi.lm <- function( x, ... ) {
+  summary.bootmi.lm( x)
 }
 
 
@@ -67,8 +67,8 @@ print.bootmi.lm <- function( bootmi.lm) {
 #' @rdname print
 #' @export
 
-print.regosi <- function( regosi) {
-  summary.regosi( regosi)
+print.regosi <- function( x, ... ) {
+  summary.regosi( x)
 }
 
 
@@ -78,11 +78,11 @@ print.regosi <- function( regosi) {
 #' @rdname print
 #' @export
 #' 
-print.simpleslopes <- function( slopes) {
+print.simpleslopes <- function( x, ... ) {
   cat("$original\n"); 
-  print(slopes$original)
+  print(x$original)
   cat("$info\n"); 
-  print(slopes$info)
+  print(x$info)
   cat("$plot\n"); 
-  print(slopes$plot)
+  print(x$plot)
 }

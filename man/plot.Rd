@@ -14,13 +14,16 @@
 \item{x}{An object of type \code{simpleslopes} or 
 \code{simpleslopes.bootmi}}
 
-\item{...}{any default statement}
+\item{...}{any default arguments}
 }
 \value{
 \code{NULL}
 }
 \description{
-Opens a new graphical window and plots simple slopes
+Opens a new graphical window and plots simple slopes. 
+CAUTION: 
+No more than 30 different values of the moderator allowed. 
+I recommend a maximum of six to plot.
 }
 \author{
 Stephan Volpers \email{stephan.volpers@plixed.de}

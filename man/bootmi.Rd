@@ -75,26 +75,31 @@ The main functions are:
   \code{lm()} \tab Analyze bootmi data\cr
   \code{simslop()} \tab Conducts analysis of the simple slopes\cr
   \code{regosi()} \tab Calculates regions of significance\cr
-  \code{mediate()} \tab Tests (moderated) mediation.\cr}
+  \code{mediate()} \tab Tests (moderated) mediation.\cr} (under construction)
 }
 
 \references{
 Bauer, Daniel J.; Curran, Patrick J. (2005): Probing 
 Interactions in Fixed and Multilevel Regression: Inferential and Graphical 
-Techniques. In: Multivariate Behavioral Research 40 (3), S. 373-400. 
+Techniques. In: Multivariate Behavioral Research 40 (3), S. 373-400.
+
 Buuren, Stef van; Groothuis-Oudshoorn, Karin (2011): mice. 
 Multivariate Imputation by Chained Equations in R. In: 
-Journal of Statistical Software 45 (3). 
+Journal of Statistical Software 45 (3).
+
 Hippel, Paul T. von (2009): How to Impute Interactions, 
 Squares, and other Transformed Variables. In: Sociological Methodology 
-39 (1), S. 265-291. 
+39 (1), S. 265-291.
+
 Little, Todd D.; Bovaird, James A.; Widaman, Keith F. (2006): 
 On the merits of orthogonalizing powered and product terms: 
 Implications for modeling interactions among latent variables. 
 In: Structural Equation Modeling 13 (4), S. 497-519.
+
 Preacher, Kristopher J.; Rucker, Derek D.; Hayes, Andrew F. 
 (2007): Addressing Moderated Mediation Hypotheses: Theory, Methods, and 
 Prescriptions. In: Multivariate Behavioral Research 42 (1), S. 185-227.
+
 Shao, Jun; Sitter, Randy R. (1996): 
 Bootstrap for Imputed Survey Data. In: Journal of the 
 American Statistical Association 91 (435), S. 1278-1288.

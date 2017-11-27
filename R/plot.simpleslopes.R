@@ -19,14 +19,12 @@ plot.simpleslopes <- function( x, ... ) {
   xv = x$plot$x # values on x-axis
   yv = x$plot$y # values on y-axis
 
-
   if( length(mod_vals) > 30 ) {
     stop("No more than 30 different moderator values allowed for plotting.")
   }
 
   # create title and filename
   title = paste0( x$info$Y, " ~ ", x$info$X, " * ", x$info$M, "(+ ivs)")
-  
   
   # extract position of starting points 
   i = c( 1:( length( xv)))[c(T,F)]
@@ -35,7 +33,7 @@ plot.simpleslopes <- function( x, ... ) {
       times= 1, length.out= NA, each= 6)
 
   # open new graphical window
-  grDevices::dev.new(); graphics::par( mar= c(5,4,4,9))
+  graphics::par( mar= c(5,4,4,9))
   # plot start and end points of slopes
   graphics::plot( xv, yv, main= title, xlab= x$info$X, ylab= x$info$Y, 
     ylim= c((min(yv)),(max(yv))), xlim= c((min(xv)),(max(xv))), 

@@ -86,12 +86,13 @@ regosi.default <- function( object, x_var, m_var, ci=95) {
 #' @export
 regosi.lmerMod <- function( object, x_var, m_var, ci) {
   # get data used in regression
-  obj$dat = model.matrix( object)
+  data_set = model.matrix( object)
   # get regression coefficients
-  coeff = coefficients( object)[[1]]
-  obj$coeff = colMeans( coeff)
+  coeff = colMeans( coefficients( object)[[1]])
   # get covariance matrix of parameter estimates (ACOV-matrix)
-  obj$cov_matrix = vcov( object)
+  cov_matrix = vcov( object)
+  # merge to obj
+  obj = list( coeff= coeff, cov_matrix= cov_matrix, dat= data_set)
   #calculate regions of significance
   regosi = regosi.default( obj, x_var, m_var, ci)
   return( regosi)
@@ -101,11 +102,13 @@ regosi.lmerMod <- function( object, x_var, m_var, ci) {
 #' @export
 regosi.lm <- function( object, x_var, m_var, ci) {
   # get data used in regression
-  obj$dat = model.matrix( object)
+  data_set = model.matrix( object)
   # get regression coefficients
-  obj$coeff = coefficients(object)
+  coeff = coefficients(object)
   # get covariance matrix of parameter estimates (ACOV-matrix)
-  obj$cov_matrix = vcov(object)
+  cov_matrix = vcov(object)
+  # merge to obj
+  obj = list( coeff= coeff, cov_matrix= cov_matrix, dat= data_set)
   #calculate regions of significance
   regosi = regosi.default( obj, x_var, m_var, ci)
   return( regosi)
@@ -116,12 +119,14 @@ regosi.lm <- function( object, x_var, m_var, ci) {
 regosi.mira <- function( object, x_var, m_var, ci) {
   # get mean imputed data used in regression
   dats = lapply( object$analyses, model.matrix)
-  obj$dat = Reduce("+", dats) / length(dats)
+  data_set = Reduce("+", dats) / length(dats)
   # get regression coefficients
-  obj$coeff = mice::pool( object)$qbar
+  coeff = mice::pool( object)$qbar
   # get covariance matrix of parameter estimates (ACOV-matrix)
   vcovs = lapply( object$analyses, vcov)
-  obj$cov_matrix = Reduce("+", vcovs) / length(vcovs)
+  cov_matrix = Reduce("+", vcovs) / length(vcovs)
+  # merge to obj
+  obj = list( coeff= coeff, cov_matrix= cov_matrix, dat= data_set)
   #calculate regions of significance
   regosi = regosi.default( obj, x_var, m_var, ci)
   return( regosi)
@@ -144,11 +149,13 @@ regosi.mira <- function( object, x_var, m_var, ci) {
 #' @export
 regosi.bootmi.lm <- function( object, x_var, m_var, ci) {
   # get data used in regression
-  obj$dat = model.matrix( object$original)
+  data_set = model.matrix( object$original)
   # get regression coefficients
-  obj$coeff = coefficients(object$original)
+  coeff = coefficients(object$original)
   # get covariance matrix of parameter estimates (ACOV-matrix)
-  obj$cov_matrix = vcov(object$original)
+  cov_matrix = vcov(object$original)
+  # merge to obj
+  obj = list( coeff= coeff, cov_matrix= cov_matrix, dat= data_set)
   # calculate regions of significance for original data
   regosi = regosi.default( obj, x_var, m_var, ci)
   return( object)

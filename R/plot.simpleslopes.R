@@ -44,7 +44,8 @@ plot.simpleslopes <- function( x, ... ) {
     lty= 1:length(i), col= linecolors)
   # add legend
   graphics::legend( x= "topright", legend= mod_vals, inset= c(-.40,0), 
-    lty= 1:length(i), cex= .8, ncol= 1, title= "Moderator Values", xpd= TRUE)
+    lty= 1:length(i), col= linecolors, 
+    cex= .8, ncol= 1, title= "Moderator Values", xpd= TRUE)
 }
 
 #' @rdname plot

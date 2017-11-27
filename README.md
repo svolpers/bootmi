@@ -10,8 +10,8 @@ At the moment, the `bootmi` package can NOT be installed from CRAN. I am working
 
 The latest version is can be installed from GitHub as follows:
 
-``` r
-install.packages("devtools")
-devtools::install_github(repo = "svolpers/bootmi")
-```
+#``` r
+#install.packages("devtools")
+#devtools::install_github(repo = "svolpers/bootmi")
+#```
 

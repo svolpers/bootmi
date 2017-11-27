@@ -152,13 +152,15 @@ simpleslopes.default <- function( object, x_var, m_var, ci=95, mod_values_type=c
 simpleslopes.lm <- function( object, x_var, m_var, ci=95, mod_values_type=c("sd","val"), mod_values=c(-1,0,1), centered=FALSE) {
 	# get dependend variable
 	modelt = terms( object)
-	obj$y_var = as.character( modelt[[2L]])
+	y_var = as.character( modelt[[2L]])
 	# get data used in regression
-	obj$dat = model.matrix( object)
+	data_set = model.matrix( object)
 	# get regression coefficients
-	obj$coeff = coefficients( object)
+	coeff = coefficients( object)
 	# get covariance matrix of parameter estimates (ACOV-matrix)
-	obj$cov_matrix = vcov( object)
+	cov_matrix = vcov( object)
+  # merge to obj
+  obj = list( coeff= coeff, y_var= y_var, cov_matrix= cov_matrix, dat= data_set)
 	# calculate simple slopes
 	slopes = simpleslopes.default( obj, x_var, m_var, ci, mod_values_type, mod_values, centered)
 	return( slopes)
@@ -167,19 +169,21 @@ simpleslopes.lm <- function( object, x_var, m_var, ci=95, mod_values_type=c("sd"
 #' @rdname simpleslopes
 #' @export
 simpleslopes.mira <- function( object, x_var, m_var, ci=95, mod_values_type=c("sd","val"), mod_values=c(-1,0,1), centered=FALSE) {
-	attr(object, obj)
+	
   # get dependend variable
 	modelt = terms( object$analyses[[1]])
-	obj$y_var = as.character( modelt[[2L]])
+	y_var = as.character( modelt[[2L]])
 	# get regression coefficients
-	obj$coeff = mice::pool( object)$qbar
+	coeff = mice::pool( object)$qbar
 	# get mean covariance matrix of parameter estimates (ACOV-matrix)
 	vcovs = lapply( object$analyses, vcov)
-	obj$cov_matrix = Reduce("+", vcovs) / length(vcovs)
+	cov_matrix = Reduce("+", vcovs) / length(vcovs)
 	# get mean imputed data used in regression
 	dats = lapply( object$analyses, model.matrix)
-	obj$dat = Reduce("+", dats) / length(dats)
-	# calculate simple slopes
+	data_set = Reduce("+", dats) / length(dats)
+  # merge to obj
+  obj = list( coeff= coeff, y_var= y_var, cov_matrix= cov_matrix, dat= data_set)
+  # calculate simple slopes
 	slopes = simpleslopes.default( obj, x_var, m_var, ci, mod_values_type, mod_values, centered)
 	return( slopes)
 }
@@ -189,15 +193,17 @@ simpleslopes.mira <- function( object, x_var, m_var, ci=95, mod_values_type=c("s
 simpleslopes.lmerMod <- function( object, x_var, m_var, ci=95, mod_values_type=c("sd","val"), mod_values=c(-1,0,1), centered=FALSE) {
 	# get dependend variable
 	modelt = terms( object)
-	obj$y_var = as.character( modelt[[2L]])
+	y_var = as.character( modelt[[2L]])
 	# get data used in regression
-	obj$dat = model.matrix( object)
+	data_set = model.matrix( object)
 	# get regression coefficients
 	coeff = coefficients( object)[[1]]
-	obj$coeff = colMeans( coeff)
+	coeff = colMeans( coeff)
 	# get covariance matrix of parameter estimates (ACOV-matrix)
-	obj$cov_matrix = vcov( object)
-	# calculate simple slopes
+	cov_matrix = vcov( object)
+	# merge to obj
+  obj = list( coeff= coeff, y_var= y_var, cov_matrix= cov_matrix, dat= data_set)
+  # calculate simple slopes
 	slopes = simpleslopes.default( obj, x_var, m_var, ci, mod_values_type, mod_values, centered)
 	return( slopes)
 }

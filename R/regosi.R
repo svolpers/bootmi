@@ -126,3 +126,30 @@ regosi.mira <- function( object, x_var, m_var, ci) {
   regosi = regosi.default( obj, x_var, m_var, ci)
   return( regosi)
 }
+
+
+#' @rdname regosi
+#' @details
+#' CAUTION: 
+#' For calculation of regions of significance, the ACOV-matrix
+#' is used, instead of bootstrapped confidence intervals.
+#' Hence, this method omits bootstraps from bootmi.lm and calculates 
+#' regions of significance for imputed orginal model only. 
+#' I am searching for a solution to the problem. 
+#' Any suggestions are welcome:
+#' \href{https://github.com/svolpers/bootmi/issues}{Suggest Solution}
+#' For more reliable regions, use \code{\link{simpleslopes}} with dicrete
+#' values of the moderating variable, which reflect the whole range 
+#' of the variable. 
+#' @export
+regosi.bootmi.lm <- function( object, x_var, m_var, ci) {
+  # get data used in regression
+  obj$dat = model.matrix( object$original)
+  # get regression coefficients
+  obj$coeff = coefficients(object$original)
+  # get covariance matrix of parameter estimates (ACOV-matrix)
+  obj$cov_matrix = vcov(object$original)
+  # calculate regions of significance for original data
+  regosi = regosi.default( obj, x_var, m_var, ci)
+  return( object)
+}

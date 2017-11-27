@@ -6,6 +6,7 @@
 \alias{regosi.lmerMod}
 \alias{regosi.lm}
 \alias{regosi.mira}
+\alias{regosi.bootmi.lm}
 \title{Calculates regions of significance for moderation effects}
 \usage{
 regosi(object, x_var, m_var, ci = 95)
@@ -17,6 +18,8 @@ regosi(object, x_var, m_var, ci = 95)
 \method{regosi}{lm}(object, x_var, m_var, ci)
 
 \method{regosi}{mira}(object, x_var, m_var, ci)
+
+\method{regosi}{bootmi.lm}(object, x_var, m_var, ci)
 }
 \arguments{
 \item{object}{Object containing $coeff, $dat, $cov_matrix}
@@ -43,6 +46,19 @@ as proposed by Bauer and Curran (2005). The default takes
 parameters needed to calculate regions of significance. For objects 
 of class "lm", "lmerMod" and "mira" exist helper functions 
 that extract parameters "coeff", "dat", "cov_matrix" from the object.
+}
+\details{
+CAUTION: 
+For calculation of regions of significance, the ACOV-matrix
+is used, instead of bootstrapped confidence intervals.
+Hence, this method omits bootstraps from bootmi.lm and calculates 
+regions of significance for imputed orginal model only. 
+I am searching for a solution to the problem. 
+Any suggestions are welcome:
+\href{https://github.com/svolpers/bootmi/issues}{Suggest Solution}
+For more reliable regions, use \code{\link{simpleslopes}} with dicrete
+values of the moderating variable, which reflect the whole range 
+of the variable.
 }
 \section{Helper functions exist}{
 

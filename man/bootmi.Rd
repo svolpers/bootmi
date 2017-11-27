@@ -21,7 +21,8 @@ bootmi(formula, data, R, impute = c("none", "norm.predict", "pmm", "mean"),
 \item{R}{Number of bootstraps.}
 
 \item{impute}{Deterministic imputation method of type 
-"none", "norm.predict", "pmm", "mean"}
+"none", "norm.predict", "pmm", "mean" ;
+More Details? See \code{\link[mice]{mice}}}
 
 \item{center_mods}{TRUE or FALSE}
 
@@ -52,8 +53,8 @@ Furthermore, residual centering as proposed by Little, Bovaird and Widaman
 the "transform, then impute procedure" as proposed by von Hippel (2009) are 
 implemented.
 
-Generates bootraps samples and imputes each as proposed by Shao and Sitter 
-(1996).
+The bootmi method generates bootraps samples and imputes 
+each as proposed by Shao and Sitter (1996).
 }
 \details{
 In addition to analysing bootstrapped imputed (survey) data, analysis of 

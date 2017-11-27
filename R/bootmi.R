@@ -1,12 +1,13 @@
-#' @title bootmi: Bootstrap multiple imputed (survey) data
+#' @title bootmi: Bootstrap Multiple Imputed (survey) data
 #' @description
-#' Generates bootraps samples and imputes each as proposed by Shao and Sitter 
-#' (1996). 
+#' The bootmi method generates bootraps samples and imputes 
+#' each as proposed by Shao and Sitter (1996). 
 #' @param formula A regression formula
 #' @param data A data.set
 #' @param R Number of bootstraps.
 #' @param impute Deterministic imputation method of type 
-#' "none", "norm.predict", "pmm", "mean" 
+#' "none", "norm.predict", "pmm", "mean" ;
+#' More Details? See \code{\link[mice]{mice}}
 #' @param center_mods TRUE or FALSE
 #' @param seed Value for set.seed, default = FALSE
 #' @param parallel TRUE or FALSE

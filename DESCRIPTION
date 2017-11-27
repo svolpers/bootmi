@@ -1,7 +1,7 @@
 Package: bootmi
 Type: Package
 Title: Calculates ordinary bootstrap for deterministic imputation methods
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Date: 2017-11-22
 Authors@R: person("Stephan", "Volpers", email = "stephan.volpers@plixed.de",
                   role = c("aut", "cre"))

@@ -13,13 +13,18 @@ centering <- function( data_set, centered_vars) {
 	# convert data_set to data frame
 	data_set = as.data.frame( data_set)
 	# center moderators and save as data.frame
-	y = data.frame( scale( data_set[ , centered_vars], center = TRUE, scale = FALSE))
-	# merge centered moderators with other variables of data_set
-	final_data = merge( data_set[ , !(names(data_set) %in% centered_vars)], y, by=0, all.x=TRUE)
-	# next three lines needed for getting original sorting
-	final_data = transform( final_data, row_names=as.numeric( row.names( data_set)))
-	final_data = final_data[order(final_data$row_names), ]
-	final_data = final_data[-1]
+	y = data.frame( scale( data_set[ , centered_vars], center= TRUE, scale= FALSE))
+	# create merge variable
+	y$rownames = as.numeric( row.names(y))
+	data_set$rownames = as.numeric( row.names(data_set))
+	# merge data skipping non centered of centered variables
+	data_set = merge( data_set[ , !(names(data_set) %in% centered_vars)], y, 
+		by="rownames", all.x=TRUE, sort=TRUE)
+	# reset rownames to original data
+	row.names( data_set) <- data_set$rownames
+	# remove merge variable
+	data_set$rownames <- NULL
 	# return data
-	return(final_data)
+	return(data_set)
+
 }

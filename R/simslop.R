@@ -14,7 +14,7 @@
 #' @param mod_values Vector of values of the moderator, default c(-1,0,1)
 #' @param centered Interaction coefficent mean centered? TRUE or FALSE
 #' @return object of class "simpleslopes"
-#' @name simpleslopes
+#' @name simslop
 #' @author Stephan Volpers \email{stephan.volpers@@plixed.de}
 #' @references Preacher, Kristopher J.; Curran, Patrick J.; Bauer, Daniel J. 
 #' (2006): Computational Tools for Probing Interactions in Multiple Linear 
@@ -22,13 +22,13 @@
 #' Educational and Behavioral Statistics 31 (4), S. 437-448.
 #' @export
 
-simpleslopes <- function( object, x_var, m_var, ci=95, mod_values_type=c("sd","val"), mod_values=c(-1,0,1), centered=FALSE) {
-    UseMethod("simpleslopes")
+simslop <- function( object, x_var, m_var, ci=95, mod_values_type=c("sd","val"), mod_values=c(-1,0,1), centered=FALSE) {
+    UseMethod("simslop")
 }
 
-#' @rdname simpleslopes
+#' @rdname simslop
 #' @export
-simpleslopes.default <- function( object, x_var, m_var, ci=95, mod_values_type=c("sd","val"), mod_values=c(-1,0,1), centered=FALSE) {
+simslop.default <- function( object, x_var, m_var, ci=95, mod_values_type=c("sd","val"), mod_values=c(-1,0,1), centered=FALSE) {
   
   mod_values_type = match.arg( mod_values_type) 
   
@@ -147,9 +147,9 @@ simpleslopes.default <- function( object, x_var, m_var, ci=95, mod_values_type=c
 
 #' @section Helper functions exist: Uses object to extract coefficients, 
 #' data, dependend variable and variance covariance matrix
-#' @rdname simpleslopes
+#' @rdname simslop
 #' @export
-simpleslopes.lm <- function( object, x_var, m_var, ci=95, mod_values_type=c("sd","val"), mod_values=c(-1,0,1), centered=FALSE) {
+simslop.lm <- function( object, x_var, m_var, ci=95, mod_values_type=c("sd","val"), mod_values=c(-1,0,1), centered=FALSE) {
 	# get dependend variable
 	modelt = terms( object)
 	y_var = as.character( modelt[[2L]])
@@ -162,13 +162,13 @@ simpleslopes.lm <- function( object, x_var, m_var, ci=95, mod_values_type=c("sd"
   # merge to obj
   obj = list( coeff= coeff, y_var= y_var, cov_matrix= cov_matrix, dat= data_set)
 	# calculate simple slopes
-	slopes = simpleslopes.default( obj, x_var, m_var, ci, mod_values_type, mod_values, centered)
+	slopes = simslop.default( obj, x_var, m_var, ci, mod_values_type, mod_values, centered)
 	return( slopes)
 }
 
-#' @rdname simpleslopes
+#' @rdname simslop
 #' @export
-simpleslopes.mira <- function( object, x_var, m_var, ci=95, mod_values_type=c("sd","val"), mod_values=c(-1,0,1), centered=FALSE) {
+simslop.mira <- function( object, x_var, m_var, ci=95, mod_values_type=c("sd","val"), mod_values=c(-1,0,1), centered=FALSE) {
 	
   # get dependend variable
 	modelt = terms( object$analyses[[1]])
@@ -184,13 +184,13 @@ simpleslopes.mira <- function( object, x_var, m_var, ci=95, mod_values_type=c("s
   # merge to obj
   obj = list( coeff= coeff, y_var= y_var, cov_matrix= cov_matrix, dat= data_set)
   # calculate simple slopes
-	slopes = simpleslopes.default( obj, x_var, m_var, ci, mod_values_type, mod_values, centered)
+	slopes = simslop.default( obj, x_var, m_var, ci, mod_values_type, mod_values, centered)
 	return( slopes)
 }
 
-#' @rdname simpleslopes
+#' @rdname simslop
 #' @export
-simpleslopes.lmerMod <- function( object, x_var, m_var, ci=95, mod_values_type=c("sd","val"), mod_values=c(-1,0,1), centered=FALSE) {
+simslop.lmerMod <- function( object, x_var, m_var, ci=95, mod_values_type=c("sd","val"), mod_values=c(-1,0,1), centered=FALSE) {
 	# get dependend variable
 	modelt = terms( object)
 	y_var = as.character( modelt[[2L]])
@@ -204,20 +204,20 @@ simpleslopes.lmerMod <- function( object, x_var, m_var, ci=95, mod_values_type=c
 	# merge to obj
   obj = list( coeff= coeff, y_var= y_var, cov_matrix= cov_matrix, dat= data_set)
   # calculate simple slopes
-	slopes = simpleslopes.default( obj, x_var, m_var, ci, mod_values_type, mod_values, centered)
+	slopes = simslop.default( obj, x_var, m_var, ci, mod_values_type, mod_values, centered)
 	return( slopes)
 }
 
 
-#' @rdname simpleslopes
+#' @rdname simslop
 #' @export
-simpleslopes.bootmi.lm <- function( object, x_var, m_var, ci=95, mod_values_type = "sd", mod_values = c(-1,0,1), centered=TRUE) {
+simslop.bootmi.lm <- function( object, x_var, m_var, ci=95, mod_values_type = "sd", mod_values = c(-1,0,1), centered=TRUE) {
 
   modelt = terms( object$original)
   object$original$y_var = as.character( modelt[[2L]])
 
 	# calculate simple solpes for original data set
-	si_sl = simpleslopes( object=object$original, x_var=x_var, m_var=m_var, mod_values_type=mod_values_type, mod_values=mod_values, centered=object$center_mods)
+	si_sl = simslop.default( object=object$original, x_var=x_var, m_var=m_var, mod_values_type=mod_values_type, mod_values=mod_values, centered=object$center_mods)
 
 	# extract coefficients for later use of boot.ci helper functions
   # extract moderator and slope values

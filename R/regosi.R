@@ -143,7 +143,7 @@ regosi.mira <- function( object, x_var, m_var, ci) {
 #' I am searching for a solution to the problem. 
 #' Any suggestions are welcome:
 #' \href{https://github.com/svolpers/bootmi/issues}{Suggest Solution}
-#' For more reliable regions, use \code{\link{simpleslopes}} with dicrete
+#' For more reliable regions, use \code{\link{simslop}} with dicrete
 #' values of the moderating variable, which reflect the whole range 
 #' of the variable. 
 #' @export

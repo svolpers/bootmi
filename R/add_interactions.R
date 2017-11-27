@@ -1,8 +1,8 @@
 #' @title add_interactions
 #' @description
-#' Creates interaction terms and adds them to the data.frame
+#' Creates interaction terms and adds them to the data frame
 #' @param formula a regression formula including the interaction terms 
-#' @param data a data.frame used for the regression
+#' @param data a data frame used for the regression
 #' @return Object containing the updated regression formula \code{obj$formula}
 #' and data set \code{obj$data} 
 #' @author Stephan Volpers \email{stephan.volpers@@plixed.de}

@@ -12,8 +12,7 @@ add_residual_interactions <- function( formula, data) {
   
   # create lmresid by rownames as helper for later merge
   data$lmresid = as.numeric( rownames( data))
-  
-  # regress regular model to obtain interaction terms
+ # regress regular model to obtain interaction terms
   model = lm( formula, data=data)
   # extract data used by regression
   dat = model.matrix(model)

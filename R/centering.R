@@ -17,8 +17,8 @@ centering <- function( data_set, centered_vars) {
 	# merge centered moderators with other variables of data_set
 	final_data = merge( data_set[ , !(names(data_set) %in% centered_vars)], y, by=0, all.x=TRUE)
 	# next three lines needed for getting original sorting
-	final_data = transform( final_data, Row.names = as.numeric(Row.names))
-	final_data = final_data[order(final_data$Row.names), ]
+	final_data = transform( final_data, row_names=as.numeric( row.names( data_set)))
+	final_data = final_data[order(final_data$row_names), ]
 	final_data = final_data[-1]
 	# return data
 	return(final_data)

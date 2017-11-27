@@ -9,14 +9,14 @@ add_interactions(formula, data)
 \arguments{
 \item{formula}{a regression formula including the interaction terms}
 
-\item{data}{a data.frame used for the regression}
+\item{data}{a data frame used for the regression}
 }
 \value{
 Object containing the updated regression formula \code{obj$formula}
 and data set \code{obj$data}
 }
 \description{
-Creates interaction terms and adds them to the data.frame
+Creates interaction terms and adds them to the data frame
 }
 \author{
 Stephan Volpers \email{stephan.volpers@plixed.de}

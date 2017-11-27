@@ -8,6 +8,8 @@ lm.bootmi(bootmi, ...)
 }
 \arguments{
 \item{bootmi}{An object of class \code{\link{bootmi}}}
+
+\item{...}{any default lm statement}
 }
 \value{
 object of class "bootmi.lm" including

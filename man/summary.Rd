@@ -19,7 +19,7 @@
 
 \item{ci}{Confidence interval, default 95}
 
-\item{object}{A \code{simpleslopes.bootmi} object}
+\item{...}{Other summary arguments}
 }
 \value{
 \code{NULL}

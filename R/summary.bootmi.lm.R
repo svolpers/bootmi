@@ -5,6 +5,7 @@
 #' @param ci_type Type of confidence interval, namely 
 #' "basic", "norm", "stud", "perc", "bca", or "all" 
 #' @param ci Confidence interval, default 95
+#' @param ... Other summary arguments
 #' @return \code{NULL}
 #' @rdname summary
 #' @author Stephan Volpers \email{stephan.volpers@@plixed.de}
@@ -22,7 +23,7 @@ summary.bootmi.lm <- function( object, ci_type = c("basic", "norm", "stud", "per
   # get summary of original regression model
   summary_model = summary.lm( object$original)
   # replace coefficients with bootstraped result
-  summary_model$coefficients = bootmi_results( bootmi.lm)
+  summary_model$coefficients = bootmi_results( object)
   # insert original formula
   frml = as.character( object$formula)
   frml = paste0( frml[[2]], frml[[1]], frml[[3]])
@@ -37,7 +38,6 @@ summary.bootmi.lm <- function( object, ci_type = c("basic", "norm", "stud", "per
 #' @description
 #' Summary of a \code{simpleslopes.bootmi} object
 #' @rdname summary
-#' @param object A \code{simpleslopes.bootmi} object
 #' @export
 summary.simpleslopes.bootmi <- function( object, ci_type = c("basic", "norm", "stud", "perc", "bca", "all"), ci = 95, ... ) {
   

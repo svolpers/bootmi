@@ -19,20 +19,13 @@ regosi(object, x_var, m_var, ci = 95)
 \method{regosi}{mira}(object, x_var, m_var, ci)
 }
 \arguments{
-\item{object}{Object, if availiable but NOT for default}
+\item{object}{Object containing $coeff, $dat, $cov_matrix}
 
 \item{x_var}{Name of the independend variable}
 
 \item{m_var}{Name of the moderating variable}
 
 \item{ci}{Confidence interval, default 95}
-
-\item{coeff}{Coefficients from fitted model, just for default}
-
-\item{dat}{Data used to fit model, just for default}
-
-\item{cov_matrix}{Variance-Covariance-Matrix of fitted model, 
-just for default}
 }
 \value{
 object of class "regosi" including
@@ -61,7 +54,7 @@ and extracts coefficients, data, and variance covariance matrix
 Bauer, Daniel J.; Curran, Patrick J. (2005): 
 Probing Interactions in Fixed and Multilevel Regression: 
 Inferential and Graphical Techniques. In: Multivariate Behavioral Research
-40 (3), S. 373–400. DOI: 10.1207/s15327906mbr4003_5.
+40 (3), S. 373-400.
 }
 \author{
 Stephan Volpers \email{stephan.volpers@plixed.de}

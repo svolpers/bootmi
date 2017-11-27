@@ -5,11 +5,7 @@
 #' parameters needed to calculate regions of significance. For objects 
 #' of class "lm", "lmerMod" and "mira" exist helper functions 
 #' that extract parameters "coeff", "dat", "cov_matrix" from the object.
-#' @param coeff Coefficients from fitted model, just for default
-#' @param dat Data used to fit model, just for default
-#' @param cov_matrix Variance-Covariance-Matrix of fitted model, 
-#' just for default
-#' @param object Object, if availiable but NOT for default 
+#' @param object Object containing $coeff, $dat, $cov_matrix
 #' @param x_var Name of the independend variable
 #' @param m_var Name of the moderating variable
 #' @param ci Confidence interval, default 95 
@@ -26,7 +22,7 @@
 #' @references Bauer, Daniel J.; Curran, Patrick J. (2005): 
 #' Probing Interactions in Fixed and Multilevel Regression: 
 #' Inferential and Graphical Techniques. In: Multivariate Behavioral Research
-#' 40 (3), S. 373–400. DOI: 10.1207/s15327906mbr4003_5.
+#' 40 (3), S. 373-400.
 #' @export
 regosi <- function( object, x_var, m_var, ci = 95) {
     UseMethod("regosi")

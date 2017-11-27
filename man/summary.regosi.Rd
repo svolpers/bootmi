@@ -4,10 +4,12 @@
 \alias{summary.regosi}
 \title{Summary of a \code{regosi} object}
 \usage{
-\method{summary}{regosi}(regosi, ...)
+\method{summary}{regosi}(object, ...)
 }
 \arguments{
 \item{object}{A \code{regosi } object}
+
+\item{...}{any default statement}
 }
 \value{
 \code{NULL}

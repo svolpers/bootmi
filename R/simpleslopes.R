@@ -5,10 +5,9 @@
 #' parameters needed to conduct analysis of the simple slopes. For objects 
 #' of class "bootmi.lm", "lm", "lmerMod" and "mira" exist helper functions 
 #' that extract parameters "coeff", "dat", "cov_matrix" from the object.
-#' @param object object containing $coeff, $dat, $cov_matrix
+#' @param object Object containing $coeff, $dat, $cov_matrix
 #' @param x_var Name of the independend variable
 #' @param m_var Name of the moderating variable
-#' @param y_var Name of the dependend variable
 #' @param ci Confidence interval, default 95 
 #' @param mod_values_type Either sd (=standard deviation, default) or 
 #' val (=values of data used)
@@ -20,8 +19,7 @@
 #' @references Preacher, Kristopher J.; Curran, Patrick J.; Bauer, Daniel J. 
 #' (2006): Computational Tools for Probing Interactions in Multiple Linear 
 #' Regression, Multilevel Modeling, and Latent Curve Analysis. In: Journal of 
-#' Educational and Behavioral Statistics 31 (4), S. 437–448. 
-#' DOI: 10.3102/10769986031004437.
+#' Educational and Behavioral Statistics 31 (4), S. 437-448.
 #' @export
 
 simpleslopes <- function( object, x_var, m_var, ci=95, mod_values_type=c("sd","val"), mod_values=c(-1,0,1), centered=FALSE) {
@@ -81,7 +79,7 @@ simpleslopes.default <- function( object, x_var, m_var, ci=95, mod_values_type=c
   
   if(mod_values_type == "sd") {
     value_x_h = mean( object$dat[,x_var])+sd( object$dat[,x_var])
-    value_x_l = mean(dat[,x_var])-sd( object$dat[,x_var])
+    value_x_l = mean( object$dat[,x_var])-sd( object$dat[,x_var])
   } else {
     value_x_l = quantile( object$dat[,x_var], probs = c(.25))
     value_x_h = quantile( object$dat[,x_var], probs = c(.75))

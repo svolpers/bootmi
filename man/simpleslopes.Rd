@@ -9,10 +9,10 @@
 \alias{simpleslopes.bootmi.lm}
 \title{Conducts analysis of the simple slopes}
 \usage{
-simpleslopes(object, x_var, m_var, y_var, ci = 95, mod_values_type = c("sd",
+simpleslopes(object, x_var, m_var, ci = 95, mod_values_type = c("sd",
   "val"), mod_values = c(-1, 0, 1), centered = FALSE)
 
-\method{simpleslopes}{default}(object, x_var, m_var, y_var, ci = 95,
+\method{simpleslopes}{default}(object, x_var, m_var, ci = 95,
   mod_values_type = c("sd", "val"), mod_values = c(-1, 0, 1),
   centered = FALSE)
 
@@ -32,13 +32,11 @@ simpleslopes(object, x_var, m_var, y_var, ci = 95, mod_values_type = c("sd",
   mod_values_type = "sd", mod_values = c(-1, 0, 1), centered = TRUE)
 }
 \arguments{
-\item{object}{object containing $coeff, $dat, $cov_matrix}
+\item{object}{Object containing $coeff, $dat, $cov_matrix}
 
 \item{x_var}{Name of the independend variable}
 
 \item{m_var}{Name of the moderating variable}
-
-\item{y_var}{Name of the dependend variable}
 
 \item{ci}{Confidence interval, default 95}
 
@@ -68,8 +66,7 @@ data, dependend variable and variance covariance matrix
 Preacher, Kristopher J.; Curran, Patrick J.; Bauer, Daniel J. 
 (2006): Computational Tools for Probing Interactions in Multiple Linear 
 Regression, Multilevel Modeling, and Latent Curve Analysis. In: Journal of 
-Educational and Behavioral Statistics 31 (4), S. 437–448. 
-DOI: 10.3102/10769986031004437.
+Educational and Behavioral Statistics 31 (4), S. 437-448.
 }
 \author{
 Stephan Volpers \email{stephan.volpers@plixed.de}

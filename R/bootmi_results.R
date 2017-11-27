@@ -18,7 +18,7 @@ bootmi_results <- function( bootmi_object) {
   output = matrix( c( bootmi_object$original$coef, bias, bias_corrected_estimate), nrow = length( bootmi_object$original$coef) )
 
   # helper function to calculate bootstrap ci with boot package
-  boot_ci = bootmi_ci( bootmi.lm) 
+  boot_ci = bootmi_ci( bootmi_object) 
   # calculate Confidence Intervals
   boot::boot.ci( boot_ci, conf=bootmi_object$ci, type=bootmi_object$ci_type, index=1)
 

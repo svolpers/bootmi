@@ -6,13 +6,15 @@
 \alias{plot.simpleslopes.bootmi}
 \title{plots simple slopes}
 \usage{
-\method{plot}{simpleslopes}(slopes, ...)
+\method{plot}{simpleslopes}(x, ...)
 
-\method{plot}{simpleslopes.bootmi}(obj, ...)
+\method{plot}{simpleslopes.bootmi}(x, ...)
 }
 \arguments{
-\item{slopes}{An object of type \code{simpleslopes} or 
+\item{x}{An object of type \code{simpleslopes} or 
 \code{simpleslopes.bootmi}}
+
+\item{...}{any default statement}
 }
 \value{
 \code{NULL}

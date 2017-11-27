@@ -24,6 +24,7 @@
 #' } 
 #' @name bootmi
 #' @author Stephan Volpers \email{stephan.volpers@@plixed.de}
+#' @import stats
 #' @export
 bootmi <- function( formula, data, R, impute=c("none","norm.predict","pmm","mean"), center_mods=FALSE, seed=FALSE, parallel=FALSE, resint=FALSE) {
     UseMethod("bootmi")
@@ -52,7 +53,7 @@ bootmi.default <- function( formula, data, R, impute=c("none","norm.predict","pm
 	# Create residual interactions and impute data
 	if( impute != "none" || center_mods != FALSE ) {
 		# residual interactions and imputation on original data
-		res = resimpcen(frmla=formula, dat=data, res_int=resint, imputation=impute, center_mods=center_mods, bootstraps=FALSE)
+		res = resimpcen(frmla=formula, data=data, res_int=resint, imputation=impute, center_mods=center_mods, bootstraps=FALSE)
 		# residual interactions and imputation on bootstraps
 		no_cores = parallel::detectCores() - 1
 		if( (parallel == TRUE) && (no_cores > 1) ) {
@@ -69,7 +70,7 @@ bootmi.default <- function( formula, data, R, impute=c("none","norm.predict","pm
 			parallel::clusterSetRNGStream(cl, seed)
 			# create residuals or imputation
 			bootstraps = parallel::parLapply(cl, bootstraps, function(x) {
-				resimpcen( frmla=formula, dat=x, res_int=resint, imputation=impute, center_mods=center_mods, bootstraps=TRUE)
+				resimpcen( frmla=formula, data=x, res_int=resint, imputation=impute, center_mods=center_mods, bootstraps=TRUE)
 			})
 			# stop parallelization
 			parallel::stopCluster(cl)
@@ -78,7 +79,7 @@ bootmi.default <- function( formula, data, R, impute=c("none","norm.predict","pm
 			set.seed(seed)
 			# create residuals or imputation
 			bootstraps = lapply( bootstraps, function(x) {
-				resimpcen( frmla=formula, dat=x, res_int=resint, imputation=impute, center_mods=center_mods, bootstraps=TRUE)
+				resimpcen( frmla=formula, data=x, res_int=resint, imputation=impute, center_mods=center_mods, bootstraps=TRUE)
 			})
 		}
 		# correct data and formula with actual values after creating residual interactions 

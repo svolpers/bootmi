@@ -8,6 +8,8 @@
 }
 \arguments{
 \item{object}{A \code{simpleslopes} object}
+
+\item{...}{any default statement}
 }
 \value{
 \code{NULL}

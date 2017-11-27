@@ -4,6 +4,7 @@
 #' @details
 #' For faster computation, \pkg{parallel} is implemented.
 #' @param bootmi An object of class \code{\link{bootmi}}
+#' @param ... any default lm statement
 #' @return object of class "bootmi.lm" including
 #' \itemize{
 #'   \item Regression formula
@@ -72,7 +73,8 @@ lm.bootmi <- function( bootmi, ...) {
 #' @details
 #' For faster computation, \pkg{parallel} is implemented.
 #' @param bootmi An object of class \code{\link{bootmi}}
-#' @param family see \code{\link[glm]{stats}}
+#' @param family see \code{\link[stats]{glm}}
+#' @param ... any default glm statement
 #' @return object of class "bootmi.lm" including
 #' \itemize{
 #'   \item Regression formula

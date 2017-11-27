@@ -1,7 +1,8 @@
 #' @title Prints a \code{bootmi} object
 #' @description
 #' Prints a \code{bootmi} object
-#' @param object A \code{bootmi} object
+#' @param x A \code{bootmi} object
+#' @param ... Other print arguments
 #' @return \code{NULL}
 #' @rdname print
 #' @author Stephan Volpers \email{stephan.volpers@@plixed.de}
@@ -13,13 +14,13 @@ print.bootmi <- function( x, ... ) {
   cat("\nOverview of data values\n"); 
   print( summary(x$data))
   cat("\n$data (head of original data)\n"); 
-  print( head(x$data))
+  print( utils::head(x$data))
   cat("\n$bootstraps[[1]] (head of first bootstrap sample)\n"); 
-  print( head(x$bootstraps[[1]]))
+  print( utils::head(x$bootstraps[[1]]))
   cat("\n$bootstraps[[2]] (head of second bootstrap sample)\n"); 
-  print( head(x$bootstraps[[2]]))
+  print( utils::head(x$bootstraps[[2]]))
   cat("\n$bootstraps[[3]] (head of third bootstrap sample)\n"); 
-  print( head(x$bootstraps[[3]]))
+  print( utils::head(x$bootstraps[[3]]))
   cat("\n$replics\n", x$replics, "\n")
   cat("\n$imputation\n", x$imputation, "\n")
   cat("\n$seed\n", x$seed, "\n")
@@ -43,10 +44,10 @@ print.simpleslopes.bootmi <- function( x, ... ) {
   cat("$formula\n"); 
   print(x$formula)
   cat("\n$data (head of original data)\n"); 
-  print( head(x$data))
+  print( utils::head(x$data))
   cat("\n$replics\n", x$replics, "\n")
   cat("\n$bootstraps (head of bootstrap coefficients)\n"); 
-  print( head(x$bootstraps))
+  print( utils::head(x$bootstraps))
 }
 
 

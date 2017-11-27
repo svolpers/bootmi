@@ -26,30 +26,26 @@
 #'   \code{regosi()} \tab Calculates regions of significance\cr
 #'   \code{mediate()} \tab Tests (moderated) mediation.\cr}
 #' 
-#' @docType bootmi
 #' @name bootmi
-#' @references Bauer, Daniel J.; Curran, Patrick J. (2005): Probing 
+#' @references 
+#' Bauer, Daniel J.; Curran, Patrick J. (2005): Probing 
 #' Interactions in Fixed and Multilevel Regression: Inferential and Graphical 
-#' Techniques. In: Multivariate Behavioral Research 40 (3), S. 373–400. 
-#' @references Buuren, Stef van; Groothuis-Oudshoorn, Karin (2011): mice. 
+#' Techniques. In: Multivariate Behavioral Research 40 (3), S. 373-400. 
+#' Buuren, Stef van; Groothuis-Oudshoorn, Karin (2011): mice. 
 #' Multivariate Imputation by Chained Equations in R. In: 
-#' Journal of Statistical Software 45 (3). DOI: 10.18637/jss.v045.i03.
-#' @references Hippel, Paul T. von (2009): How to Impute Interactions, 
+#' Journal of Statistical Software 45 (3). 
+#' Hippel, Paul T. von (2009): How to Impute Interactions, 
 #' Squares, and other Transformed Variables. In: Sociological Methodology 
-#' 39 (1), S. 265–291. DOI: 10.1111/j.1467-9531.2009.01215.x.
-#' @references Little, Todd D.; Bovaird, James A.; Widaman, Keith F. (2006): 
+#' 39 (1), S. 265-291. 
+#' Little, Todd D.; Bovaird, James A.; Widaman, Keith F. (2006): 
 #' On the merits of orthogonalizing powered and product terms: 
 #' Implications for modeling interactions among latent variables. 
-#' In: Structural Equation Modeling 13 (4), S. 497–519.
-#' @references Preacher, Kristopher J.; Rucker, Derek D.; Hayes, Andrew F. 
+#' In: Structural Equation Modeling 13 (4), S. 497-519.
+#' Preacher, Kristopher J.; Rucker, Derek D.; Hayes, Andrew F. 
 #' (2007): Addressing Moderated Mediation Hypotheses: Theory, Methods, and 
-#' Prescriptions. In: Multivariate Behavioral Research 42 (1), S. 185–227. 
-#' @references R Core Team (2017). R: A language and environment for 
-#' statistical computing. R Foundation for Statistical Computing, 
-#' Vienna, Austria. URL https://www.R-project.org/.
-#' @references Shao, Jun; Sitter, Randy R. (1996): 
+#' Prescriptions. In: Multivariate Behavioral Research 42 (1), S. 185-227.
+#' Shao, Jun; Sitter, Randy R. (1996): 
 #' Bootstrap for Imputed Survey Data. In: Journal of the 
-#' American Statistical Association 91 (435), S. 1278–1288. 
-#' DOI: 10.2307/2291746.
-#'
+#' American Statistical Association 91 (435), S. 1278-1288. 
+#' 
 NULL

@@ -2,6 +2,7 @@
 #' @description
 #' Summary of a \code{simpleslopes} object
 #' @param object A \code{simpleslopes} object
+#' @param ... any default statement
 #' @return \code{NULL}
 #' @author Stephan Volpers \email{stephan.volpers@@plixed.de}
 #' @export

@@ -24,8 +24,9 @@
 #'   \code{lm()} \tab Analyze bootmi data\cr
 #'   \code{simslop()} \tab Conducts analysis of the simple slopes\cr
 #'   \code{regosi()} \tab Calculates regions of significance\cr
-#'   \code{mediate()} \tab Tests (moderated) mediation.\cr} (under construction)
-#' 
+#'   \code{mediate()} \tab Tests (moderated) mediation. (under 
+#' construction) \cr
+#' } 
 #' @name bootmi
 #' @references Bauer, Daniel J.; Curran, Patrick J. (2005): Probing 
 #' Interactions in Fixed and Multilevel Regression: Inferential and Graphical 

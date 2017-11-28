@@ -12,9 +12,9 @@ summary.regosi <- function( object, ... ) {
   if( object$root_term < 0) {
     cat("There are no real values of ", object$m_var, " that represent regions of significance.", sep = "")
     if( object$a > 0) {
-      cat("The slope of ", object$x_var, " is statistically significant for ALL values of the moderator ", object$m_var, ".", sep = "")
+      cat("\nThe slope of ", object$x_var, " is statistically significant for ALL values of the moderator ", object$m_var, ".", sep = "")
     } else {
-      cat("The slope of ", object$x_var, " is NEVER statistically significant.", sep = "")
+      cat("\nThe slope of ", object$x_var, " is NEVER statistically significant.", sep = "")
     }
   } else {
     # Boundaries of interval

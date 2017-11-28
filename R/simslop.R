@@ -39,6 +39,14 @@ simslop.default <- function( object, x_var, m_var, ci=95, mod_values_type=c("sd"
   }
   user_ci = ci/100
 
+  # check if intercept in coefficents, 
+  # intercept does not decrease degrees of freedom
+  if ( names(coefficients(er$original)[1]) == "(Intercept)" ) {
+    degfreedm = nrow( object$dat) - length( object$coeff)
+  } else {
+    degfreedm = nrow( object$dat) - length( object$coeff) - 1
+  } 
+
   degfreedm = nrow( object$dat) - length( object$coeff) - 1
   if(degfreedm < 1) {
       stop("Error: Wrong data or coefficients.")
@@ -212,12 +220,19 @@ simslop.lmerMod <- function( object, x_var, m_var, ci=95, mod_values_type=c("sd"
 #' @rdname simslop
 #' @export
 simslop.bootmi.lm <- function( object, x_var, m_var, ci=95, mod_values_type = "sd", mod_values = c(-1,0,1), centered=TRUE) {
-
+  
+  # get dependend variable
   modelt = terms( object$original)
-  object$original$y_var = as.character( modelt[[2L]])
+  y_var = as.character( modelt[[2L]])
+  # get regression coefficients
+  coeff = coefficients( object$original)
+  # get covariance matrix of parameter estimates (ACOV-matrix)
+  cov_matrix = vcov( object$original)
+  # merge to obj
+  obj = list( coeff= coeff, y_var= y_var, cov_matrix= cov_matrix, dat= object$data)
 
 	# calculate simple solpes for original data set
-	si_sl = simslop.default( object=object$original, x_var=x_var, m_var=m_var, mod_values_type=mod_values_type, mod_values=mod_values, centered=object$center_mods)
+	si_sl = simslop.default( object=obj, x_var=x_var, m_var=m_var, mod_values_type=mod_values_type, mod_values=mod_values, centered=object$center_mods)
 
 	# extract coefficients for later use of boot.ci helper functions
   # extract moderator and slope values

@@ -24,13 +24,13 @@
 #' Inferential and Graphical Techniques. In: Multivariate Behavioral Research
 #' 40 (3), S. 373-400.
 #' @export
-regosi <- function( object, x_var, m_var, ci = 95) {
+regosi <- function( object, x_var, m_var, ci= 95) {
     UseMethod("regosi")
 }
 
 #' @rdname regosi
 #' @export
-regosi.default <- function( object, x_var, m_var, ci=95) {
+regosi.default <- function( object, x_var, m_var, ci= 95) {
 
   # set confidence interval value
   ci = as.integer(ci)
@@ -39,7 +39,14 @@ regosi.default <- function( object, x_var, m_var, ci=95) {
   }
   ci = ci/100
 
-  degfreedm = nrow( object$dat) - length( object$coeff) - 1
+  # check if intercept in coefficents, 
+  # intercept does not decrease degrees of freedom
+  if ( names(coefficients(er$original)[1]) == "(Intercept)" ) {
+    degfreedm = nrow( object$dat) - length( object$coeff)
+  } else {
+    degfreedm = nrow( object$dat) - length( object$coeff) - 1
+  }
+
   if(degfreedm < 1) {
       stop("Error: Wrong data or coefficients.")
   }
@@ -84,7 +91,7 @@ regosi.default <- function( object, x_var, m_var, ci=95) {
 #' and extracts coefficients, data, and variance covariance matrix
 #' @rdname regosi
 #' @export
-regosi.lmerMod <- function( object, x_var, m_var, ci) {
+regosi.lmerMod <- function( object, x_var, m_var, ci= 95) {
   # get data used in regression
   data_set = model.matrix( object)
   # get regression coefficients
@@ -100,7 +107,7 @@ regosi.lmerMod <- function( object, x_var, m_var, ci) {
 
 #' @rdname regosi
 #' @export
-regosi.lm <- function( object, x_var, m_var, ci) {
+regosi.lm <- function( object, x_var, m_var, ci= 95) {
   # get data used in regression
   data_set = model.matrix( object)
   # get regression coefficients
@@ -116,7 +123,7 @@ regosi.lm <- function( object, x_var, m_var, ci) {
 
 #' @rdname regosi
 #' @export
-regosi.mira <- function( object, x_var, m_var, ci) {
+regosi.mira <- function( object, x_var, m_var, ci= 95) {
   # get mean imputed data used in regression
   dats = lapply( object$analyses, model.matrix)
   data_set = Reduce("+", dats) / length(dats)
@@ -147,7 +154,7 @@ regosi.mira <- function( object, x_var, m_var, ci) {
 #' values of the moderating variable, which reflect the whole range 
 #' of the variable. 
 #' @export
-regosi.bootmi.lm <- function( object, x_var, m_var, ci) {
+regosi.bootmi.lm <- function( object, x_var, m_var, ci= 95) {
   # get data used in regression
   data_set = model.matrix( object$original)
   # get regression coefficients
@@ -158,5 +165,5 @@ regosi.bootmi.lm <- function( object, x_var, m_var, ci) {
   obj = list( coeff= coeff, cov_matrix= cov_matrix, dat= data_set)
   # calculate regions of significance for original data
   regosi = regosi.default( obj, x_var, m_var, ci)
-  return( object)
+  return( regosi)
 }

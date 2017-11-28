@@ -53,7 +53,7 @@ summary.simpleslopes.bootmi <- function( object, ci_type = c("basic", "norm", "s
   # create results
   output = bootmi_results( object)
   # add colnames and rownames
-  colnames(output) <- c("Slope Original", "Bias", "Slope Bias Corrected", "BLLCI", "BULCI")
+  colnames(output) <- c("Slope Original", "Bootstrap Bias", "Slope Bias Corrected", "BLLCI", "BULCI")
   
   cat("\nAnalysis of the simple slopes\n")
   cat("Dependent variable:", object$info$Y, "\n")

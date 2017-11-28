@@ -55,8 +55,9 @@ bootmi.default <- function( formula, data, R, impute=c("none","norm.predict","pm
 	if( impute != "none" || center_mods != FALSE ) {
 		# residual interactions and imputation on original data
 		res = resimpcen(frmla=formula, data=data, res_int=resint, imputation=impute, center_mods=center_mods, bootstraps=FALSE)
-		# residual interactions and imputation on bootstraps
+		# get number of cores for parallelization
 		no_cores = parallel::detectCores() - 1
+		# residual interactions and imputation on bootstraps
 		if( (parallel == TRUE) && (no_cores > 1) ) {
 			# Initiate cluster
 			cl = parallel::makeCluster(no_cores)

@@ -41,7 +41,7 @@ regosi.default <- function( object, x_var, m_var, ci= 95) {
 
   # check if intercept in coefficents, 
   # intercept does not decrease degrees of freedom
-  if ( names(coefficients(er$original)[1]) == "(Intercept)" ) {
+  if ( names( object$coeff[1]) == "(Intercept)" ) {
     degfreedm = nrow( object$dat) - length( object$coeff)
   } else {
     degfreedm = nrow( object$dat) - length( object$coeff) - 1

@@ -16,10 +16,10 @@
 #' updated formula (list$formula)
 #' If bootstraps = TRUE: Returns data
 #' @author Stephan Volpers \email{stephan.volpers@@plixed.de}
-#' @export
 #' @references Hippel, Paul T. von (2009): How to Impute Interactions,
 #' Squares, and other Transformed Variables. In: 
 #' Sociological Methodology 39 (1), S. 265-291.
+#' @export
 
 resimpcen <- function( frmla, data, res_int, imputation, center_mods, bootstraps=FALSE) {
 
@@ -60,7 +60,6 @@ resimpcen <- function( frmla, data, res_int, imputation, center_mods, bootstraps
         return(x)
       }
     })
-    print( unlist(centered_vars))
     # center interaction terms
     data = centering( data, unlist(centered_vars))
   }

@@ -69,9 +69,17 @@ print.bootmi.lm <- function( x, ... ) {
 #' @export
 
 print.regosi <- function( x, ... ) {
-  summary.regosi( x)
+  cat("$a\n") 
+  print(x$a)
+  cat("$b\n") 
+  print(x$b)
+  cat("$root_term\n") 
+  print(x$root_term)
+  cat("$m_var\n")
+  print(x$m_var)
+  cat("$x_var\n")
+  print(x$x_var)
 }
-
 
 #' @title Prints a \code{simpleslopes} object
 #' @description

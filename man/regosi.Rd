@@ -13,13 +13,13 @@ regosi(object, x_var, m_var, ci = 95)
 
 \method{regosi}{default}(object, x_var, m_var, ci = 95)
 
-\method{regosi}{lmerMod}(object, x_var, m_var, ci)
+\method{regosi}{lmerMod}(object, x_var, m_var, ci = 95)
 
-\method{regosi}{lm}(object, x_var, m_var, ci)
+\method{regosi}{lm}(object, x_var, m_var, ci = 95)
 
-\method{regosi}{mira}(object, x_var, m_var, ci)
+\method{regosi}{mira}(object, x_var, m_var, ci = 95)
 
-\method{regosi}{bootmi.lm}(object, x_var, m_var, ci)
+\method{regosi}{bootmi.lm}(object, x_var, m_var, ci = 95)
 }
 \arguments{
 \item{object}{Object containing $coeff, $dat, $cov_matrix}

@@ -37,9 +37,9 @@ lm.bootmi <- function( bootmi, ...) {
   frml = paste0( frml[[2]], frml[[1]], frml[[3]])
 
   # regress model on original data
-  lm_org_data = lm( frml, bootmi$data, ...)
+  lm_org = lm( frml, bootmi$data, ...)
   # create final data used in the model
-  bootmi$data = merge( as.data.frame( model.matrix( lm_org_data)), as.data.frame( val_dep_var), by=0, all.x = TRUE)
+  bootmi$data = merge( as.data.frame( model.matrix( lm_org)), as.data.frame( val_dep_var), by=0, all.x = TRUE)
   rownames( bootmi$data) = as.numeric( bootmi$data[["Row.names"]])
 
   # regress model on bootstrap samples
@@ -60,7 +60,7 @@ lm.bootmi <- function( bootmi, ...) {
   bootstrap_coeff = do.call( rbind, boot_lm)
 
   # save results into list
-  object = list( formula=bootmi$formula, original=lm_org_data, bootstraps=bootstrap_coeff, data=bootmi$data[,c(-1,-2)], replics=bootmi$replics, center_mods=bootmi$center_mods, seed=bootmi$seed)
+  object = list( formula=bootmi$formula, original=lm_org, bootstraps=bootstrap_coeff, data=bootmi$data[,c(-1,-2)], replics=bootmi$replics, center_mods=bootmi$center_mods, seed=bootmi$seed)
   # class(object) = "bootmi.lm"
   oldClass(object) <- c("bootmi.lm", "lm")
   return(object)
@@ -106,9 +106,9 @@ glm.bootmi <- function( bootmi, family= gaussian, ...) {
   frml = paste0( frml[[2]], frml[[1]], frml[[3]])
 
   # regress model on original data
-  lm_org_data = glm( frml, family, bootmi$data, ...)
+  lm_org = glm( frml, family, bootmi$data, ...)
   # create final data used in the model
-  bootmi$data = merge( as.data.frame( model.matrix( lm_org_data)), as.data.frame( val_dep_var), by=0, all.x = TRUE)
+  bootmi$data = merge( as.data.frame( model.matrix( lm_org)), as.data.frame( val_dep_var), by=0, all.x = TRUE)
   rownames( bootmi$data) = as.numeric( bootmi$data[["Row.names"]])
 
   # regress model on bootstrap samples
@@ -129,7 +129,7 @@ glm.bootmi <- function( bootmi, family= gaussian, ...) {
   bootstrap_coeff = do.call( rbind, boot_lm)
 
   # save results into list
-  object = list( formula=bootmi$formula, original=lm_org_data, bootstraps=bootstrap_coeff, data=bootmi$data[,c(-1,-2)], replics=bootmi$replics, center_mods=bootmi$center_mods, seed=bootmi$seed)
+  object = list( formula=bootmi$formula, original=lm_org, bootstraps=bootstrap_coeff, data=bootmi$data[,c(-1,-2)], replics=bootmi$replics, center_mods=bootmi$center_mods, seed=bootmi$seed)
   # class(object) = "bootmi.lm"
   oldClass(object) <- c("bootmi.lm", "glm", "lm")
   return(object)

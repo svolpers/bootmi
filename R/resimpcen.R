@@ -19,6 +19,7 @@
 #' @references Hippel, Paul T. von (2009): How to Impute Interactions,
 #' Squares, and other Transformed Variables. In: 
 #' Sociological Methodology 39 (1), S. 265-291.
+#' @import mice
 #' @export
 
 resimpcen <- function( frmla, data, res_int, imputation, center_mods, bootstraps=FALSE) {

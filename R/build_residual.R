@@ -31,7 +31,7 @@ build_residual <- function( variable, data, new_varname) {
   # calculate regression
   aReg = lm( finalFormula, data)
   # save residuals in data frame
-  res = data.frame( resid( aReg), stringsAsFactors = FALSE)
+  res = data.frame( as.numeric( resid( aReg)), stringsAsFactors = FALSE)
   # rename column
   colnames(res) = c(new_varname)
   # return 

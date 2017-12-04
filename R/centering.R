@@ -18,13 +18,15 @@ centering <- function( data_set, centered_vars) {
 	y$rownames = as.numeric( row.names(y))
 	data_set$rownames = as.numeric( row.names(data_set))
 	# merge data skipping non centered of centered variables
-	data_set = merge( data_set[ , !(names(data_set) %in% centered_vars)], y, 
-		by="rownames", all.x=TRUE, sort=TRUE)
+	if( ( ncol( data_set) - 1) > length( centered_vars) ) {
+		data_set = merge( data_set[ , !(names(data_set) %in% centered_vars)], y, by="rownames", all.x=TRUE, sort=TRUE)
+	} else {
+		data_set = y
+	}
 	# reset rownames to original data
 	row.names( data_set) <- data_set$rownames
 	# remove merge variable
 	data_set$rownames <- NULL
 	# return data
 	return(data_set)
-
 }

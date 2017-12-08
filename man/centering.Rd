@@ -9,7 +9,8 @@ centering(data_set, centered_vars)
 \arguments{
 \item{data_set}{a data.frame}
 
-\item{centered_vars}{a vector containing names of variables to center}
+\item{centered_vars}{a vector containing names of variables to center 
+OR "all" for centering all variables}
 }
 \value{
 data.frame with centered variables

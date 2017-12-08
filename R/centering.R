@@ -3,13 +3,20 @@
 #' It is important to center data that is used in the model 
 #' AFTER deleting cases of missing values.
 #' @param data_set a data.frame 
-#' @param centered_vars a vector containing names of variables to center  
+#' @param centered_vars a vector containing names of variables to center 
+#' OR "all" for centering all variables
 #' @return data.frame with centered variables
 #' @author Stephan Volpers \email{stephan.volpers@@plixed.de}
 #' @references \href{http://processmacro.org/faq.html}{Process}
 #' @export
 
 centering <- function( data_set, centered_vars) {
+
+	if( length( centered_vars) == 1) {
+		if( centered_vars == "all" ) {
+			centered_vars = colnames( data_set)
+		}
+	}
 	# convert data_set to data frame
 	data_set = as.data.frame( data_set)
 	# center moderators and save as data.frame

@@ -13,6 +13,8 @@ test_that("colnames remain same.", {
 	# all vars centered
 	c1 = colnames( centering( dat, c("X","M1","M2","Y")))
 	c2 = c("X","M1","M2","Y")
+	c1 = colnames( centering( dat, "all"))
+	c2 = c("X","M1","M2","Y")
 	expect_equal( c1[order(c1)], c2[order(c2)])
 	# no vars centered
 	c1 = colnames( centering( dat, c()))
@@ -24,6 +26,7 @@ test_that("size of data frame is correct.", {
 	expect_equal( ncol( centering( dat, c("X","M1"))), 4)
 	expect_equal( ncol( centering( dat, c())), 4)
 	expect_equal( ncol( centering( dat, c("X","M1","M2","Y"))), 4)
+	expect_equal( ncol( centering( dat, "all")), 4)
 })
 
 test_that("values are correct.", {
@@ -33,4 +36,5 @@ test_that("values are correct.", {
 	expect_equal( centering( dat, c())[4,2], 6)
 	expect_equal( centering( dat, c("X","M1","M2","Y"))[5,2], as.double(NA))
 	expect_equal( centering( dat, c("X","M1","M2","Y"))[2,4], 0.3)
+	expect_equal( centering( dat, "all")[2,4], 0.3)
 })

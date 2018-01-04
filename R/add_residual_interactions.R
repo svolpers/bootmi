@@ -12,7 +12,7 @@ add_residual_interactions <- function( formula, data) {
   
   # create lmresid by rownames as helper for later merge
   data$lmresid = as.numeric( rownames( data))
- # regress regular model to obtain interaction terms
+  # regress regular model to obtain interaction terms
   model = lm( formula, data=data)
   # extract data used by regression
   dat = model.matrix(model)
@@ -30,18 +30,14 @@ add_residual_interactions <- function( formula, data) {
       # create residual for interaction term
       res = build_residual( dat_col_names[i] , data=data, new_varname=newname)
       # add residuals of interaction term to orginal data set
-      if ( !is.null(res) ) {
-        # insert lmresid to prepare for merging
-        res$lmresid = as.numeric( rownames( res))
-        # merge data sets
-        data = merge( data, res, by="lmresid", all.x=TRUE)
-        # reset rownames after merging
-        rownames(data) = data$lmresid
-      } else {
-        stop("Error creating residual interactions: Unable to calculate!")
-      }
+      if ( is.null(res) )  stop("Error creating residual interactions: Unable to calculate!")
+      # insert lmresid to prepare for merging
+      res$lmresid = as.numeric( rownames( res))
+      # merge data sets
+      data = merge( data, res, by="lmresid", all.x=TRUE)
+      # reset rownames after merging
+      rownames(data) = data$lmresid
     }
-    
   }
 
   #get model terms

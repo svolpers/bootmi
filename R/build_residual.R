@@ -34,6 +34,8 @@ build_residual <- function( variable, data, new_varname) {
   res = data.frame( as.numeric( resid( aReg)), stringsAsFactors = FALSE)
   # rename column
   colnames(res) = c(new_varname)
+  # reset rownames
+  rownames(res) = rownames(model.matrix(aReg))
   # return 
   return(res)
 }

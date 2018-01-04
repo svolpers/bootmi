@@ -86,8 +86,8 @@ simslop.default <- function( object, x_var, m_var, ci=95, mod_values_type=c("sd"
   }
   
   if(mod_values_type == "sd") {
-    value_x_h = mean( object$dat[,x_var])+sd( object$dat[,x_var])
-    value_x_l = mean( object$dat[,x_var])-sd( object$dat[,x_var])
+    value_x_h = mean( object$dat[,x_var]) + sd( object$dat[,x_var])
+    value_x_l = mean( object$dat[,x_var]) - sd( object$dat[,x_var])
   } else {
     value_x_l = quantile( object$dat[,x_var], probs = c(.25))
     value_x_h = quantile( object$dat[,x_var], probs = c(.75))
@@ -99,7 +99,7 @@ simslop.default <- function( object, x_var, m_var, ci=95, mod_values_type=c("sd"
 
   for(i in 1:length( mod_values)) {
     # create values for moderator
-    if( mod_values_type == "sd" && mod_values[i] != 0) {
+    if( mod_values_type == "sd" ) { # && mod_values[i] != 0
       value_m = mean( object$dat[ ,m_var]) + (mod_values[i]) * sd( object$dat[ ,m_var])
     } else {
       value_m = mod_values[i]
@@ -149,7 +149,7 @@ simslop.default <- function( object, x_var, m_var, ci=95, mod_values_type=c("sd"
   names(info) = c( "Y", "X", "M", "XM", "Confidence_Interval", "Type_of_moderator_values", "Values_of_Moderator")
   
   object = list( original=simple_slopes, info=info, plot=plotvalues)
-  class(object) = "simpleslopes"
+  class(object) = "simslop"
   return( object)
 }
 
@@ -263,6 +263,6 @@ simslop.bootmi.lm <- function( object, x_var, m_var, ci=95, mod_values_type = "s
 
 	# create object, name class and return object
 	object = append( si_sl, list(bootstraps=bscoef, data=object$data, formula=object$formula, replics=object$replics) )
-	class(object) = "simpleslopes.bootmi"
+	class(object) = "simslop.bootmi"
 	return( object)
 }

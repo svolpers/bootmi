@@ -4,15 +4,15 @@
 #' CAUTION: 
 #' No more than 30 different values of the moderator allowed. 
 #' I recommend a maximum of six to plot.
-#' @param x An object of type \code{simpleslopes} or 
-#' \code{simpleslopes.bootmi}
+#' @param x An object of type \code{simslop} or 
+#' \code{simslop.bootmi}
 #' @param ... any default arguments
 #' @return \code{NULL}
 #' @name plot
 #' @author Stephan Volpers \email{stephan.volpers@@plixed.de}
 #' @export
 
-plot.simpleslopes <- function( x, ... ) {
+plot.simslop <- function( x, ... ) {
   
   # extract information from slopes object
   mod_vals = round( x$info$Values_of_Moderator, 2)
@@ -50,7 +50,7 @@ plot.simpleslopes <- function( x, ... ) {
 
 #' @rdname plot
 #' @export
-plot.simpleslopes.bootmi <- function( x, ... ) {
-  plot.simpleslopes( x, ...)
+plot.simslop.bootmi <- function( x, ... ) {
+  plot.simslop( x, ...)
 }
 

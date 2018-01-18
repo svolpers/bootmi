@@ -26,8 +26,8 @@ bootmi_ci <- function( boot_object) {
     sim = "ordinary", 
     call = as.call( quote( boot(data = boot_object$data, statistic = bootmi, R = boot_object$replics, formula = boot_object$formula) )), 
     stype = "i", 
-    strata = sapply( (1:sample_size), function(x) 1 ), 
-    weights = sapply( (1:sample_size), function(x) 1/sample_size )
+    strata = sapply( seq(sample_size), function(x) 1 ), 
+    weights = sapply( seq(sample_size), function(x) 1/sample_size )
   )
   return( boot_ci)
 }

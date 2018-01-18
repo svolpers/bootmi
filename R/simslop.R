@@ -93,11 +93,12 @@ simslop.default <- function( object, x_var, m_var, ci=95, mod_values_type=c("sd"
     value_x_h = quantile( object$dat[,x_var], probs = c(.75))
   }
 
-  simple_slopes = list()
-  x = c()
-  y = c()
+  amnt_mod_vals = length(mod_values)
+  simple_slopes = vector("list", amnt_mod_vals)
+  x = vector("numeric", (2*amnt_mod_vals))
+  y = vector("numeric", (2*amnt_mod_vals))
 
-  for(i in 1:length( mod_values)) {
+  for(i in seq( amnt_mod_vals)) {
     # create values for moderator
     if( mod_values_type == "sd" ) { # && mod_values[i] != 0
       value_m = mean( object$dat[ ,m_var]) + (mod_values[i]) * sd( object$dat[ ,m_var])
@@ -138,10 +139,16 @@ simslop.default <- function( object, x_var, m_var, ci=95, mod_values_type=c("sd"
                +object$coeff[[m_var]]*value_m)
 
     # output
-    x <- c(x, value_x_l, value_x_h)
-    y <- c(y, y_l, y_h)
+    x[i] <- value_x_l
+    x[(i+amnt_mod_vals)] <- value_x_h)
+    y[i] <- y_l
+    y[(i+amnt_mod_vals)] <- y_h
   }
-  
+  x_matr = matrix( x, ncol = 2, byrow = FALSE)
+  x = as.vector(t(x_matr))
+  y_matr = matrix( y, ncol = 2, byrow = FALSE)
+  y = as.vector(t(y_matr))
+
   plotvalues = list( x=x, y=y)
 
   # general information for simple slopes test
@@ -250,7 +257,7 @@ simslop.bootmi.lm <- function( object, x_var, m_var, ci=95, mod_values_type = "s
 	bscoef = matrix(0, nrow = object$replics, ncol = length( mod_values))
 
 	# loop through values of the moderator
-	for(i in 1:length( mod_values)) {
+	for(i in seq( length( mod_values))) {
 	# calculate bootstrap coefficients for the moderator
 	bootstrcoeff = ( object$bootstraps[ , si_sl$info$X] 
 	        + object$bootstraps[ , si_sl$info$XM]

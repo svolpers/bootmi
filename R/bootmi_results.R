@@ -23,18 +23,22 @@ bootmi_results <- function( bootmi_object) {
   boot::boot.ci( boot_ci, conf=bootmi_object$ci, type=bootmi_object$ci_type, index=1)
 
   # create empty vector for confidence intervals
-  cis = c()
+  ncoefs = length( bootmi_object$original$coef)
+  cis = 2*vector("numeric", ncoefs)
   # loop through independent variables of the model
-  for(i in 1:length( bootmi_object$original$coef) ) {
+  for(i in seq(ncoefs) ) {
     # use boot function boot.ci to calculate bootstrap confidence intervals
     val = boot::boot.ci( boot_ci, conf=bootmi_object$ci, type=bootmi_object$ci_type, index=i)[[bootmi_object$ci_type]]
-    if(bootmi_object$ci_type == "norm")
-      cis = c( cis, val[2], val[3])
-    else
-      cis = c( cis, val[4], val[5])
+    if(bootmi_object$ci_type == "norm") {
+      cis[i] = val[2]
+      cis[(i+ncoefs)] = val[3]
+    } else {
+      cis[i] = val[4]
+      cis[(i+ncoefs)] = val[5]
+    }
   }
   # add CI to output matrix
-  output = cbind( output, matrix( cis, ncol = 2, byrow = TRUE))
+  output = cbind( output, matrix( cis, ncol = 2, byrow = FALSE))
   # round output
   output = apply(output, c(1,2), function(x) round(x , digits = 4))
   # name cols and rows

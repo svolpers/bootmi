@@ -15,7 +15,6 @@ summary.simslop <- function( object, ... ) {
   cat("coefficients at values of the moderator:\n")
   matr = t( sapply( object$original, function(x) { return( round(x, 4)) }))
   rownames(matr) = as.numeric( matr[,1])
-  # print( matr[, c(-1,-2)])
   print( matr[, c(-1)])
   cat( "\n", ( object$info$Confidence_Interval*100 ), "% Confidence Intervals\nLLCI = Lower Level Confidence Interval / ULCI = Upper Level Confidence Interval\n",
     sep = "")

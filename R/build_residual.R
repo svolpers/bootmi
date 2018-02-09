@@ -10,8 +10,10 @@
 #' @export
 
 build_residual <- function( variable, data, new_varname) {
+  # split interaction term to variables
+  split_variable = strsplit( variable, ':')[[1]]
   # get number of terms depending on interation 
-  nterms = length( strsplit( variable, ':')[[1]])
+  nterms = length( split_variable)
   # if no interaction return NULL
   if( nterms == 1) return(NULL)
   # build dependent varname = Interaction term
@@ -24,6 +26,10 @@ build_residual <- function( variable, data, new_varname) {
   reg_form = as.formula( paste0(y,"~",xs))
   # extract variable names from formula
   rcterms = attr( terms(reg_form), "term.labels")
+  # has moderated quadratic effect?
+  quadr_effect = split_variable[duplicated( split_variable)]
+  # add quadratic effect to terms, which is ommitted during formula creation
+  if( nterms == 3 & length(quadr_effect) == 1 ) rcterms = c(rcterms, paste0( quadr_effect, ":", quadr_effect))
   # replace interactions with residual term already used
   rcterms = gsub( ":", ".RX.", rcterms, fixed=TRUE)
   # create final formula

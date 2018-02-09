@@ -140,7 +140,7 @@ simslop.default <- function( object, x_var, m_var, ci=95, mod_values_type=c("sd"
 
     # output
     x[i] <- value_x_l
-    x[(i+amnt_mod_vals)] <- value_x_h)
+    x[(i+amnt_mod_vals)] <- value_x_h
     y[i] <- y_l
     y[(i+amnt_mod_vals)] <- y_h
   }

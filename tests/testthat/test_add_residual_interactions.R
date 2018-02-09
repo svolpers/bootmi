@@ -2,7 +2,7 @@ context("Add Residual Interactions")
 
 # create data
 set.seed(1)
-dat = as.data.frame( matrix( rnorm(80, mean = 4, sd = 2), ncol = 4, byrow = FALSE))
+dat = as.data.frame( matrix( rnorm( 80, mean = 4, sd = 2), ncol = 4, byrow = FALSE))
 colnames(dat) = c("X","M1","M2","Y")
 dat[11,2] = NA; dat[3,3] = NA
 

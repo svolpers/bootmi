@@ -20,7 +20,12 @@ centering <- function( data_set, centered_vars) {
 	# convert data_set to data frame
 	data_set = as.data.frame( data_set)
 	# center moderators and save as data.frame
-	y = data.frame( scale( data_set[ , centered_vars], center= TRUE, scale= FALSE))
+	y = data.frame( scale( 
+		data_set[ , centered_vars]
+		, center= TRUE
+		, scale= FALSE)
+	)
+
 	# create merge variable
 	y$rownames = as.numeric( row.names(y))
 	data_set$rownames = as.numeric( row.names(data_set))

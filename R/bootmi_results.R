@@ -1,9 +1,9 @@
 #' @title creates output table for bootmi.lm
 #' @description
 #' This is a helper function of \code{\link{summary.bootmi.lm}} and 
-#' \code{\link{summary.simpleslopes.bootmi}} that creates output 
+#' \code{\link{summary.simslop.bootmi}} that creates output 
 #' of the analyses.
-#' @param bootmi_object object of class "simpleslopes.bootmi" or 
+#' @param bootmi_object object of class "simslop.bootmi" or 
 #' "bootmi.lm"
 #' @author Stephan Volpers \email{stephan.volpers@@plixed.de}
 #' @export

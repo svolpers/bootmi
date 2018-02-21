@@ -7,12 +7,12 @@
 bootmi_results(bootmi_object)
 }
 \arguments{
-\item{bootmi_object}{object of class "simpleslopes.bootmi" or 
+\item{bootmi_object}{object of class "simslop.bootmi" or 
 "bootmi.lm"}
 }
 \description{
 This is a helper function of \code{\link{summary.bootmi.lm}} and 
-\code{\link{summary.simpleslopes.bootmi}} that creates output 
+\code{\link{summary.simslop.bootmi}} that creates output 
 of the analyses.
 }
 \author{

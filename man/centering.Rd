@@ -4,7 +4,7 @@
 \alias{centering}
 \title{centers selected variables}
 \usage{
-centering(data_set, centered_vars)
+centering(data_set, centered_vars = "all")
 }
 \arguments{
 \item{data_set}{a data.frame}

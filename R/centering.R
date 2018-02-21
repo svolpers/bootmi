@@ -10,21 +10,26 @@
 #' @references \href{http://processmacro.org/faq.html}{Process}
 #' @export
 
-centering <- function( data_set, centered_vars) {
-
-	if( length( centered_vars) == 1) {
-		if( centered_vars == "all" ) {
-			centered_vars = colnames( data_set)
-		}
+centering <- function( data_set, centered_vars= "all") {
+	# return data_set id no variables should be centered
+	if( length( centered_vars) < 1 ) {
+		return( data_set)
 	}
+	# if "all" => center all variables
+	if( length( centered_vars) == 1 && centered_vars == "all" ) {
+		centered_vars = colnames( data_set)
+	}
+
 	# convert data_set to data frame
 	data_set = as.data.frame( data_set)
 	# center moderators and save as data.frame
-	y = data.frame( scale( 
+	y = as.data.frame( scale( 
 		data_set[ , centered_vars]
 		, center= TRUE
 		, scale= FALSE)
 	)
+	# rename columns
+	colnames(y) = centered_vars
 
 	# create merge variable
 	y$rownames = as.numeric( row.names(y))

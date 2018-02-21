@@ -4,7 +4,8 @@
 \alias{resimpcen}
 \title{adds residual interactions, imputes and centers}
 \usage{
-resimpcen(frmla, data, res_int, imputation, center_mods, bootstraps = FALSE)
+resimpcen(frmla, data, res_int = TRUE, imputation, center_mods = FALSE,
+  bootstraps = FALSE)
 }
 \arguments{
 \item{frmla}{A regression formula}

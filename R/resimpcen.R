@@ -22,7 +22,7 @@
 #' @import mice
 #' @export
 
-resimpcen <- function( frmla, data, res_int, imputation, center_mods, bootstraps=FALSE) {
+resimpcen <- function( frmla, data, res_int= TRUE, imputation, center_mods= FALSE, bootstraps= FALSE) {
 
   # create residual interactions AFTER bootstrapping, because...
   # ...residuals depend on regression results of each sample

@@ -28,13 +28,13 @@ print.bootmi <- function( x, ... ) {
 }
 
 
-#' @title Prints a \code{simpleslopes.bootmi} object
+#' @title Prints a \code{simslop.bootmi} object
 #' @description
-#' Prints a \code{simpleslopes.bootmi} object
+#' Prints a \code{simslop.bootmi} object
 #' @rdname print
 #' @export
 
-print.simpleslopes.bootmi <- function( x, ... ) {
+print.simslop.bootmi <- function( x, ... ) {
   cat("$original\n"); 
   print(x$original)
   cat("$info\n"); 
@@ -81,13 +81,13 @@ print.regosi <- function( x, ... ) {
   print(x$x_var)
 }
 
-#' @title Prints a \code{simpleslopes} object
+#' @title Prints a \code{simslop} object
 #' @description
-#' Prints a \code{simpleslopes} object
+#' Prints a \code{simslop} object
 #' @rdname print
 #' @export
 #' 
-print.simpleslopes <- function( x, ... ) {
+print.simslop <- function( x, ... ) {
   cat("$original\n"); 
   print(x$original)
   cat("$info\n"); 

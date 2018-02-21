@@ -2,21 +2,21 @@
 % Please edit documentation in R/print.bootmi.R
 \name{print.bootmi}
 \alias{print.bootmi}
-\alias{print.simpleslopes.bootmi}
+\alias{print.simslop.bootmi}
 \alias{print.bootmi.lm}
 \alias{print.regosi}
-\alias{print.simpleslopes}
+\alias{print.simslop}
 \title{Prints a \code{bootmi} object}
 \usage{
 \method{print}{bootmi}(x, ...)
 
-\method{print}{simpleslopes.bootmi}(x, ...)
+\method{print}{simslop.bootmi}(x, ...)
 
 \method{print}{bootmi.lm}(x, ...)
 
 \method{print}{regosi}(x, ...)
 
-\method{print}{simpleslopes}(x, ...)
+\method{print}{simslop}(x, ...)
 }
 \arguments{
 \item{x}{A \code{bootmi} object}
@@ -29,13 +29,13 @@
 \description{
 Prints a \code{bootmi} object
 
-Prints a \code{simpleslopes.bootmi} object
+Prints a \code{simslop.bootmi} object
 
 Prints a \code{bootmi.lm} object
 
 Prints a \code{regosi} object
 
-Prints a \code{simpleslopes} object
+Prints a \code{simslop} object
 }
 \author{
 Stephan Volpers \email{stephan.volpers@plixed.de}

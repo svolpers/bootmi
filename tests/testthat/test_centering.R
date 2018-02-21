@@ -1,4 +1,4 @@
-context("Centering")
+context("centering")
 
 # create data
 dat = as.data.frame( matrix( c(2.17,1.67,2.5,5.5,2.67,5.5,6,6.67,6,NA,1,6.2,6.2,4,6.2,5,5.5,3.75,6.25,5.5), ncol = 4, byrow = FALSE))

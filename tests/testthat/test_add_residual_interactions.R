@@ -1,4 +1,4 @@
-context("Add Residual Interactions")
+context("add_residual_interactions")
 
 # create data
 set.seed(1)

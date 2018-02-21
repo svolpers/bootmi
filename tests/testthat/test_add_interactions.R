@@ -1,4 +1,4 @@
-context("Add Interactions")
+context("add_interactions")
 
 # create formula 
 # create data

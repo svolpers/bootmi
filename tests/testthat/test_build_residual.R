@@ -1,4 +1,4 @@
-context("Build Residual")
+context("build_residual")
 
 # create data
 set.seed(1)

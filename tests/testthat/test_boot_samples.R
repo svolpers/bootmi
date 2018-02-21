@@ -1,4 +1,4 @@
-context("Bootstrap samples")
+context("boot_samples")
 
 # create data
 data = as.data.frame( matrix( 40:79, nrow = 10))

@@ -27,13 +27,13 @@
 #' @author Stephan Volpers \email{stephan.volpers@@plixed.de}
 #' @import stats
 #' @export
-bootmi <- function( formula, data, R, impute=c("none","norm.predict","pmm","mean"), center_mods=FALSE, seed=FALSE, parallel=FALSE, resint=FALSE) {
+bootmi <- function( formula, data, R= 5000, impute=c("none","norm.predict","pmm","mean"), resint=FALSE, center_mods=FALSE, seed=FALSE, parallel=FALSE ) {
     UseMethod("bootmi")
 }
 
 #' @rdname bootmi
 #' @export
-bootmi.default <- function( formula, data, R, impute=c("none","norm.predict","pmm","mean"), center_mods=FALSE, seed=FALSE, parallel=FALSE, resint=FALSE ) {
+bootmi.default <- function( formula, data, R= 5000, impute=c("none","norm.predict","pmm","mean"), resint=FALSE, center_mods=FALSE, seed=FALSE, parallel=FALSE ) {
 
 	# integrity checks
 	impute = match.arg( impute)
@@ -51,10 +51,16 @@ bootmi.default <- function( formula, data, R, impute=c("none","norm.predict","pm
 	# Create bootstrap samples
 	bootstraps = boot_samples(data, R)
 
-	# Create residual interactions and impute data
-	if( impute != "none" || center_mods != FALSE ) {
+	# do imputation of interactions 	
+	if( 
+		# check if interactions exist
+		( length( grep( ":|\\*", attr( terms( as.formula(formula)), "term.labels"))) > 0 )
+		# or user specifications match 
+		| impute != "none" | resint != FALSE | center_mods != FALSE
+	) {
 		# residual interactions and imputation on original data
 		res = resimpcen(frmla=formula, data=data, res_int=resint, imputation=impute, center_mods=center_mods, bootstraps=FALSE)
+		
 		# get number of cores for parallelization
 		no_cores = parallel::detectCores() - 1
 		# residual interactions and imputation on bootstraps
@@ -85,7 +91,14 @@ bootmi.default <- function( formula, data, R, impute=c("none","norm.predict","pm
 			})
 		}
 		# correct data and formula with actual values after creating residual interactions 
-		formula = res$formula
+		# if intercept ommitted
+		if( grepl( "-1", formula) ) {
+			# add ommit
+			f = sub( "~", "~ -1 +", res$formula)
+			formula = as.formula( paste( f[[2]], f[[1]], f[[3]]))
+		} else {
+			formula = res$formula
+		}
 		data = res$data
 	}
 	# if residual interaction terms, they are more or less mean centered

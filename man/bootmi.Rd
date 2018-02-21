@@ -6,12 +6,13 @@
 \alias{bootmi.default}
 \title{\pkg{bootmi}: BOOTstrap Multiple Imputed (survey) data}
 \usage{
-bootmi(formula, data, R, impute = c("none", "norm.predict", "pmm", "mean"),
-  center_mods = FALSE, seed = FALSE, parallel = FALSE, resint = FALSE)
+bootmi(formula, data, R = 5000, impute = c("none", "norm.predict", "pmm",
+  "mean"), resint = FALSE, center_mods = FALSE, seed = FALSE,
+  parallel = FALSE)
 
-\method{bootmi}{default}(formula, data, R, impute = c("none", "norm.predict",
-  "pmm", "mean"), center_mods = FALSE, seed = FALSE, parallel = FALSE,
-  resint = FALSE)
+\method{bootmi}{default}(formula, data, R = 5000, impute = c("none",
+  "norm.predict", "pmm", "mean"), resint = FALSE, center_mods = FALSE,
+  seed = FALSE, parallel = FALSE)
 }
 \arguments{
 \item{formula}{A regression formula}
@@ -24,13 +25,13 @@ bootmi(formula, data, R, impute = c("none", "norm.predict", "pmm", "mean"),
 "none", "norm.predict", "pmm", "mean" ;
 More Details? See \code{\link[mice]{mice}}}
 
+\item{resint}{TRUE or FALSE}
+
 \item{center_mods}{TRUE or FALSE}
 
 \item{seed}{Value for set.seed, default = FALSE}
 
 \item{parallel}{TRUE or FALSE}
-
-\item{resint}{TRUE or FALSE}
 }
 \value{
 object of class "bootmi" including

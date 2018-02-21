@@ -28,19 +28,24 @@ lm.bootmi <- function( bootmi, ...) {
   }
   
   # convert formula to string for regression
-  frml = as.character( bootmi$formula)
+  dep_var = as.character( bootmi$formula)[[2]]
   # extract values of the dependent variable and save in matrix
-  val_dep_var = matrix( bootmi$data[[frml[[2]]]], ncol = 1)
+  val_dep_var = matrix( bootmi$data[[dep_var]], ncol = 1)
   rownames(val_dep_var) = rownames(bootmi$data)
-  colnames(val_dep_var) = frml[[2]]
-  # create formula
-  frml = paste0( frml[[2]], frml[[1]], frml[[3]])
+  colnames(val_dep_var) = dep_var
 
   # regress model on original data
-  lm_org = lm( frml, bootmi$data, ...)
+  lm_org = lm( bootmi$formula, bootmi$data, ...)
   # create final data used in the model
-  bootmi$data = merge( as.data.frame( model.matrix( lm_org)), as.data.frame( val_dep_var), by=0, all.x = TRUE)
+  bootmi$data = merge( 
+    as.data.frame( model.matrix( lm_org))
+    , as.data.frame( val_dep_var)
+    , by=0
+    , all.x = TRUE
+    )
   rownames( bootmi$data) = as.numeric( bootmi$data[["Row.names"]])
+  # remove Row.names and (Intercept)
+  bootmi$data = bootmi$data[grep( "Row.names|\\(Intercept\\)", colnames(bootmi$data), value= TRUE, invert= TRUE)]
 
   # regress model on bootstrap samples
   no_cores <- parallel::detectCores() - 1
@@ -48,19 +53,27 @@ lm.bootmi <- function( bootmi, ...) {
     # Initiate cluster
     cl <- parallel::makeCluster(no_cores)
     # Export objects to clusters
-    parallel::clusterExport(cl=cl, varlist=c("frml"), envir=environment())
+    parallel::clusterExport(cl=cl, varlist=c("bootmi$formula"), envir=environment())
     # regression
-    boot_lm <- parallel::parLapply(cl, bootmi$bootstraps, function(x) lm( frml, x, ...)$coef )
+    boot_lm <- parallel::parLapply(cl, bootmi$bootstraps, function(x) lm( bootmi$formula, x, ...)$coef )
     # stop parallel
     parallel::stopCluster(cl)
   } else {
-    boot_lm <- lapply( bootmi$bootstraps, function(x) lm( frml, x, ...)$coef )
+    boot_lm <- lapply( bootmi$bootstraps, function(x) lm( bootmi$formula, x, ...)$coef )
   }
   # from list to table
   bootstrap_coeff = do.call( rbind, boot_lm)
 
   # save results into list
-  object = list( formula=bootmi$formula, original=lm_org, bootstraps=bootstrap_coeff, data=bootmi$data[,c(-1,-2)], replics=bootmi$replics, center_mods=bootmi$center_mods, seed=bootmi$seed)
+  object = list( 
+    formula=bootmi$formula
+    , original=lm_org
+    , bootstraps=bootstrap_coeff
+    , data=bootmi$data
+    , replics=bootmi$replics
+    , center_mods=bootmi$center_mods
+    , seed=bootmi$seed
+    )
   # class(object) = "bootmi.lm"
   oldClass(object) <- c("bootmi.lm", "lm")
   return(object)
@@ -97,19 +110,19 @@ glm.bootmi <- function( bootmi, family= gaussian, ...) {
   }
   
   # convert formula to string for regression
-  frml = as.character( bootmi$formula)
+  dep_var = as.character( bootmi$formula)[[2]]
   # extract values of the dependent variable and save in matrix
-  val_dep_var = matrix( bootmi$data[[frml[[2]]]], ncol = 1)
+  val_dep_var = matrix( bootmi$data[[dep_var]], ncol = 1)
   rownames(val_dep_var) = rownames(bootmi$data)
-  colnames(val_dep_var) = frml[[2]]
-  # create formula
-  frml = paste0( frml[[2]], frml[[1]], frml[[3]])
+  colnames(val_dep_var) = dep_var
 
   # regress model on original data
-  lm_org = glm( frml, family, bootmi$data, ...)
+  lm_org = glm( bootmi$formula, family, bootmi$data, ...)
   # create final data used in the model
   bootmi$data = merge( as.data.frame( model.matrix( lm_org)), as.data.frame( val_dep_var), by=0, all.x = TRUE)
   rownames( bootmi$data) = as.numeric( bootmi$data[["Row.names"]])
+  # remove Row.names and (Intercept)
+  bootmi$data = bootmi$data[grep( "Row.names|\\(Intercept\\)", colnames(bootmi$data), value= TRUE, invert= TRUE)]
 
   # regress model on bootstrap samples
   no_cores <- parallel::detectCores() - 1
@@ -117,19 +130,27 @@ glm.bootmi <- function( bootmi, family= gaussian, ...) {
     # Initiate cluster
     cl <- parallel::makeCluster(no_cores)
     # Export objects to clusters
-    parallel::clusterExport(cl=cl, varlist=c("frml"), envir=environment())
+    parallel::clusterExport(cl=cl, varlist=c("bootmi$formula"), envir=environment())
     # regression
-    boot_lm <- parallel::parLapply(cl, bootmi$bootstraps, function(x) glm( frml, family, x, ... )$coef )
+    boot_glm <- parallel::parLapply(cl, bootmi$bootstraps, function(x) glm( bootmi$formula, family, x, ... )$coef )
     # stop parallel
     parallel::stopCluster(cl)
   } else {
-    boot_lm <- lapply( bootmi$bootstraps, function(x) glm( frml, family, x, ... )$coef )
+    boot_glm <- lapply( bootmi$bootstraps, function(x) glm( bootmi$formula, family, x, ... )$coef )
   }
   # from list to table
-  bootstrap_coeff = do.call( rbind, boot_lm)
+  bootstrap_coeff = do.call( rbind, boot_glm)
 
   # save results into list
-  object = list( formula=bootmi$formula, original=lm_org, bootstraps=bootstrap_coeff, data=bootmi$data[,c(-1,-2)], replics=bootmi$replics, center_mods=bootmi$center_mods, seed=bootmi$seed)
+  object = list( 
+    formula=bootmi$formula
+    , original=lm_org
+    , bootstraps=bootstrap_coeff
+    , data=bootmi$data
+    , replics=bootmi$replics
+    , center_mods=bootmi$center_mods
+    , seed=bootmi$seed
+    )
   # class(object) = "bootmi.lm"
   oldClass(object) <- c("bootmi.lm", "glm", "lm")
   return(object)

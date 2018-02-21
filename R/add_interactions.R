@@ -20,9 +20,11 @@ add_interactions <- function( formula, data) {
   # remove intercept
   if ( colnames(dat)[1] == "(Intercept)" ) dat = dat[ , -1] 
   # prepare identification of interaction terms
-  ivs = gsub( ":", ".XX.", colnames(dat), fixed=TRUE)
-  #get model terms
-  modelt = terms(model)
+  # ivs = gsub( ":|\\*", ".XX.", colnames(dat))
+  ivs = gsub( "(?:I\\()?(\\w*)\\s*(?:\\*|:)\\s*(\\w*)(?:\\))?"
+    , "\\1.XX.\\2"
+    , colnames(dat)
+  )
 
   # iterate through variable list and build interaction terms
   for (i in seq_along(ivs)) {
@@ -42,7 +44,7 @@ add_interactions <- function( formula, data) {
   }
 
   #save dependent var as character
-  depvar = as.character( modelt[[2L]])
+  depvar = as.character( terms(model)[[2L]])
   #create formula for independent vars
   frmla = paste0( ivs, collapse = "+")
   #create whole formula

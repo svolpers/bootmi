@@ -19,16 +19,21 @@ add_residual_interactions <- function( formula, data) {
   # remove intercept
   if ( colnames(dat)[1] == "(Intercept)" ) dat = dat[, -1] 
   # prepare identification of interaction terms
-  dat_col_names = colnames(dat)
-  
-  # iterate through variable list and build residual interactions
-  for (i in seq_along(dat_col_names)) {
+  ivs = gsub( "(?:I\\()?(\\w*)\\s*(?:\\*|:)\\s*(\\w*)(?:\\))?"
+    , "\\1.RX.\\2"
+    , colnames(dat)
+  )
+
+  # iterate through variable list and build interaction terms
+  for (i in seq_along(ivs)) {
     # check if variable is interaction term
-    if( grepl(":", dat_col_names[i], fixed=TRUE ) ) {
-      #create varname for interaction term
-      newname = gsub(":", ".RX.", dat_col_names[i], fixed=TRUE)
+    if( grepl(".RX.", ivs[i], fixed=TRUE )) {
       # create residual for interaction term
-      res = build_residual( dat_col_names[i] , data=data, new_varname=newname)
+      res = build_residual( 
+        variable= gsub( ".RX.", ":", ivs[i])
+        , data= data
+        , new_varname= ivs[i]
+        )
       # add residuals of interaction term to orginal data set
       if ( is.null(res) )  stop("Error creating residual interactions: Unable to calculate!")
       # insert lmresid_merge_temp_var to prepare for merging
@@ -40,12 +45,8 @@ add_residual_interactions <- function( formula, data) {
     }
   }
 
-  #get model terms
-  modelt = terms(model)
-  ivs = gsub( ":", ".RX.", dat_col_names, fixed=TRUE)
   #save dependent var as character
-  depvar = as.character( modelt[[2L]])
-  
+  depvar = as.character( terms(model)[[2L]])
   #create formula for independent vars
   frmla = paste0( ivs, collapse = "+")
   #create whole formula
@@ -55,5 +56,6 @@ add_residual_interactions <- function( formula, data) {
   final_data = data[c(ivs,depvar)]
 
   # return dataframe and new regression formula
-  return( list( data=final_data, formula=frmla))
+  return( list( data=final_data, formula=frmla) )
+
 }

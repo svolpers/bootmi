@@ -34,12 +34,12 @@ summary.bootmi.lm <- function( object, ci_type = c("basic", "norm", "stud", "per
   cat("BLLCI = Bootstrap Lower Level Confidence Interval / BULCI = Bootstrap Upper Level Confidence Interval\n")
 }
 
-#' @title Summary of a \code{simpleslopes.bootmi} object
+#' @title Summary of a \code{simslop.bootmi} object
 #' @description
-#' Summary of a \code{simpleslopes.bootmi} object
+#' Summary of a \code{simslop.bootmi} object
 #' @rdname summary
 #' @export
-summary.simpleslopes.bootmi <- function( object, ci_type = c("basic", "norm", "stud", "perc", "bca", "all"), ci = 95, ... ) {
+summary.simslop.bootmi <- function( object, ci_type = c("basic", "norm", "stud", "perc", "bca", "all"), ci = 95, ... ) {
   
   # set confidence interval value
   ci = as.integer(ci)

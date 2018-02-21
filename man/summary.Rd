@@ -2,14 +2,14 @@
 % Please edit documentation in R/summary.bootmi.lm.R
 \name{summary.bootmi.lm}
 \alias{summary.bootmi.lm}
-\alias{summary.simpleslopes.bootmi}
+\alias{summary.simslop.bootmi}
 \title{Summary of a \code{bootmi.lm} object}
 \usage{
 \method{summary}{bootmi.lm}(object, ci_type = c("basic", "norm", "stud",
   "perc", "bca", "all"), ci = 95, ...)
 
-\method{summary}{simpleslopes.bootmi}(object, ci_type = c("basic", "norm",
-  "stud", "perc", "bca", "all"), ci = 95, ...)
+\method{summary}{simslop.bootmi}(object, ci_type = c("basic", "norm", "stud",
+  "perc", "bca", "all"), ci = 95, ...)
 }
 \arguments{
 \item{object}{A \code{bootmi.lm} object}
@@ -27,7 +27,7 @@
 \description{
 Summary of a \code{bootmi.lm} object
 
-Summary of a \code{simpleslopes.bootmi} object
+Summary of a \code{simslop.bootmi} object
 }
 \author{
 Stephan Volpers \email{stephan.volpers@plixed.de}

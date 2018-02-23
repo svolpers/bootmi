@@ -152,7 +152,7 @@ simslop.default <- function( object, x_var, m_var, ci=95, mod_values_type=c("sd"
   plotvalues = list( x=x, y=y)
 
   # general information for simple slopes test
-  info = list( object$y_var, x_var, m_var, xm_var, user_ci, mod_values_type, mod_values)
+  info = list( object$y_var, x_var, m_var, xm_var, ci, mod_values_type, mod_values)
   names(info) = c( "Y", "X", "M", "XM", "Confidence_Interval", "Type_of_moderator_values", "Values_of_Moderator")
   
   object = list( original=simple_slopes, info=info, plot=plotvalues)
@@ -239,7 +239,7 @@ simslop.bootmi.lm <- function( object, x_var, m_var, ci=95, mod_values_type = "s
   obj = list( coeff= coeff, y_var= y_var, cov_matrix= cov_matrix, dat= object$data)
 
 	# calculate simple solpes for original data set
-	si_sl = simslop.default( object=obj, x_var=x_var, m_var=m_var, mod_values_type=mod_values_type, mod_values=mod_values, centered=object$center_mods)
+	si_sl = simslop.default( object=obj, x_var=x_var, m_var=m_var, ci= ci, mod_values_type=mod_values_type, mod_values=mod_values, centered=centered )
 
 	# extract coefficients for later use of boot.ci helper functions
   # extract moderator and slope values
@@ -249,7 +249,7 @@ simslop.bootmi.lm <- function( object, x_var, m_var, ci=95, mod_values_type = "s
   # save slope values
   coeff = vals[2,]
   # name slope values with moderator values
-  names(coeff) = (vals[1,])
+  names(coeff) = signif( (vals[1,]), 4)
   # append to simple slopes output
   si_sl$original = list( slopes=si_sl$original, coef=coeff )
 
@@ -266,7 +266,7 @@ simslop.bootmi.lm <- function( object, x_var, m_var, ci=95, mod_values_type = "s
 	bscoef[ ,i] = bootstrcoeff
 	}
 	# name cols of matrix
-	colnames(bscoef) = mod_values
+	colnames(bscoef) = names(coeff)
 
 	# create object, name class and return object
 	object = append( si_sl, list(bootstraps=bscoef, data=object$data, formula=object$formula, replics=object$replics) )

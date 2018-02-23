@@ -11,7 +11,7 @@
 #' @author Stephan Volpers \email{stephan.volpers@@plixed.de}
 #' @export
 
-summary.bootmi.lm <- function( object, ci_type = c("basic", "norm", "stud", "perc", "bca", "all"), ci = 95, ... ) {
+summary.bootmi.lm <- function( object, ci_type = c("basic", "norm", "perc", "bca"), ci = 95, ... ) {
   # set confidence interval value
   ci = as.integer(ci)
   if(!(ci > 0 && ci < 100)) {

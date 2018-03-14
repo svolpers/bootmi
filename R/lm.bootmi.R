@@ -53,7 +53,7 @@ lm.bootmi <- function( bootmi, ...) {
     # Initiate cluster
     cl <- parallel::makeCluster(no_cores)
     # Export objects to clusters
-    parallel::clusterExport(cl=cl, varlist=c("bootmi$formula"), envir=environment())
+    parallel::clusterExport(cl=cl, varlist=c("bootmi"), envir=environment())
     # regression
     boot_lm <- parallel::parLapply(cl, bootmi$bootstraps, function(x) lm( bootmi$formula, x, ...)$coef )
     # stop parallel

@@ -52,10 +52,12 @@ lm.bootmi <- function( bootmi, ...) {
   if( (bootmi$parallel == TRUE) && (no_cores > 1) ) {
     # Initiate cluster
     cl <- parallel::makeCluster(no_cores)
+    bootstraps = bootmi$bootstraps
+    formla = bootmi$formula
     # Export objects to clusters
-    parallel::clusterExport(cl=cl, varlist=c("bootmi"), envir=environment())
+    parallel::clusterExport(cl=cl, varlist=c("bootstraps","formla"), envir=environment())
     # regression
-    boot_lm <- parallel::parLapply(cl, bootmi$bootstraps, function(x) lm( bootmi$formula, x, ...)$coef )
+    boot_lm <- parallel::parLapply(cl, bootstraps, function(x) lm( formla, x, ...)$coef )
     # stop parallel
     parallel::stopCluster(cl)
   } else {
@@ -129,10 +131,13 @@ glm.bootmi <- function( bootmi, family= gaussian, ...) {
   if( (bootmi$parallel == TRUE) && (no_cores > 1) ) {
     # Initiate cluster
     cl <- parallel::makeCluster(no_cores)
+    # prepare export 
+    bootstraps = bootmi$bootstraps
+    formla = bootmi$formula
     # Export objects to clusters
-    parallel::clusterExport(cl=cl, varlist=c("bootmi$formula"), envir=environment())
+    parallel::clusterExport(cl=cl, varlist=c("bootstraps","formla","family"), envir=environment())
     # regression
-    boot_glm <- parallel::parLapply(cl, bootmi$bootstraps, function(x) glm( bootmi$formula, family, x, ... )$coef )
+    boot_glm <- parallel::parLapply(cl, bootstraps, function(x) glm( formla, family, x, ... )$coef )
     # stop parallel
     parallel::stopCluster(cl)
   } else {

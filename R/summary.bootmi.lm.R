@@ -28,10 +28,14 @@ summary.bootmi.lm <- function( object, ci_type = c("basic", "norm", "perc", "bca
   frml = as.character( object$formula)
   frml = paste0( frml[[2]], frml[[1]], frml[[3]])
   summary_model$call = paste("lm(formula=", frml, ", data= bootmi$data")
+  # prepare return
+  object = list( coefs= summary_model$coefficients, ci= ci, ci_type = object$ci_type )
   # print summary with additional information
   print( summary_model)
   cat((object$ci*100), "% ", object$ci_type, " bootstrapped confidence intervals calculated with ", object$replics," bootstrap samples.\n", sep = "")
   cat("BLLCI = Bootstrap Lower Level Confidence Interval / BULCI = Bootstrap Upper Level Confidence Interval\n")
+  # return results
+  return( object)
 }
 
 #' @title Summary of a \code{simslop.bootmi} object

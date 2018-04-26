@@ -92,7 +92,7 @@ bootmi.default <- function( formula, data, R= 5000, impute=c("none","norm.predic
 		}
 		# correct data and formula with actual values after creating residual interactions 
 		# if intercept ommitted
-		if( grepl( "-1", formula) ) {
+		if( TRUE %in% grepl( "-1", formula) ) {
 			# add ommit
 			f = sub( "~", "~ -1 +", res$formula)
 			formula = as.formula( paste( f[[2]], f[[1]], f[[3]]))

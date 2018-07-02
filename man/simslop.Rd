@@ -40,6 +40,8 @@ simslop(object, x_var, m_var, m2_var = NULL, ci = 95,
 
 \item{m_var}{Name of the moderating variable}
 
+\item{m2_var}{Name of optional 2nd moderating variable}
+
 \item{ci}{Confidence interval, default 95}
 
 \item{mod_values_type}{Either sd (=standard deviation, default) or 
@@ -48,6 +50,8 @@ val (=values of data used)}
 \item{mod_values}{Vector of values of the moderator, default c(-1,0,1)}
 
 \item{centered}{Interaction coefficent mean centered? TRUE or FALSE}
+
+\item{dat_org}{optional original data set used for mira objects, default NULL}
 }
 \value{
 object of class "simpleslopes"

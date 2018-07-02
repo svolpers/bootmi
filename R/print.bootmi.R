@@ -88,10 +88,8 @@ print.regosi <- function( x, ... ) {
 #' @export
 #' 
 print.simslop <- function( x, ... ) {
-  cat("$original\n"); 
-  print(x$original)
+  cat("$simple_slopes\n"); 
+  print(x$simple_slopes)
   cat("$info\n"); 
   print(x$info)
-  cat("$plot\n"); 
-  print(x$plot)
 }

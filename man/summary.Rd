@@ -5,8 +5,8 @@
 \alias{summary.simslop.bootmi}
 \title{Summary of a \code{bootmi.lm} object}
 \usage{
-\method{summary}{bootmi.lm}(object, ci_type = c("basic", "norm", "stud",
-  "perc", "bca", "all"), ci = 95, ...)
+\method{summary}{bootmi.lm}(object, ci_type = c("basic", "norm", "perc",
+  "bca"), ci = 95, ...)
 
 \method{summary}{simslop.bootmi}(object, ci_type = c("basic", "norm", "stud",
   "perc", "bca", "all"), ci = 95, ...)

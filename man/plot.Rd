@@ -22,7 +22,7 @@
 \description{
 Opens a new graphical window and plots simple slopes. 
 CAUTION: 
-No more than 30 different values of the moderator allowed. 
+No more than 10 different values of the moderator allowed. 
 I recommend a maximum of six to plot.
 }
 \author{

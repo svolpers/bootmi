@@ -10,7 +10,7 @@
 bootmi_ci <- function( boot_object) {
 
   if( (class(boot_object) != "simpleslopes.bootmi") && 
-    (class(boot_object) != "bootmi.lm")
+    (class(boot_object) != "bootmilm")
   ) { 
     stop("Object of class bootmi.lm or simpleslopes.bootmi required.")
   }

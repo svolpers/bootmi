@@ -12,7 +12,7 @@ bootmi_ci <- function( boot_object) {
   if( (class(boot_object) != "simpleslopes.bootmi") && 
     (class(boot_object) != "bootmilm")
   ) { 
-    stop("Object of class bootmi.lm or simpleslopes.bootmi required.")
+    stop("Object of class bootmilm or simpleslopes.bootmi required.")
   }
   sample_size = nrow( boot_object$data)
   set.seed( boot_object$seed)

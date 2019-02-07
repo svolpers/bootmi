@@ -32,10 +32,10 @@ summary.bootmilm <- function( object, ci_type = c("basic", "norm", "perc", "bca"
   object = list( coefs= summary_model$coefficients, ci= ci, ci_type = object$ci_type )
   # print summary with additional information
   print( summary_model)
-  cat((object$ci*100), "% ", object$ci_type, " bootstrapped confidence intervals calculated with ", object$replics," bootstrap samples.\n", sep = "")
+  cat((object$ci), "% ", object$ci_type, " bootstrapped confidence intervals calculated with ", object$replics," bootstrap samples.\n", sep = "")
   cat("BLLCI = Bootstrap Lower Level Confidence Interval / BULCI = Bootstrap Upper Level Confidence Interval\n")
   # return results
-  return( object)
+  # return( object)
 }
 
 #' @title Summary of a \code{simslop.bootmi} object

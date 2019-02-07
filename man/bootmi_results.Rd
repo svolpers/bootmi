@@ -8,10 +8,10 @@ bootmi_results(bootmi_object)
 }
 \arguments{
 \item{bootmi_object}{object of class "simslop.bootmi" or 
-"bootmi.lm"}
+"bootmilm"}
 }
 \description{
-This is a helper function of \code{\link{summary.bootmi.lm}} and 
+This is a helper function of \code{\link{summary.bootmilm}} and 
 \code{\link{summary.simslop.bootmi}} that creates output 
 of the analyses.
 }

@@ -29,9 +29,9 @@ simslop(object, x_var, m_var, m2_var = NULL, ci = 95,
   mod_values_type = c("sd", "val"), mod_values = c(-1, 0, 1),
   centered = FALSE, dat_org = NULL)
 
-\method{simslop}{bootmi.lm}(object, x_var, m_var, m2_var = NULL, ci = 95,
-  mod_values_type = "sd", mod_values = c(-1, 0, 1), centered = TRUE,
-  dat_org = NULL)
+\method{simslop}{bootmi.lm}(object, x_var, m_var, m2_var = NULL,
+  ci = 95, mod_values_type = "sd", mod_values = c(-1, 0, 1),
+  centered = TRUE, dat_org = NULL)
 }
 \arguments{
 \item{object}{Object containing $coeff, $dat, $cov_matrix}

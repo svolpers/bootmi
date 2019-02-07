@@ -3,7 +3,7 @@
 \name{print.bootmi}
 \alias{print.bootmi}
 \alias{print.simslop.bootmi}
-\alias{print.bootmi.lm}
+\alias{print.bootmilm}
 \alias{print.regosi}
 \alias{print.simslop}
 \title{Prints a \code{bootmi} object}
@@ -12,7 +12,7 @@
 
 \method{print}{simslop.bootmi}(x, ...)
 
-\method{print}{bootmi.lm}(x, ...)
+\method{print}{bootmilm}(x, ...)
 
 \method{print}{regosi}(x, ...)
 
@@ -31,7 +31,7 @@ Prints a \code{bootmi} object
 
 Prints a \code{simslop.bootmi} object
 
-Prints a \code{bootmi.lm} object
+Prints a \code{bootmilm} object
 
 Prints a \code{regosi} object
 

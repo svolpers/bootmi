@@ -17,7 +17,7 @@ Description: The package is an implementation of bootstrapping imputed
     imputed data with mice. 
 URL: https://github.com/svolpers/bootmi
 BugReports: https://github.com/svolpers/bootmi/issues
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0
 License: GPL-3
 Imports: boot (>= 1.3)
 Depends: mice (>= 2.3)

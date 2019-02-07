@@ -2,12 +2,11 @@
 % Please edit documentation in R/bootmi-pckg.R, R/bootmi.R
 \name{bootmi}
 \alias{bootmi}
-\alias{bootmi}
 \alias{bootmi.default}
 \title{\pkg{bootmi}: BOOTstrap Multiple Imputed (survey) data}
 \usage{
-bootmi(formula, data, R = 5000, impute = c("none", "norm.predict", "pmm",
-  "mean"), resint = FALSE, center_mods = FALSE, seed = FALSE,
+bootmi(formula, data, R = 5000, impute = c("none", "norm.predict",
+  "pmm", "mean"), resint = FALSE, center_mods = FALSE, seed = FALSE,
   parallel = FALSE)
 
 \method{bootmi}{default}(formula, data, R = 5000, impute = c("none",

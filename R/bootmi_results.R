@@ -1,10 +1,10 @@
 #' @title creates output table for bootmi.lm
 #' @description
-#' This is a helper function of \code{\link{summary.bootmi.lm}} and 
+#' This is a helper function of \code{\link{summary.bootmilm}} and 
 #' \code{\link{summary.simslop.bootmi}} that creates output 
 #' of the analyses.
 #' @param bootmi_object object of class "simslop.bootmi" or 
-#' "bootmi.lm"
+#' "bootmilm"
 #' @author Stephan Volpers \email{stephan.volpers@@plixed.de}
 #' @export
 

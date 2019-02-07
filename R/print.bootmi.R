@@ -51,14 +51,14 @@ print.simslop.bootmi <- function( x, ... ) {
 }
 
 
-#' @title Prints a \code{bootmi.lm} object
+#' @title Prints a \code{bootmilm} object
 #' @description
-#' Prints a \code{bootmi.lm} object
+#' Prints a \code{bootmilm} object
 #' @rdname print
 #' @export
 
-print.bootmi.lm <- function( x, ... ) {
-  summary.bootmi.lm( x)
+print.bootmilm <- function( x, ... ) {
+  summary.bootmilm( x)
 }
 
 

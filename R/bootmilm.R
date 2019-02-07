@@ -19,7 +19,7 @@
 #' @export
 #' 
 
-lm.bootmi <- function( bootmi, ...) {
+bootmilm <- function( bootmi, ...) {
 
   call <- match.call()
   
@@ -77,7 +77,7 @@ lm.bootmi <- function( bootmi, ...) {
     , seed=bootmi$seed
     )
   # class(object) = "bootmi.lm"
-  oldClass(object) <- c("bootmi.lm", "lm")
+  oldClass(object) <- c("bootmilm", "lm")
   return(object)
 }
 
@@ -103,7 +103,7 @@ lm.bootmi <- function( bootmi, ...) {
 #' @author Stephan Volpers \email{stephan.volpers@@plixed.de}
 #' @export
 
-glm.bootmi <- function( bootmi, family= gaussian, ...) {
+bootmiglm <- function( bootmi, family= gaussian, ...) {
   
   call <- match.call()
   
@@ -157,6 +157,6 @@ glm.bootmi <- function( bootmi, family= gaussian, ...) {
     , seed=bootmi$seed
     )
   # class(object) = "bootmi.lm"
-  oldClass(object) <- c("bootmi.lm", "glm", "lm")
+  oldClass(object) <- c("bootmiglm", "glm", "lm")
   return(object)
 }

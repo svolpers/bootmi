@@ -34,12 +34,14 @@ simslop.default <- function( object, x_var, m_var, m2_var= NULL, ci=95, mod_valu
   
   mod_values_type = match.arg( mod_values_type) 
   
-    # set confidence interval value
-  ci = as.integer(ci)
-  if(!(ci > 0 && ci < 100)) {
-      stop("Error: Please enter a confidence interval of ]0;100[. Only natural numbers are allowed.")
+  # set confidence interval value
+  if( ci != FALSE ) {
+    ci = as.integer(ci)
+    if(!(ci > 0 && ci < 100)) {
+        stop("Error: Please enter a confidence interval of ]0;100[. Only natural numbers are allowed.")
+    }
+    user_ci = ci/100
   }
-  user_ci = ci/100
 
   # check if intercept in coefficents, 
   # intercept does not decrease degrees of freedom
@@ -122,19 +124,21 @@ simslop.default <- function( object, x_var, m_var, m2_var= NULL, ci=95, mod_valu
     slope = eval( object$coeff[[x_var]] 
         + object$coeff[[xm_var]] * value_m )
 
-    # caculate variance
-    w1 = eval( object$cov_matrix[x_var,x_var] +
-                ( 2*object$cov_matrix[x_var,xm_var] +
-                value_m*object$cov_matrix[xm_var,xm_var]) * value_m )
+    if( ci != FALSE ) {
+      # caculate variance
+      w1 = eval( object$cov_matrix[x_var,x_var] +
+                  ( 2*object$cov_matrix[x_var,xm_var] +
+                  value_m*object$cov_matrix[xm_var,xm_var]) * value_m )
 
-    # Plot Values
-    y_l = eval(intrcpt_coeff+
-                 (object$coeff[[x_var]]+object$coeff[[xm_var]]* value_m)*value_x_l
-               +object$coeff[[m_var]]*value_m)
-    
-    y_h = eval(intrcpt_coeff+
-                 (object$coeff[[x_var]]+object$coeff[[xm_var]]* value_m)*value_x_h
-               +object$coeff[[m_var]]*value_m)
+      # Plot Values
+      y_l = eval(intrcpt_coeff+
+                   (object$coeff[[x_var]]+object$coeff[[xm_var]]* value_m)*value_x_l
+                 +object$coeff[[m_var]]*value_m)
+      
+      y_h = eval(intrcpt_coeff+
+                   (object$coeff[[x_var]]+object$coeff[[xm_var]]* value_m)*value_x_h
+                 +object$coeff[[m_var]]*value_m)
+    }
 
     # Extension for three-way-interaction
     if( !is.null(m2_var) ) {
@@ -146,64 +150,70 @@ simslop.default <- function( object, x_var, m_var, m2_var= NULL, ci=95, mod_valu
         } else {
           value_m2 = mod_values[j]
         }
+        simslop$value_m[((i-1)*amnt_mod_vals+j)] = value_m
+        simslop$value_m2[((i-1)*amnt_mod_vals+j)] = value_m2
 
         # extend slope and variance calulation for three-way-interaction
         slope_ext = eval( slope
           + ( object$coeff[[xm2_var]] + object$coeff[[xmm2_var]] * value_m ) * value_m2
           )
-      
-        w1_ext = eval( w1
-          + ( value_m2*object$cov_matrix[xm2_var,xm2_var]
-              +value_m*value_m*value_m2*object$cov_matrix[xmm2_var,xmm2_var]
-              +2*(
-                object$cov_matrix[x_var,xm2_var]
-                +value_m*object$cov_matrix[x_var,xmm2_var]
-                +value_m*object$cov_matrix[xm_var,xm2_var]
-                +value_m*value_m*object$cov_matrix[xm_var,xmm2_var]
-                +value_m*value_m2*object$cov_matrix[xm2_var,xmm2_var]
-              )
-            ) * value_m2
-          )
-
-        y_l_ext = eval(y_l
-          + ( object$coeff[[m2_var]]
-          + object$coeff[[xm2_var]]*value_x_l + object$coeff[[mm2_var]]*value_m
-          + object$coeff[[xmm2_var]]*value_x_l*value_m ) * value_m2
-        )
-        y_h_ext = eval(y_h
-          + ( object$coeff[[m2_var]]
-          + object$coeff[[xm2_var]]*value_x_h + object$coeff[[mm2_var]]*value_m
-          + object$coeff[[xmm2_var]]*value_x_h*value_m ) * value_m2
-        )
-        simslop$value_m[((i-1)*amnt_mod_vals+j)] = value_m
-        simslop$value_m2[((i-1)*amnt_mod_vals+j)] = value_m2
         simslop$slope[((i-1)*amnt_mod_vals+j)] = slope_ext
-        simslop$se[((i-1)*amnt_mod_vals+j)] = sqrt(w1_ext)
-        simslop$y_l[((i-1)*amnt_mod_vals+j)] = y_l_ext
-        simslop$y_h[((i-1)*amnt_mod_vals+j)] = y_h_ext
+        
+        if( ci != FALSE ) {
+          w1_ext = eval( w1
+            + ( value_m2*object$cov_matrix[xm2_var,xm2_var]
+                +value_m*value_m*value_m2*object$cov_matrix[xmm2_var,xmm2_var]
+                +2*(
+                  object$cov_matrix[x_var,xm2_var]
+                  +value_m*object$cov_matrix[x_var,xmm2_var]
+                  +value_m*object$cov_matrix[xm_var,xm2_var]
+                  +value_m*value_m*object$cov_matrix[xm_var,xmm2_var]
+                  +value_m*value_m2*object$cov_matrix[xm2_var,xmm2_var]
+                )
+              ) * value_m2
+            )
+
+          y_l_ext = eval(y_l
+            + ( object$coeff[[m2_var]]
+            + object$coeff[[xm2_var]]*value_x_l + object$coeff[[mm2_var]]*value_m
+            + object$coeff[[xmm2_var]]*value_x_l*value_m ) * value_m2
+          )
+          y_h_ext = eval(y_h
+            + ( object$coeff[[m2_var]]
+            + object$coeff[[xm2_var]]*value_x_h + object$coeff[[mm2_var]]*value_m
+            + object$coeff[[xmm2_var]]*value_x_h*value_m ) * value_m2
+          )
+          simslop$se[((i-1)*amnt_mod_vals+j)] = sqrt(w1_ext)
+          simslop$y_l[((i-1)*amnt_mod_vals+j)] = y_l_ext
+          simslop$y_h[((i-1)*amnt_mod_vals+j)] = y_h_ext
+        }
     
       } # end for j
       
     } else { # if !is.null(m2_var) == FALSE
       simslop$value_m[i] = value_m
       simslop$slope[i] = slope
-      simslop$se[i] = sqrt(w1)
-      simslop$y_l[i] = y_l
-      simslop$y_h[i] = y_h
+      if( ci != FALSE ) {
+        simslop$se[i] = sqrt(w1)
+        simslop$y_l[i] = y_l
+        simslop$y_h[i] = y_h
+      }
     } # end if is.null(m2_var)
 
   }
 
-  # SE and t-value
-  # simslop$se = sqrt(simslop$var)
-  simslop$t_value = eval(simslop$slope/simslop$se)
-  # p -value
-  simslop$p_value = 2 * (1 - pt(abs(simslop$t_value), df=degfreedm))
-  # confidence intervals
-  crit_t_val = qt((1-(1-(user_ci))/2), df=degfreedm) # two sided
-  # simslop$margin_of_error = simslop$crit_t_val*simslop$se
-  simslop$LBCI = eval(simslop$slope-crit_t_val*simslop$se)
-  simslop$UBCI = eval(simslop$slope+crit_t_val*simslop$se)
+  if( ci != FALSE ) {
+    # SE and t-value
+    # simslop$se = sqrt(simslop$var)
+    simslop$t_value = eval(simslop$slope/simslop$se)
+    # p -value
+    simslop$p_value = 2 * (1 - pt(abs(simslop$t_value), df=degfreedm))
+    # confidence intervals
+    crit_t_val = qt((1-(1-(user_ci))/2), df=degfreedm) # two sided
+    # simslop$margin_of_error = simslop$crit_t_val*simslop$se
+    simslop$LBCI = eval(simslop$slope-crit_t_val*simslop$se)
+    simslop$UBCI = eval(simslop$slope+crit_t_val*simslop$se)
+  }
 
   # general information for simple slopes test
   info = list( 
@@ -234,7 +244,7 @@ simslop.default <- function( object, x_var, m_var, m2_var= NULL, ci=95, mod_valu
 #' data, dependend variable and variance covariance matrix
 #' @rdname simslop
 #' @export
-simslop.lm <- function( object, x_var, m_var, m2_var= NULL, ci=95, mod_values_type=c("sd","val"), mod_values=c(-1,0,1), centered=FALSE, dat_org= NULL) {
+simslop.glm <- function( object, x_var, m_var, m2_var= NULL, ci=95, mod_values_type=c("sd","val"), mod_values=c(-1,0,1), centered=FALSE, dat_org= NULL) {
 	# get dependend variable
 	modelt = terms( object)
 	y_var = as.character( modelt[[2L]])

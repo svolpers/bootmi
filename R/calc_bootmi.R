@@ -28,7 +28,7 @@ calc_bootmi <- function (
   # create residual interactions AFTER bootstrapping, because...
   # ...residuals depend on regression results of each sample
   if(res_int == TRUE) {
-    res = ( frmla, data)
+    res = add_residual_interactions( frmla, data)
     frmla = res$formula
     data = res$data
   } else {

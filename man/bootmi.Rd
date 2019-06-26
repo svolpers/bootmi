@@ -5,13 +5,16 @@
 \alias{bootmi.default}
 \title{\pkg{bootmi}: BOOTstrap Multiple Imputed (survey) data}
 \usage{
-bootmi(formula, data, R = 5000, impute = c("none", "norm.predict",
-  "pmm", "mean"), resint = FALSE, center_mods = FALSE, seed = FALSE,
-  parallel = FALSE)
+bootmi(formula, data, R = 5000, imputationMethod = c("none",
+  "norm.predict", "pmm", "mean"), residualinteractions = FALSE,
+  centerinteractions = FALSE, seed = FALSE, parallel = FALSE,
+  glm_family = "gaussian", simslopinfo = NA)
 
-\method{bootmi}{default}(formula, data, R = 5000, impute = c("none",
-  "norm.predict", "pmm", "mean"), resint = FALSE, center_mods = FALSE,
-  seed = FALSE, parallel = FALSE)
+\method{bootmi}{default}(formula, data, R = 5000,
+  imputationMethod = c("none", "norm.predict", "pmm", "mean"),
+  residualinteractions = FALSE, centerinteractions = FALSE,
+  seed = FALSE, parallel = FALSE, glm_family = "gaussian",
+  simslopinfo = NA)
 }
 \arguments{
 \item{formula}{A regression formula}
@@ -20,17 +23,17 @@ bootmi(formula, data, R = 5000, impute = c("none", "norm.predict",
 
 \item{R}{Number of bootstraps.}
 
+\item{seed}{Value for set.seed, default = FALSE}
+
+\item{parallel}{TRUE or FALSE}
+
 \item{impute}{Deterministic imputation method of type 
 "none", "norm.predict", "pmm", "mean" ;
 More Details? See \code{\link[mice]{mice}}}
 
-\item{resint}{TRUE or FALSE}
-
 \item{center_mods}{TRUE or FALSE}
 
-\item{seed}{Value for set.seed, default = FALSE}
-
-\item{parallel}{TRUE or FALSE}
+\item{resint}{TRUE or FALSE}
 }
 \value{
 object of class "bootmi" including

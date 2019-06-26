@@ -35,12 +35,14 @@ simslop.default <- function( object, x_var, m_var, m2_var= NULL, ci=95, mod_valu
   mod_values_type = match.arg( mod_values_type) 
   
   # set confidence interval value
-  if( ci != FALSE ) {
+  if( ci != 0 ) {
     ci = as.integer(ci)
     if(!(ci > 0 && ci < 100)) {
         stop("Error: Please enter a confidence interval of ]0;100[. Only natural numbers are allowed.")
     }
     user_ci = ci/100
+  } else {
+    user_ci = 0
   }
 
   # check if intercept in coefficents, 
@@ -57,10 +59,13 @@ simslop.default <- function( object, x_var, m_var, m2_var= NULL, ci=95, mod_valu
   if(degfreedm < 1) {
       stop("Error: Wrong data or coefficients.")
   }
-  
+  # print( colnames( object$dat))
+  # print( c(x_var,m_var,m2_var))
+
+  # print( class( object$dat[,c(x_var,m_var,m2_var)]))
   # if moderators are mean-centered, x and m var also have to be mean-centered
-  if( centered==TRUE ) {
-    object$dat = data.frame( apply( object$dat[c(x_var,m_var,m2_var)], 2, function(x) scale(x, scale = FALSE)))
+  if( centered == TRUE ) {
+    object$dat = data.frame( apply( object$dat[,c(x_var,m_var,m2_var)], 2, function(x) scale(x, scale = FALSE)))
   }
 
   # identify moderating variable(s)
@@ -124,7 +129,7 @@ simslop.default <- function( object, x_var, m_var, m2_var= NULL, ci=95, mod_valu
     slope = eval( object$coeff[[x_var]] 
         + object$coeff[[xm_var]] * value_m )
 
-    if( ci != FALSE ) {
+    if( user_ci > 0 ) {
       # caculate variance
       w1 = eval( object$cov_matrix[x_var,x_var] +
                   ( 2*object$cov_matrix[x_var,xm_var] +
@@ -159,7 +164,7 @@ simslop.default <- function( object, x_var, m_var, m2_var= NULL, ci=95, mod_valu
           )
         simslop$slope[((i-1)*amnt_mod_vals+j)] = slope_ext
         
-        if( ci != FALSE ) {
+        if( user_ci > 0 ) {
           w1_ext = eval( w1
             + ( value_m2*object$cov_matrix[xm2_var,xm2_var]
                 +value_m*value_m*value_m2*object$cov_matrix[xmm2_var,xmm2_var]
@@ -193,7 +198,7 @@ simslop.default <- function( object, x_var, m_var, m2_var= NULL, ci=95, mod_valu
     } else { # if !is.null(m2_var) == FALSE
       simslop$value_m[i] = value_m
       simslop$slope[i] = slope
-      if( ci != FALSE ) {
+      if( user_ci > 0 ) {
         simslop$se[i] = sqrt(w1)
         simslop$y_l[i] = y_l
         simslop$y_h[i] = y_h
@@ -202,7 +207,7 @@ simslop.default <- function( object, x_var, m_var, m2_var= NULL, ci=95, mod_valu
 
   }
 
-  if( ci != FALSE ) {
+  if( user_ci > 0 ) {
     # SE and t-value
     # simslop$se = sqrt(simslop$var)
     simslop$t_value = eval(simslop$slope/simslop$se)
@@ -244,8 +249,8 @@ simslop.default <- function( object, x_var, m_var, m2_var= NULL, ci=95, mod_valu
 #' data, dependend variable and variance covariance matrix
 #' @rdname simslop
 #' @export
-simslop.glm <- function( object, x_var, m_var, m2_var= NULL, ci=95, mod_values_type=c("sd","val"), mod_values=c(-1,0,1), centered=FALSE, dat_org= NULL) {
-	# get dependend variable
+simslop.lm <- function( object, x_var, m_var, m2_var= NULL, ci=95, mod_values_type=c("sd","val"), mod_values=c(-1,0,1), centered=FALSE, dat_org= NULL) {
+  # get dependend variable
 	modelt = terms( object)
 	y_var = as.character( modelt[[2L]])
 	# get data used in regression
@@ -257,7 +262,17 @@ simslop.glm <- function( object, x_var, m_var, m2_var= NULL, ci=95, mod_values_t
   # merge to obj
   obj = list( coeff= coeff, y_var= y_var, cov_matrix= cov_matrix, dat= data_set)
 	# calculate simple slopes
-	slopes = simslop.default( obj, x_var, m_var, ci, mod_values_type, mod_values, centered)
+	slopes = simslop.default(
+    object = obj
+    , x_var = x_var
+    , m_var = m_var
+    , m2_var= NULL
+    , ci = ci
+    , mod_values_type = mod_values_type
+    , mod_values = mod_values
+    , centered = centered
+    , dat_org = NULL
+  )
 	return( slopes)
 }
 

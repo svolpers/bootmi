@@ -31,3 +31,7 @@ vignettes/*.pdf
 # Temporary files created by R markdown
 *.utf8.md
 *.knit.md
+
+# not to git
+/data/
+test_script.R

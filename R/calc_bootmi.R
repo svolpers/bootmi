@@ -12,7 +12,6 @@ calc_bootmi <- function (
   , indices
   , frmla
   , imputationMethod
-  , glm_family
   , res_int = FALSE
   , center_mods = FALSE
   , simslopinfo = NA
@@ -23,21 +22,23 @@ calc_bootmi <- function (
   ####
 
   # draw bootstrap sample
-  bootstr_sample = data[indices, !grepl("\\.RX\\.", colnames( data))]
+  bootstr_sample <- data[ indices
+    , !grepl( "\\.RX\\.", colnames( data))]
 
   # create residual interactions AFTER bootstrapping, because...
   # ...residuals depend on regression results of each sample
-  if(res_int == TRUE) {
-    res = add_residual_interactions( frmla, bootstr_sample)
-    frmla = res$formula
-    data = res$data
+  if( res_int == TRUE ) {
+    res <- add_residual_interactions( frmla, bootstr_sample)
+    frmla <- res$formula
+    data <- res$data
   } else {
-    int = add_interactions( frmla, bootstr_sample)
-    frmla = int$formula
-    data = int$data
+    int <- add_interactions( frmla, bootstr_sample)
+    frmla <- int$formula
+    data <- int$data
   }
 
-    # # correct data and formula with actual values after creating residual interactions 
+    # # correct data and formula with actual values 
+    # # after creating residual interactions 
     # # if intercept ommitted
     # if( TRUE %in% grepl( "-1", formula) ) {
     #   # add ommit
@@ -49,7 +50,7 @@ calc_bootmi <- function (
     # data = res$data
 
   # extract ids here, needed in case of centering
-  ids = as.numeric( rownames( data))
+  ids <- as.numeric( rownames( data))
 
   # IMPUTE data WHEN RESIDUALS EXIST
   # Check if imputation is needed 
@@ -59,28 +60,28 @@ calc_bootmi <- function (
   ) {
     id = as.numeric( rownames( data))
     # impute data
-    mids_data = mice::mice( 
+    mids_data <- mice::mice( 
       data
       , method = imputationMethod
       , m = 1
       , print = FALSE
     )
     # convert from mids object to data set
-    data = mice::complete( 
+    data <- mice::complete( 
       mids_data
       , action = "long"
       , include = FALSE
     )
-    data = data[ , -c(1,2)]
-    rownames(data) = id
+    data <- data[ , -c(1,2)]
+    rownames(data) <- id
   }
 
   # Center Variables, if requested
   if( center_mods == TRUE ) { 
     # extract terms
-    terms = attr( terms( as.formula( frmla)), "term.labels")
+    terms <- attr( terms( as.formula( frmla)), "term.labels")
     # extract interaction terms
-    centered_vars = sapply( terms, function(x) {
+    centered_vars <- sapply( terms, function(x) {
       if( grepl( '.RX.', x, fixed = TRUE) 
         || grepl( '.XX.', x, fixed = TRUE) 
         || grepl( ':', x, fixed = TRUE) ) {
@@ -88,13 +89,13 @@ calc_bootmi <- function (
       }
     })
     # center interaction terms
-    data = centering( data, unlist(centered_vars))
+    data <- centering( data, unlist(centered_vars))
   }
-  rownames(data) = ids
+  rownames(data) <- ids
 
 
   ####
-  # Apply statistical method
+  # Apply statistical methods
   ####
 
   # calculate linear regression
@@ -116,17 +117,15 @@ calc_bootmi <- function (
     , "fstatistic"
     )
 
-
-
   # caculate simple slopes
-  simslops = list()
-  if( length(simslopinfo) > 1 ) {
+  simslops <- list()
+  if( !is.null(simslopinfo) ) {
 
     # need x and m be centered ?
     if( center_mods == TRUE | res_int == TRUE ) {
-      center = TRUE
+      center <- TRUE
     } else {
-      center = FALSE
+      center <- FALSE
     }
 
     # calculate simple slopes 
@@ -148,15 +147,15 @@ calc_bootmi <- function (
           object = lmfit
           , x_var = iv
           , m_var = simslopinfo$m_var
-          , ci = 0
+          , ci = NULL
           , mod_values_type = simslopinfo$mod_values_type
           , mod_values = simslopinfo$mod_values
           , centered = center
         )
         # extract slope coefficients
-        slopes = unlist(sisl$simple_slopes["slope"])
+        slopes <- unlist(sisl$simple_slopes["slope"])
         # name slope coefficients
-        names(slopes) = paste0( 
+        names(slopes) <- paste0( 
           paste0( sisl$info$X,"_X_",sisl$info$M)
           ,"__"
           , sisl$info$Type_of_moderator_values

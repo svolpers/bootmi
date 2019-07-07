@@ -3,18 +3,12 @@
 \name{print.bootmi}
 \alias{print.bootmi}
 \alias{print.simslop.bootmi}
-\alias{print.bootmilm}
-\alias{print.regosi}
 \alias{print.simslop}
 \title{Prints a \code{bootmi} object}
 \usage{
 \method{print}{bootmi}(x, ...)
 
 \method{print}{simslop.bootmi}(x, ...)
-
-\method{print}{bootmilm}(x, ...)
-
-\method{print}{regosi}(x, ...)
 
 \method{print}{simslop}(x, ...)
 }
@@ -30,10 +24,6 @@
 Prints a \code{bootmi} object
 
 Prints a \code{simslop.bootmi} object
-
-Prints a \code{bootmilm} object
-
-Prints a \code{regosi} object
 
 Prints a \code{simslop} object
 }

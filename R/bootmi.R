@@ -31,11 +31,14 @@ bootmi <- function(
 	formula
 	, data
 	, R = 5000
-	, imputationMethod = c("none","norm.predict","pmm","mean")
-	, resint = FALSE
-	, center_mods = FALSE
+	, imputationMethod = c( "none",  "norm.predict", "pmm", "mean")
+	, cilvl = 0.95
+	, citype = c( "norm", "basic", "perc", "bca")
+	, residualinteractions = FALSE
+	, centerinteractions = FALSE
+	, simslopinfo = NULL
 	, seed = FALSE
-	, parallel = FALSE 
+	, parallel = FALSE  
 	) { UseMethod("bootmi") }
 
 #' @rdname bootmi
@@ -44,93 +47,191 @@ bootmi.default <- function(
 	formula
 	, data
 	, R = 5000
-	, imputationMethod = c("none","norm.predict","pmm","mean")
+	, imputationMethod = c( "none", "norm.predict", "pmm", "mean")
+	, cilvl = 0.95
+	, citype = c( "norm", "basic", "perc", "bca")
 	, residualinteractions = FALSE
 	, centerinteractions = FALSE
+	, simslopinfo = NULL
 	, seed = FALSE
 	, parallel = FALSE 
-	, glm_family = "gaussian" 
-	, simslopinfo = FALSE
 	) {
 
-	# integrity checks
-	impute = match.arg( impute)
 	# check for data type
 	if(!is.data.frame(data)) {
 		stop("Data must be a data.frame")
 	}
+
+
+	#
+	# EXTRACT DATA NEEDED FUNCTION
+	#
+
+	# find varnames including any alphanumeric 
+	# - and . character
+	vars = regmatches(
+		formula
+		, gregexpr("[\\w\\-\\.\\w]*"
+			, formula
+			, perl = TRUE
+			, ignore.case = TRUE
+			)
+		)
+
+	# extract cols with matching varnames
+	# excluding duplicates and empty strings
+	data = data[ unique(vars[[1]][vars[[1]] != ""])]
+
+
+	# check for availiable imputationMethod 
+	imputationMethod <- match.arg( imputationMethod)
+	# check for availiable ci type 
+	citype <- match.arg( citype) 
+
 	# make replics an integer
-	R = as.integer(R)
-	# set seed to enable replication
-	if( seed != FALSE ) {
-		seed = as.integer(seed)
-		set.seed(seed) 
-	}
+	R <- as.integer(R)
+
 	# initiate parallel computation
 	if( parallel != FALSE ) {
-		no_cores = parallel::detectCores() - 1
+		no_cores <- parallel::detectCores() - 1
 		if( Sys.info()["sysname"] == "Windows" ) {
-			paralleltype = "snow"
+			paralleltype <- "snow"
+			# Initiate cluster
+			clusters <- parallel::makeCluster(no_cores)
+			# Make function availiable in clusters
+			invisible( parallel::clusterEvalQ(clusters, {
+				library(mice) 
+				# library(bootmi)
+				devtools::load_all()
+			}))
+			# Export objects to clusters
+			parallel::clusterExport(
+				cl = clusters
+				, varlist = c("formula"
+					, "imputationMethod"
+					, "residualinteractions"
+					, "centerinteractions"
+					, "simslopinfo"
+					, "simslopinfo"
+					, "data"
+					)
+				, envir = environment()
+				)
+			# set seed in each cluster for reproducibility
+			parallel::clusterSetRNGStream(clusters, seed)
 		} else {
-			paralleltype = "multicore"
+			paralleltype <- "multicore"
+			clusters <- NULL
 		}
 	} else {
-		paralleltype = "no"
+		paralleltype <- "no"
+		no_cores <- 1
+		clusters <- NULL
 	}
-	# check for availiable imputationMethod 
-	imputationMethod = match.arg( imputationMethod) 
+
+
+	# set seed to enable replication
+	if( seed != FALSE ) {
+		seed <- as.integer(seed)
+		set.seed(seed) 
+	}
 
 	# do bootstrap function
-	boot_fit = boot::boot( 
+	boot_fit <- boot::boot( 
     data = data 
     , statistic = calc_bootmi
     , R = R
-    # other named arguments for statistic 
     , frmla = formula
     , imputationMethod = imputationMethod
-    , glm_family = glm_family
+    # , glm_family = glm_family
     , res_int = residualinteractions
 		, center_mods = centerinteractions
 		, simslopinfo = simslopinfo
-    # parallel features
     , parallel = paralleltype
     , ncpus = no_cores
+    , cl = clusters
+  )	
 
-    # , imputationMethodMed= imputationMethodMed
-    # , predictorMatrixMed= predictorMatrixMed
-    # , frmlMed= frmlMed
-    # , imputationMethodOut= impM
-    # , predictorMatrixOut= predM2
-    # , frmlOut= out.full.frml
-    # , interaction_formula= interaction_formula
-    # , medmodnames= medmodnames
-    # , modvals= modvals
-  )
+	if( parallel != FALSE & Sys.info()["sysname"] == "Windows" ) {
+		parallel::stopCluster( clusters)
+	}
 
-  # str(boot_pmm)
+	# calculate confidence intervals
+	cis <- vapply(
+		1:length(boot_fit$t0)
+		, function( x, boot_out, ci, citype) {
+			# switch between types of confidence intervals
+			switch( citype,
+         bca = boot::boot.ci( 
+									boot_out
+									, index = x
+									, conf = ci
+									, type = "bca"
+								)$bca[4:5]
+         , basic = boot::boot.ci( 
+									boot_out
+									, index = x
+									, conf = ci
+									, type = "basic"
+								)$basic[4:5]
+         , norm = boot::boot.ci( 
+									boot_out
+									, index = x
+									, conf = ci
+									, type = "norm"
+								)$normal[2:3]
+         , perc = boot::boot.ci( 
+									boot_out
+									, index = x
+									, conf = ci
+									, type = "perc"
+								)$perc[4:5]
+       )
+		}
+		, vector("double", length = 2)
+		, boot_out = boot_fit
+		, ci = cilvl
+		, citype = citype
+		)   
+	rownames(cis) <- c("LLCI","ULCI")
 
-  # if( citype == "bca" ) {
-  #   cival = boot::boot.ci( boot_pmm, index = 1, conf = 0.95, type= "bca")
-  #   cival = cival$bca[c(4:5)]
-  # } else {
-  #   # cival = boot::boot.ci( boot_pmm, index = 1, conf = 0.95, type= "basic")$basic[c(4:5)]
-  #   cival = boot::boot.ci( boot_pmm, index = 1, conf = 0.95, type= "basic")
-  #   cival = cival$basic[c(4:5)]
-  # }
-
-  # return( list(
-  #   ind_effect= boot_pmm$t0
-  #   , ci = cival
-  #   ))
-
-
-
-	object <- list(
-		bootfit = boot_fit
-		, imputationMethod = imputationMethod
+	# add stars if zero not in CIs
+	stars <- apply( t(cis), 1, function(x) {
+		if( (x["LLCI"] * x["ULCI"]) > 0 ) 
+			"*"
+		else
+			" "
+		})
+	# create output table
+	output <- cbind(
+		numformat( boot_fit$t0, 2)
+		, numformat( 
+			eval( colMeans(boot_fit$t) - boot_fit$t0)
+			, 2
+			)
+		, numformat( 
+			apply( boot_fit$t, 2, sd)
+			, 2
+			)
+		, numformat( t(cis)[,1], 3)
+		, numformat( t(cis)[,2], 3)
+		, stars
 		)
+	rownames(output) <- names( boot_fit$t0)
+	colnames(output) <- c( "original", "bias", "std. error"
+		, "LLCI", "ULCI", "")
+	
+	# create return object
+	object <- list(
+		output = output
+		, bootfit = boot_fit
+		, imputationMethod = imputationMethod
+		, cilvl = cilvl
+		, citype = citype
+		)
+
 	# create class
-	class(object) = "bootmi"
+	class(object) <- "bootmi"
 	# return class
 	return(object)
 }

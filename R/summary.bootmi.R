@@ -1,41 +1,25 @@
 #' @title Summary of a \code{bootmi.lm} object
 #' @description
-#' Summary of a \code{bootmi.lm} object
-#' @param object A \code{bootmi.lm} object
-#' @param ci_type Type of confidence interval, namely 
-#' "basic", "norm", "stud", "perc", "bca", or "all" 
-#' @param ci Confidence interval, default 95
+#' Summary of a \code{bootmi} object
+#' @param object A \code{bootmi} object
 #' @param ... Other summary arguments
 #' @return \code{NULL}
 #' @rdname summary
 #' @author Stephan Volpers \email{stephan.volpers@@plixed.de}
 #' @export
 
-summary.bootmilm <- function( object, ci_type = c("basic", "norm", "perc", "bca"), ci = 95, ... ) {
-  # set confidence interval value
-  ci = as.integer(ci)
-  if(!(ci > 0 && ci < 100)) {
-      stop("Please enter a confidence interval of ]0;100[. Only natural numbers are allowed.")
-  }
-  object$ci = ci/100
-  # check for confidence interval type
-  object$ci_type = match.arg(ci_type)
-  # get summary of original regression model
-  summary_model = summary.lm( object$original)
-  # replace coefficients with bootstraped result
-  summary_model$coefficients = bootmi_results( object)
-  # insert original formula
-  frml = as.character( object$formula)
-  frml = paste0( frml[[2]], frml[[1]], frml[[3]])
-  summary_model$call = paste("lm(formula=", frml, ", data= bootmi$data")
-  # prepare return
-  object = list( coefs= summary_model$coefficients, ci= ci, ci_type = object$ci_type )
-  # print summary with additional information
-  print( summary_model)
-  cat((object$ci), "% ", object$ci_type, " bootstrapped confidence intervals calculated with ", object$replics," bootstrap samples.\n", sep = "")
-  cat("BLLCI = Bootstrap Lower Level Confidence Interval / BULCI = Bootstrap Upper Level Confidence Interval\n")
-  # return results
-  # return( object)
+
+summary.bootmi <- function( object, ... ) {
+  print( object$output)
+  cat(
+    (object$cilvl*100), "% "
+    , object$citype
+    , " bootstrapped confidence intervals calculated with "
+    , object$bootfit$R
+    ," bootstrap samples.\n"
+    , sep = ""
+    )
+  cat("LLCI = Lower Level Confidence Interval; ULCI = Upper Level Confidence Interval\n")
 }
 
 #' @title Summary of a \code{simslop.bootmi} object

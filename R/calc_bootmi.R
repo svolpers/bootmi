@@ -9,36 +9,36 @@
 
 calc_bootmi <- function ( 
   data
+  , indices
   , frmla
   , imputationMethod
-  , glm_family
   , res_int = FALSE
   , center_mods = FALSE
-  , simslopinfo = FALSE
+  , simslopinfo = NA
   ) {
   
-
   ####
   # Start creating data
   ####
 
-  # indices = sample( rownames(data), replace = TRUE)
-  # bootstr_sample = data[indices, !grepl("\\.RX\\.", colnames( data))]
+  # draw bootstrap sample
+  bootstr_sample <- data[ indices
+    , !grepl( "\\.RX\\.", colnames( data))]
 
   # create residual interactions AFTER bootstrapping, because...
   # ...residuals depend on regression results of each sample
-  if(res_int == TRUE) {
-    res = add_residual_interactions( frmla, data)
-    frmla = res$formula
-    data = res$data
+  if( res_int == TRUE ) {
+    res <- add_residual_interactions( frmla, bootstr_sample)
+    frmla <- res$formula
+    data <- res$data
   } else {
-    int = add_interactions( frmla, data)
-    frmla = int$formula
-    data = int$data
+    int <- add_interactions( frmla, bootstr_sample)
+    frmla <- int$formula
+    data <- int$data
   }
 
-
-    # # correct data and formula with actual values after creating residual interactions 
+    # # correct data and formula with actual values 
+    # # after creating residual interactions 
     # # if intercept ommitted
     # if( TRUE %in% grepl( "-1", formula) ) {
     #   # add ommit
@@ -49,42 +49,39 @@ calc_bootmi <- function (
     # }
     # data = res$data
 
-
   # extract ids here, needed in case of centering
-  ids = as.numeric( rownames( data))
-
+  ids <- as.numeric( rownames( data))
 
   # IMPUTE data WHEN RESIDUALS EXIST
   # Check if imputation is needed 
   if( 
-    (imputation != "none") 
+    (imputationMethod != "none") 
     && (( sum( is.na( data))) > 0 )
   ) {
     id = as.numeric( rownames( data))
     # impute data
-    mids_data = mice::mice( 
+    mids_data <- mice::mice( 
       data
-      , method = imputation
+      , method = imputationMethod
       , m = 1
       , print = FALSE
     )
     # convert from mids object to data set
-    data = mice::complete( 
+    data <- mice::complete( 
       mids_data
-      , action="long"
-      , include=FALSE
+      , action = "long"
+      , include = FALSE
     )
-    data = data[ , -c(1,2)]
-    rownames(data) = id
+    data <- data[ , -c(1,2)]
+    rownames(data) <- id
   }
-
 
   # Center Variables, if requested
   if( center_mods == TRUE ) { 
     # extract terms
-    terms = attr( terms( as.formula( frmla)), "term.labels")
+    terms <- attr( terms( as.formula( frmla)), "term.labels")
     # extract interaction terms
-    centered_vars = sapply( terms, function(x) {
+    centered_vars <- sapply( terms, function(x) {
       if( grepl( '.RX.', x, fixed = TRUE) 
         || grepl( '.XX.', x, fixed = TRUE) 
         || grepl( ':', x, fixed = TRUE) ) {
@@ -92,60 +89,95 @@ calc_bootmi <- function (
       }
     })
     # center interaction terms
-    data = centering( data, unlist(centered_vars))
+    data <- centering( data, unlist(centered_vars))
   }
-  rownames(data) = ids
+  rownames(data) <- ids
 
 
   ####
-  # Apply statistical method
+  # Apply statistical methods
   ####
 
-  # supress warnings
-  options(warn=-1)
   # calculate linear regression
-  lmfit = glm(
+  lmfit <- lm(
     formula = frmla
     , data = data
-    , family = glm_family
     )
-  # end supression of warnings
-  options(warn=0)
 
+  # extract model fit statistics
+  summarylmfit <- summary(lmfit)
+  modelfit <- c(
+    summarylmfit$r.squared
+    , summarylmfit$adj.r.squared
+    , summarylmfit$fstatistic[["value"]]
+    )
+  names(modelfit) <- c(
+    "r.squared"
+    , "adj.r.squared"
+    , "fstatistic"
+    )
 
-  # # caculate simple slopes
-  # if( simslopinfo != FALSE ) {
+  # caculate simple slopes
+  simslops <- list()
+  if( !is.null(simslopinfo) ) {
 
-  #   # need x and m be centered ?
-  #   if( center_mods == TRUE | res_int == TRUE ) {
-  #     center = TRUE
-  #   } else {
-  #     center = FALSE
-  #   }
+    # need x and m be centered ?
+    if( center_mods == TRUE | res_int == TRUE ) {
+      center <- TRUE
+    } else {
+      center <- FALSE
+    }
 
-  #   # calculate simple slopes 
-  #   # currently for one iv 
-  #   # but n moderator variables
-  #   simslops = vapply( 
-  #     simslopinfo$m_var
-  #     , function( m) {
-  #       simslop(
-  #         object = lmfit
-  #         , x_var = simslopinfo$x_var
-  #         , m_var = m
-  #         , ci = FALSE
-  #         , mod_values_type = simslopinfo$mod_values_type
-  #         , mod_values = simslopinfo$mod_values
-  #         , centered = center
-  #       )
-  #     }
-  #     , lmfit = lmfit
-  #     , simslopinfo = simslopinfo
-  #     , centered = center
-  #     )
+    # calculate simple slopes 
+    # currently for n independend variables 
+    # but one moderator variables
+    simslops <- vector(
+      "list"
+      , eval(
+        length(simslopinfo$mod_values)
+        *
+        length(simslopinfo$x_var)
+        ) 
+      )
+    simslops <- lapply( 
+      simslopinfo$x_var
+      , function( iv, lmfit, simslopinfo, centered) {
+        # calculate simple slopes
+        sisl <- simslop(
+          object = lmfit
+          , x_var = iv
+          , m_var = simslopinfo$m_var
+          , ci = NULL
+          , mod_values_type = simslopinfo$mod_values_type
+          , mod_values = simslopinfo$mod_values
+          , centered = center
+        )
+        # extract slope coefficients
+        slopes <- unlist(sisl$simple_slopes["slope"])
+        # name slope coefficients
+        names(slopes) <- paste0( 
+          paste0( sisl$info$X,"_X_",sisl$info$M)
+          ,"__"
+          , sisl$info$Type_of_moderator_values
+          ,"__"
+          , sisl$info$Values_of_Moderator
+          )
+        return(slopes)
+      }
+      , lmfit = lmfit
+      , simslopinfo = simslopinfo
+      , centered = center
+      )
 
-  # } # end if simple slopes
+  } # end if simple slopes
 
+  return(
+    c(
+      coef( lmfit)
+      , modelfit
+      , unlist( simslops)
+      )
+    )
 }
 
 

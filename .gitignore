@@ -32,6 +32,6 @@ vignettes/*.pdf
 *.utf8.md
 *.knit.md
 
-
-# data
+# not to git
 /data/
+test_script.R

@@ -6,15 +6,16 @@
 \title{\pkg{bootmi}: BOOTstrap Multiple Imputed (survey) data}
 \usage{
 bootmi(formula, data, R = 5000, imputationMethod = c("none",
-  "norm.predict", "pmm", "mean"), residualinteractions = FALSE,
-  centerinteractions = FALSE, seed = FALSE, parallel = FALSE,
-  glm_family = "gaussian", simslopinfo = NA)
+  "norm.predict", "pmm", "mean"), cilvl = 0.95, citype = c("norm",
+  "basic", "perc", "bca"), residualinteractions = FALSE,
+  centerinteractions = FALSE, simslopinfo = NULL, seed = FALSE,
+  parallel = FALSE)
 
 \method{bootmi}{default}(formula, data, R = 5000,
   imputationMethod = c("none", "norm.predict", "pmm", "mean"),
+  cilvl = 0.95, citype = c("norm", "basic", "perc", "bca"),
   residualinteractions = FALSE, centerinteractions = FALSE,
-  seed = FALSE, parallel = FALSE, glm_family = "gaussian",
-  simslopinfo = NA)
+  simslopinfo = NULL, seed = FALSE, parallel = FALSE)
 }
 \arguments{
 \item{formula}{A regression formula}

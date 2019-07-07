@@ -6,15 +6,14 @@
 \alias{simslop.lm}
 \alias{simslop.mira}
 \alias{simslop.lmerMod}
-\alias{simslop.bootmi.lm}
 \title{Conducts analysis of the simple slopes}
 \usage{
 simslop(object, x_var, m_var, m2_var = NULL, ci = 95,
-  mod_values_type = c("sd", "val"), mod_values = c(-1, 0, 1),
+  mod_values_type = c("sd", "val"), mod_values = c(-1, 1),
   centered = FALSE, dat_org = NULL)
 
 \method{simslop}{default}(object, x_var, m_var, m2_var = NULL, ci = 95,
-  mod_values_type = c("sd", "val"), mod_values = c(-1, 0, 1),
+  mod_values_type = c("sd", "val"), mod_values = c(-1, 1),
   centered = FALSE, dat_org = NULL)
 
 \method{simslop}{lm}(object, x_var, m_var, m2_var = NULL, ci = 95,
@@ -28,10 +27,6 @@ simslop(object, x_var, m_var, m2_var = NULL, ci = 95,
 \method{simslop}{lmerMod}(object, x_var, m_var, m2_var = NULL, ci = 95,
   mod_values_type = c("sd", "val"), mod_values = c(-1, 0, 1),
   centered = FALSE, dat_org = NULL)
-
-\method{simslop}{bootmi.lm}(object, x_var, m_var, m2_var = NULL,
-  ci = 95, mod_values_type = "sd", mod_values = c(-1, 0, 1),
-  centered = TRUE, dat_org = NULL)
 }
 \arguments{
 \item{object}{Object containing $coeff, $dat, $cov_matrix}

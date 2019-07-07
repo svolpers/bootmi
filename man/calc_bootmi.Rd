@@ -4,8 +4,8 @@
 \alias{calc_bootmi}
 \title{Prepare calculation of bootstrapped confidence intervals.}
 \usage{
-calc_bootmi(data, indices, frmla, imputationMethod, glm_family,
-  res_int = FALSE, center_mods = FALSE, simslopinfo = NA)
+calc_bootmi(data, indices, frmla, imputationMethod, res_int = FALSE,
+  center_mods = FALSE, simslopinfo = NA)
 }
 \arguments{
 \item{boot_object}{object of class "simpleslopes.bootmi" or 

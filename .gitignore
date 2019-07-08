@@ -34,4 +34,4 @@ vignettes/*.pdf
 
 # not to git
 /data/
-test_script.R
+/test_script.R

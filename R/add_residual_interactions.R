@@ -8,8 +8,31 @@
 #' @author Stephan Volpers \email{stephan.volpers@@plixed.de}
 #' @export
 
+# create a function
+make_dummies <- function(v, prefix = '') {
+  s <- sort(unique(v))
+  d <- outer(v, s, function(v, s) 1L * (v == s))
+  colnames(d) <- paste0(prefix, s)
+  d
+}
+
 add_residual_interactions <- function( formula, data) {
-  
+
+  # bind the dummies to the original dataframe
+  data <- cbind( data, 
+    lapply( 
+    seq_along(data)[sapply( data, class) == "factor"]
+    , function( x, datafr) {
+      if( class(datafr[[x]]) == "factor" ) {
+        make_dummies( datafr[[x]], prefix = colnames( datafr[x]))
+      } else {
+        datafr[[x]]
+      }
+    }
+    , datafr = data
+  )
+  )
+
   # create lmresid_merge_temp_var by rownames as helper for later merge
   data$lmresid_merge_temp_var = as.numeric( rownames( data))
   # regress regular model to obtain interaction terms
@@ -51,7 +74,8 @@ add_residual_interactions <- function( formula, data) {
   frmla = paste0( ivs, collapse = "+")
   #create whole formula
   frmla = as.formula( paste0( depvar, "~", frmla))
-  
+
+
   #extract data needed
   final_data = data[c(ivs,depvar)]
 

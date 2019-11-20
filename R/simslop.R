@@ -124,20 +124,23 @@ simslop.default <- function(
       "(",x_var,"|",m_var,"|",m2_var,")")
     xmm2_var <- grep( pattrn, names( object$coeff), value = TRUE)
   }
+
+  value_x_l <- min( object$dat[,x_var], na.rm = TRUE)
+  value_x_h <- max( object$dat[,x_var], na.rm = TRUE)
    
-  if(mod_values_type == "sd") {
-    value_x_h <- eval(
-      mean( object$dat[,x_var], na.rm = TRUE) 
-      + sd( object$dat[,x_var], na.rm = TRUE)
-      )
-    value_x_l <- eval(
-      mean( object$dat[,x_var], na.rm = TRUE) 
-      - sd( object$dat[,x_var], na.rm = TRUE)
-      )
-  } else {
-    value_x_l <- quantile( object$dat[,x_var], probs = c(.25))
-    value_x_h <- quantile( object$dat[,x_var], probs = c(.75))
-  }
+  # if(mod_values_type == "sd") {
+  #   value_x_h <- eval(
+  #     mean( object$dat[,x_var], na.rm = TRUE) 
+  #     + sd( object$dat[,x_var], na.rm = TRUE)
+  #     )
+  #   value_x_l <- eval(
+  #     mean( object$dat[,x_var], na.rm = TRUE) 
+  #     - sd( object$dat[,x_var], na.rm = TRUE)
+  #     )
+  # } else {
+  #   value_x_l <- quantile( object$dat[,x_var], probs = c(.25))
+  #   value_x_h <- quantile( object$dat[,x_var], probs = c(.75))    
+  # }
 
   amnt_mod_vals <- length(mod_values)
   # create empty matrix

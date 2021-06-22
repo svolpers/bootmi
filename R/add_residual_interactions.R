@@ -18,20 +18,25 @@ make_dummies <- function(v, prefix = '') {
 
 add_residual_interactions <- function( formula, data) {
 
+  formula <- interaction_formula
+  data <- model.dat
+
   # bind the dummies to the original dataframe
-  data <- cbind( data, 
-    lapply( 
-      seq_along(data)[sapply( data, class) == "factor"]
-      , function( x, datafr) {
-        if( class(datafr[[x]]) == "factor" ) {
-          make_dummies( datafr[[x]], prefix = colnames( datafr[x]))
-        } else {
-          datafr[[x]]
+  if(seq_along(data)[sapply( data, class) == "factor"] > 0 ) {
+    data <- cbind( data,
+      lapply(
+        seq_along(data)[sapply( data, class) == "factor"]
+        , function( x, datafr) {
+          if( class(datafr[[x]]) == "factor" ) {
+            make_dummies( datafr[[x]], prefix = colnames( datafr[x]))
+          } else {
+            datafr[[x]]
+          }
         }
-      }
-      , datafr = data
+        , datafr = data
+      )
     )
-  )
+  }
   # remove duplicates if factors have already been added manually
   data <- data[!duplicated( colnames(data))]
 

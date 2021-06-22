@@ -18,11 +18,11 @@ make_dummies <- function(v, prefix = '') {
 
 add_residual_interactions <- function( formula, data) {
 
-  formula <- interaction_formula
-  data <- model.dat
+  # formula <- interaction_formula
+  # data <- model.dat
 
   # bind the dummies to the original dataframe
-  if(seq_along(data)[sapply( data, class) == "factor"] > 0 ) {
+  if(length(seq_along(data)[sapply( data, class) == "factor"]) > 0 ) {
     data <- cbind( data,
       lapply(
         seq_along(data)[sapply( data, class) == "factor"]
